@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_product_template_attribute_value_form" model="ir.ui.view">
+        <field name="name">product.template.attribute.value.form</field>
+        <field name="model">product.template.attribute.value</field>
+        <field name="inherit_id" ref="product.product_template_attribute_value_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_extra']" position="after">
+                <field name="price_percentage"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_product_template_attribute_value_tree" model="ir.ui.view">
+        <field name="name">product.template.attribute.value.tree</field>
+        <field name="model">product.template.attribute.value</field>
+        <field name="inherit_id" ref="product.product_template_attribute_value_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='price_extra']" position="after">
+                <field name="price_percentage"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Botón en el formulario del producto para actualizar los valores de atributo -->
+    <!--<record id="view_product_template_form_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.update.button</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='list_price']" position="after">
+                <button name="update_variant_prices"
+                        type="object"
+                        string="Actualizar Variantes"
+                        class="oe_highlight"
+                        condition="show_update_button"/>
+            </xpath>
+        </field>
+    </record> -->
+</odoo>
+
+
