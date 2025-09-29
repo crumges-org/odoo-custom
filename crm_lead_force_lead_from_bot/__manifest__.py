@@ -1,7 +1,7 @@
 {
     "name": "CRM: Forzar Leads desde Bot",
     "summary": "Fuerza que los registros creados desde bots o livechat se guarden como tipo 'lead'.",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "CRM",
     "license": "LGPL-3",
     "author": "Crumges",
