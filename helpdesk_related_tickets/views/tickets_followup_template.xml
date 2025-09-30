@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+
+    <template id="tickets_followup_template" inherit_id="helpdesk.tickets_followup">
+
+        <xpath expr="//div[@id='ticket-nav']/ul//li[@id='nav-header']" position="inside">
+            <div class="d-flex flex-column align-items-start px-3">
+                <t t-if="parent_id and not env.user.is_public">
+                    <a style="font-size: 0.875em;"
+                        t-attf-href="/helpdesk/ticket/#{parent_id.id}?access_token=#{access_token}">
+                        Parent Ticket: 
+                        <t t-out="parent_id.name" />
+                        
+                    </a>
+                    
+                </t>
+                <span t-if="childs and not env.user.is_public" class="text-muted">Related Tickets</span>
+                <ul>
+                    <t t-foreach="childs" t-as="child">
+                        <li>
+                            <a style="font-size: 0.875em;"
+                                t-attf-href="/helpdesk/ticket/#{child.id}?access_token=#{access_token}">
+                                <t t-out="child.name" />
+                            </a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+      </xpath>
+    </template>
+</odoo>

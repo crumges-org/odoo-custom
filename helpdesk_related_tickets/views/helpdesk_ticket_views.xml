@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+      
+    <!-- View helpdesk.ticket form -->
+    <record id="view_helpdesk_ticket_form_custom" model="ir.ui.view">
+        <field name="name">view.helpdesk.ticket.form.custom</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="parent_id"/>
+            </xpath>
+            <xpath expr="//notebook//page[@name='description']" position="after">
+                <page name="child_tickets" string="Child Tickets">
+                    <field name="child_ids" nolabel="1">
+                        <list string="Child Tickets">
+                            <field name="name" />
+                            <field name="user_id" />
+                            <field name="partner_id" />
+                            <field name="stage_id" />
+                        </list>
+                        <form>
+                            <field name="company_id" invisible="1" />
+                            <div class="oe_title">
+                                <h1>
+                                    <field name="name" options="{'line_breaks': False}"
+                                        widget="text" class="field_name"
+                                        placeholder="e.g. Product arrived damaged" />
+                                </h1>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="team_id" required="1"
+                                        context="{'kanban_view_ref': 'helpdesk.helpdesk_team_view_kanban_mobile', 'default_use_sla': True}" />
+                                    <field name="user_id" class="field_user_id"
+                                        domain="['&amp;', ('id', 'in', domain_user_ids), ('share', '=', False)]"
+                                        widget="many2one_avatar_user" />
+                                    <field name="domain_user_ids" invisible="1" />
+                                    
+                                </group>
+                            </group>
+                            <notebook>
+                                <page name="description" string="Description">
+                                    <field name="description" />                                    
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- View helpdesk.ticket tree -->
+    <record id="view_helpdesk_ticket_tree_custom" model="ir.ui.view">
+        <field name="name">view.helpdesk.ticket.tree.custom</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="parent_id" />
+            </xpath>
+        </field>
+    </record>
+
+  </odoo>
