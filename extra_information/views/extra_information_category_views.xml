@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View extra.information.category View List -->
+    <record id="view_extra_information_category_list" model="ir.ui.view">
+        <field name="name">view.extra.information.category.list</field>
+        <field name="model">extra.information.category</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View extra.information.category form -->
+    <record id="view_extra_information_category_form" model="ir.ui.view">
+        <field name="name">view.extra.information.category.form</field>
+        <field name="model">extra.information.category</field>
+        <field name="arch" type="xml">
+            <form string="Extra Information Category">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1>
+                            <field name="name" placeholder="Name..."/>
+                        </h1>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View extra.information.category search -->
+    <record id="view_extra_information_category_search" model="ir.ui.view">
+        <field name="name">view.extra.information.category.search</field>
+        <field name="model">extra.information.category</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action extra.information.category -->
+    <record id="action_extra_information_category" model="ir.actions.act_window">
+        <field name="name">Extra Information Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">extra.information.category</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Extra Information Category.
+            </p>
+        </field>
+    </record>
+
+</odoo>

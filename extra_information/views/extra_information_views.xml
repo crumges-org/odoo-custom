@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View extra.information View List -->
+    <record id="view_extra_information_list" model="ir.ui.view">
+        <field name="name">view.extra.information.list</field>
+        <field name="model">extra.information</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="label"/>
+                <field name="value"/>
+                <field name="category_information_id"/>
+                <field name="from_contact"/>
+                <field name="from_extra_information"/>
+                <field name="contact_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- View extra.information form -->
+    <record id="view_extra_information_form" model="ir.ui.view">
+        <field name="name">view.extra.information.form</field>
+        <field name="model">extra.information</field>
+        <field name="arch" type="xml">
+            <form string="Extra Information">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="from_contact"/>
+                            <field name="contact_id" invisible="not from_contact"/>
+                            <field name="from_extra_information" />
+                            <field name="category_id" invisible="not from_extra_information"/>
+                            <field name="partner_id_number_id"
+                                invisible="not from_extra_information"
+                                domain="[
+                                           ('partner_id', '=', contact_id),
+                                           ('category_id', '=', category_id)]"
+                            />
+                        </group>
+                        <group>
+                            <field name="category_information_id"
+                                
+                                invisible="from_extra_information  or not from_contact"
+                                />
+                            <field name="label"
+                                    invisible="from_extra_information  or from_contact"
+                                />
+                            <field name="value"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View extra.information search -->
+    <record id="view_extra_information_search" model="ir.ui.view">
+        <field name="name">view.extra.information.search</field>
+        <field name="model">extra.information</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action extra.information -->
+    <record id="action_extra_information" model="ir.actions.act_window">
+        <field name="name">Extra Information</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">extra.information</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Extra Information.
+            </p>
+        </field>
+    </record>
+
+</odoo>

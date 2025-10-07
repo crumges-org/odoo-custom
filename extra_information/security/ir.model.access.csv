@@ -1,0 +1,3 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_extra_information_manager,extra_information_manager,model_extra_information,,1,1,1,1
+access_extra_information_category_manager,extra_information_category_manager,model_extra_information_category,,1,1,1,1

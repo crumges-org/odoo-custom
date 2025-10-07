@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <!-- Menu Extra Information -->
+
+    <record id="menu_action_extra_information" model="ir.ui.menu">
+        <field name="name">Extra Information</field>
+        <field name="sequence" eval="10" />
+        <field name="action" ref="action_extra_information" />
+    </record>
+    
+    <menuitem id="menu_extra_information_category"
+        name="Extra Information Categories"
+        parent="menu_action_extra_information"
+        sequence="10"
+        action="action_extra_information_category"
+    />
+</odoo>
