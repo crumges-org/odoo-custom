@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Helpdesk relating tickets',
-    'version': '18.0.0.1',
+    'version': '18.0.1.0.0',
     'summary': """ Module for custom helpdesk functionality. For example relating tickets to each other. """,
     'author': 'Alain ALvarez Caignet <alain89042617783@gmail.com>',
     'website': '',
@@ -21,3 +21,4 @@
     'auto_install': False,
     'license': 'LGPL-3',
 }
+
