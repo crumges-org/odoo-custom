@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'stock_picking_extra_information',
-    'version': '18.0.0.1',
+    'version': '18.0.1.0.0',
     'summary': """ Stock_picking_extra_information Summary """,
     'author': '',
     'website': '',
