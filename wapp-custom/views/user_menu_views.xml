@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem action="whatsapp_connector.view_whatsapp_connector_conversation_action"
+        id="conversation_menu"
+        parent="whatsapp_connector.acrux_live_chat_conversation_main"
+        groups="whatsapp_connector.group_chat_basic_extra"
+        sequence="110" />
+    
+    <menuitem action="whatsapp_connector.view_whatsapp_connector_message_action"
+        id="message_menu"
+        parent="whatsapp_connector.acrux_live_chat_conversation_main"
+        groups="whatsapp_connector.group_chat_basic_extra"
+        sequence="120" />
+</odoo>

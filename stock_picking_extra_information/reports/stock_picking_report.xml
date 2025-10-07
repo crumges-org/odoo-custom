@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- REPORTE PDF USANDO EL XPATH QUE FUNCIONA DEL MÓDULO LEGACY -->
+    <template id="report_picking_document_additional_working" inherit_id="stock.report_delivery_document">
+
+        <!-- Usar el mismo xpath que funciona en sale_stock_rol_medical -->
+        <xpath expr="//div[contains(@class, 'oe_structure')]" position="before">
+
+            <!-- SECCIÓN DE INFORMACIÓN ADICIONAL CON EL DISEÑO DE SALE_ORDER -->
+            <t t-set="extra_information" t-value="o.extra_information_ids" />
+            <t t-if="extra_information">
+                <div class="row mt-3 mb-3">
+                    <div class="col-12">
+                        <!-- Solo mostrar la tabla si hay campos completados -->
+                        <div t-if="extra_information">
+                            <h5 class="text-primary">
+                                <i class="fa fa-info-circle me-2" /> Aditional Information </h5>
+
+                            <!-- TABLA LIMPIA -->
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th clas="text-center">Information</th>
+                                        <th clas="text-center">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="extra_information" t-as="obj">
+                                        <tr>
+                                            <!-- Información -->
+                                            <td class="m-2">
+                                                <strong t-esc="obj.label" />
+                                            </td>
+
+                                            <!-- Valor -->
+                                            <td class="m-2">
+                                                <span t-esc="obj.value" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+        </xpath>
+
+    </template>
+
+</odoo>

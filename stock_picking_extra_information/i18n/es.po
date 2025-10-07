@@ -1,0 +1,53 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_extra_information
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-06 03:00+0000\n"
+"PO-Revision-Date: 2025-10-06 03:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_extra_information
+#: model_terms:ir.ui.view,arch_db:stock_picking_extra_information.report_picking_document_additional_working
+msgid "<i class=\"fa fa-info-circle me-2\"/> Aditional Information"
+msgstr "<i class=\"fa fa-info-circle me-2\"/> Información Adicional"
+
+#. module: stock_picking_extra_information
+#: model:ir.model,name:stock_picking_extra_information.model_extra_information
+#: model_terms:ir.ui.view,arch_db:stock_picking_extra_information.view_stock_picking_form_inherit_picking
+msgid "Extra Information"
+msgstr "Información Adicional"
+
+#. module: stock_picking_extra_information
+#: model:ir.model.fields,field_description:stock_picking_extra_information.field_stock_picking__extra_information_ids
+msgid "Extra Informations"
+msgstr "Información Adicional"
+
+#. module: stock_picking_extra_information
+#: model_terms:ir.ui.view,arch_db:stock_picking_extra_information.report_picking_document_additional_working
+msgid "Information"
+msgstr "Información"
+
+#. module: stock_picking_extra_information
+#: model:ir.model.fields,field_description:stock_picking_extra_information.field_extra_information__stock_picking_id
+#: model:ir.model.fields,help:stock_picking_extra_information.field_extra_information__stock_picking_id
+msgid "Stock Picking"
+msgstr ""
+
+#. module: stock_picking_extra_information
+#: model:ir.model,name:stock_picking_extra_information.model_stock_picking
+msgid "Transfer"
+msgstr "Traslado"
+
+#. module: stock_picking_extra_information
+#: model_terms:ir.ui.view,arch_db:stock_picking_extra_information.report_picking_document_additional_working
+msgid "Value"
+msgstr "Valor"

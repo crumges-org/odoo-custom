@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Reporte PDF - agregar información adicional después del encabezado -->
+    <template id="report_saleorder_document_additional_header" inherit_id="sale.report_saleorder_document" priority="20">
+
+        <!-- Agregar información adicional después del encabezado, antes de las líneas -->
+        <xpath expr="//table[hasclass('o_main_table')]" position="before">
+
+            <!-- SECCIÓN DE INFORMACIÓN ADICIONAL ANTES DE LAS LÍNEAS -->
+            <t t-set="extra_information" t-value="doc.extra_information_ids"/>
+            <t t-if="extra_information">
+                <div class="row mt-3 mb-3">
+                    <div class="col-12">
+                        <!-- Solo mostrar la tabla si hay campos completados -->
+                        <div t-if="extra_information">
+                            <h5 class="text-primary">
+                                <i class="fa fa-info-circle me-2" /> Aditional Information </h5>
+
+                            <!-- TABLA LIMPIA -->
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th clas="text-center">Information</th>
+                                        <th clas="text-center">Value</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="extra_information" t-as="obj">
+                                        <tr>
+                                            <!-- Información -->
+                                            <td class="m-2">
+                                                <strong t-esc="obj.label" />
+                                            </td>
+
+                                            <!-- Valor -->
+                                            <td class="m-2">
+                                                <span t-esc="obj.value" />
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </t>
+
+        </xpath>
+
+    </template>
+
+</odoo>
