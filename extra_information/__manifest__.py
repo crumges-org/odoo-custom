@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'Extra_information',
-    'version': '18.0.0.1',
+    'version': '18.0.1.0.0',
     'summary': """ Extra_information Summary """,
     'author': '',
     'website': '',
