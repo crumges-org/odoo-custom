@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Add subscription info tab to sale.order -->
+    <record id="view_order_form_subscription_tab" model="ir.ui.view">
+        <field name="name">sale.order.form.subscription.tab</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            
+            <field name="partner_id" position="after">
+                <field name="has_subscription_lines" invisible="1"/>
+            </field>
+            
+            <xpath expr="//notebook" position="inside">
+                <page string="Subscription Info" 
+                      name="subscription_info"
+                      invisible="not has_subscription_lines">
+                    
+                    <group string="Active Subscriptions">
+                        <p>This order contains automatically managed subscription products.</p>
+                    </group>
+                    
+                </page>
+            </xpath>
+            
+        </field>
+    </record>
+
+</odoo>

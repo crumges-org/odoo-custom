@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.subscription.link</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//field[@name='invoice_policy']" position="after">
+                
+                <group string="Subscription Management" 
+                       invisible="recurring_invoice == True">
+                    
+                    <field name="subscription_product_id"
+                           options="{'no_create': True, 'no_open': True}"/>
+                    
+                    <field name="subscription_service_type" 
+                           widget="radio"
+                           invisible="not subscription_product_id"
+                           required="subscription_product_id"/>
+                    
+                    <div class="alert alert-info" role="alert" 
+                         invisible="not subscription_product_id">
+                        <strong>Automatic Subscription Management:</strong><br/>
+                        When this product is delivered, the quantity of 
+                        "<field name="subscription_product_id" readonly="1" class="oe_inline"/>"
+                        will be automatically 
+                        <span invisible="subscription_service_type != 'installation'">increased</span>
+                        <span invisible="subscription_service_type != 'uninstallation'">decreased</span>.
+                    </div>
+                    
+                </group>
+                
+            </xpath>
+            
+        </field>
+    </record>
+
+</odoo>
