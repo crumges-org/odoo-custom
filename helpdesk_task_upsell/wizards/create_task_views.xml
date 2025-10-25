@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- View helpdesk.ticket.convert.wizard form -->
+    <record id="create_fsm_task_view_form_inherited" model="ir.ui.view">
+        <field name="name">Create a new FSM task from this ticket (upsell)</field>
+        <field name="model">helpdesk.create.fsm.task</field>
+        <field name="inherit_id"
+            ref="helpdesk_fsm.create_fsm_task_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="for_upsell"/>
+                <field name="subsription_id" 
+                    invisible="not for_upsell"
+                    required="for_upsell"
+                    domain="[
+                               ('is_subscription','=',True),    
+                               ('state', '=', 'sale'),
+                               ('partner_id', '=', partner_id)]"
+                />
+                <field name="upsell_type" 
+                    invisible="not for_upsell"
+                    required="for_upsell" 
+                />
+                <field name="task_description" 
+                    invisible="not for_upsell"
+                    required="for_upsell"
+                />
+                <field name="qty" 
+                    invisible="not for_upsell"
+                    required="for_upsell"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
