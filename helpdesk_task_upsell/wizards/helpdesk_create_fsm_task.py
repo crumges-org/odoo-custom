@@ -12,10 +12,12 @@ class HelpdeskTicketConvertWizard(models.TransientModel):
     _description = _('HelpdeskTicketConvertWizard')
 
     for_upsell = fields.Boolean(string='For Upsell', default=False)
-    upsell_type = fields.Selection([('instalation', 'Installation'),
-                                    ('uninstallation', 'Uninstallation'),
-                                    ('reaparition', 'Reaparition'),
-                                    ])
+    # upsell_type = fields.Selection([('instalation', 'Installation'),
+    #                                 ('uninstallation', 'Uninstallation'),
+    #                                 ('reparation', 'Reparation'),
+    #                                 ])
+    upsell_category_id = fields.Many2one(
+        'upsell.category', string='Upsell Category')
     subsription_id = fields.Many2one('sale.order', string='Subscription')
     task_description = fields.Text(string='Task Description')
 
@@ -26,21 +28,13 @@ class HelpdeskTicketConvertWizard(models.TransientModel):
         task = super(HelpdeskTicketConvertWizard, self).action_generate_task()
         # create sale order line for the task
         if self.for_upsell:
-            product = None
-            if self.upsell_type == 'instalation':
-                product = self.env.ref(
-                    'helpdesk_task_upsell.product_template_2')
-            elif self.upsell_type == 'uninstallation':
-                product = self.env.ref(
-                    'helpdesk_task_upsell.product_template_3')
-            elif self.upsell_type == 'reaparition':
-                product = self.env.ref(
-                    'helpdesk_task_upsell.product_template_1')
+            product = self.upsell_category_id.product_id
+
             line = self.env['sale.order.line'].create(
                 {
                     'product_id': product.product_variant_id.id,
                     'product_uom_qty': self.qty,
-                    'name': f"{self.upsell_type}: {self.task_description}",
+                    'name': f"{self.upsell_category_id.name}:{self.task_description}",
                     'order_id': self.subsription_id.id,
                     'project_id': product.project_id.id,
                     'task_id': task.id,
@@ -51,14 +45,14 @@ class HelpdeskTicketConvertWizard(models.TransientModel):
                 {
                     'sale_line_id': line.id,
                     'allocated_hours': self.qty,
-                    'description': f"{self.upsell_type}: {self.task_description}",
-
+                    'description': f"{self.upsell_category_id.name}: {self.task_description}",
+                    'name': f"{task.name} - {self.upsell_category_id.name}: {self.task_description}"
                 })
-            self.helpdesk_ticket_id.write({
-                "for_upsell": True,
-                "upsell_type": self.upsell_type,
-                "subsription_id": self.subsription_id.id,
-            })
+            # self.helpdesk_ticket_id.write({
+            #     "for_upsell": True,
+            #     "upsell_category_id": self.upsell_category_id.id,
+            #     "subsription_id": self.subsription_id.id,
+            # })
 
         return task
 

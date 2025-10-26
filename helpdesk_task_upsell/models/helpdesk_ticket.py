@@ -11,9 +11,6 @@ class HelpdeskTicket(models.Model):
     _inherit = 'helpdesk.ticket'
 
     for_upsell = fields.Boolean(string='For Upsell', default=False)
-    upsell_type = fields.Selection([('instalation', 'Installation'),
-                                    ('uninstallation', 'Uninstallation'),
-                                    ('reaparition', 'Reaparition'),
-                                    ])
-    
+    upsell_category_id = fields.Many2one('upsell.category', string='Upsell Category')
+
     subsription_id = fields.Many2one('sale.order', string='ClientSubscription')

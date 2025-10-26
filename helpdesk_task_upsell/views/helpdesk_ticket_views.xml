@@ -10,11 +10,14 @@
             <xpath expr="//page[@name='extra_info']" position="after">
                 <page string="Upsell" name="upsell" invisible="not for_upsell">
                     <group>
-                        <field name="for_upsell" invisible="1"/>
-                        <field name="upsell_type" invisible="not for_upsell"/>
+                        <field name="for_upsell" invisible="1" 
+                            readonly="1"
+                        />
+                        <field name="upsell_category_id"
+                            readonly="1"
+                            invisible="not for_upsell" />
                         <field name="subsription_id" 
                           readonly="1" />
-                        
                     </group>
                 </page>
             </xpath>

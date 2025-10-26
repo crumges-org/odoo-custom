@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 {
-    'name': 'Helpdesk_task_upsell',
+    'name': 'Helpdesk Ventas Adicionales en Suscripciones',
     'version': '18.0.1.0.0',
-    'summary': """ Helpdesk_task_upsell Summary """,
-    'author': '',
-    'website': '',
-    'category': '',
+    'summary': """Gestión de ventas adicionales en suscripciones activas mediante la creación de tareas FSM desde tickets de helpdesk""",
+    'author': 'Crumges',
+    'website': 'https://crumges.com',
+    'category': 'Services/Helpdesk',
+    'contributors': [
+        'Crumges',
+        'Alain Alvarez Caignet',
+    ],
     'depends': ['helpdesk_fsm',
                 'product',
                 'sale_project',
@@ -13,7 +17,9 @@
                 'sale_subscription'],
     "data": [
         "data/product_data.xml",
-        "views/helpdesk_ticket_views.xml",
+        "security/ir.model.access.csv",
+        # "views/helpdesk_ticket_views.xml",
+        "views/upsell_category_views.xml",
         "wizards/create_task_views.xml"
     ],
     'assets': {

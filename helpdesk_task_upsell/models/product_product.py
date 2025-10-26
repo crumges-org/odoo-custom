@@ -10,6 +10,4 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = 'product.product'
     
-    is_reparation = fields.Boolean(string='Is a reparation', default=False)
-    is_installation = fields.Boolean(string='Is a installation', default=False)
-    is_uninstallation = fields.Boolean(string='Is a uninstallation', default=False)
+    is_upsell = fields.Boolean(string='Is a upsell', default=False)

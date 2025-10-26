@@ -3,7 +3,7 @@
     <data>
         <record id="product_template_1" model="product.template">
             <field name="name">Reparation</field>
-            <field name="is_reparation">True</field>
+            <field name="is_upsell">True</field>
             <field name="type">service</field>
             <field name="service_tracking">task_global_project</field>
             <field name="service_policy">delivered_timesheet</field>
@@ -11,7 +11,7 @@
         </record>
         <record id="product_template_2" model="product.template">
             <field name="name">Installation</field>
-            <field name="is_installation">True</field>
+            <field name="is_upsell">True</field>
             <field name="type">service</field>
             <field name="service_tracking">task_global_project</field>
             <field name="service_policy">delivered_timesheet</field>
@@ -19,7 +19,7 @@
         </record>
         <record id="product_template_3" model="product.template">
             <field name="name">Uninstallation</field>
-            <field name="is_uninstallation">True</field>
+            <field name="is_upsell">True</field>
             <field name="type">service</field>
             <field name="service_tracking">task_global_project</field>
             <field name="service_policy">delivered_timesheet</field>

@@ -18,9 +18,10 @@
                                ('state', '=', 'sale'),
                                ('partner_id', '=', partner_id)]"
                 />
-                <field name="upsell_type" 
+                <field name="upsell_category_id"
                     invisible="not for_upsell"
-                    required="for_upsell" 
+                    required="for_upsell"
+                    options="{'no_quick_create': True, 'no_create_edit': True}"
                 />
                 <field name="task_description" 
                     invisible="not for_upsell"
