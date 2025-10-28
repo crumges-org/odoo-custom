@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Vista del wizard para crear tarea FSM -->
+    <record id="create_fsm_task_view_form_inherited" model="ir.ui.view">
+        <field name="name">Create FSM task with Upsell</field>
+        <field name="model">helpdesk.create.fsm.task</field>
+        <field name="inherit_id" ref="helpdesk_fsm.create_fsm_task_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_upsell"/>
+                <group invisible="not is_upsell">
+                    <field name="subscription_id" 
+                        required="is_upsell"
+                        domain="[('is_subscription','=',True),    
+                                 ('state', '=', 'sale'),
+                                 ('partner_id', '=', partner_id)]"/>
+                    <field name="upsell_product_id" 
+                        required="is_upsell"
+                        options="{'no_create': True}"/>
+                    <field name="additional_description" 
+                        required="is_upsell"
+                        placeholder="Ej: Vehículo ABC-123, instalación de GPS"/>
+                    <field name="quantity" 
+                        required="is_upsell"/>
+                    
+                    <!-- Campos informativos -->
+                    <field name="upsell_mode" invisible="1"/>
+                    <field name="parent_task_id" 
+                        invisible="upsell_mode != 'prepaid_consumption'"
+                        readonly="1"/>
+                </group>
+                
+                <!-- Mensaje informativo -->
+                <div class="alert alert-info" 
+                     invisible="not is_upsell or not upsell_mode"
+                     role="alert">
+                    <span invisible="upsell_mode != 'additional_sale'">
+                        ✓ Se creará nueva tarea y línea facturable
+                    </span>
+                    <span invisible="upsell_mode != 'prepaid_consumption'">
+                        <span invisible="parent_task_id">
+                            ⚠️ No se encontró tarea con bolsa de horas disponible
+                        </span>
+                        <span invisible="not parent_task_id">
+                            ✓ Se creará subtarea en la bolsa de horas existente
+                        </span>
+                    </span>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
