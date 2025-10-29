@@ -31,13 +31,6 @@ class SaleOrderLine(models.Model):
         help='Indicates if this line would have negative quantity without protection',
     )
 
-    subscription_qty_trigger = fields.Float(
-        string='Subscription Quantity Trigger',
-        compute='_compute_subscription_qty_trigger',
-        store=False,
-        help='Technical field to trigger subscription quantity updates',
-    )
-
     @api.depends('product_id', 'product_id.recurring_invoice')
     def _compute_is_subscription_line(self):
         """Identify if this line is a subscription product."""
@@ -80,23 +73,32 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    @api.depends('order_id.order_line.qty_delivered', 'order_id.order_line.product_id.subscription_product_id')
-    def _compute_subscription_qty_trigger(self):
+    @api.depends('qty_delivered_method', 'qty_delivered_manual', 'analytic_line_ids.so_line', 
+                 'analytic_line_ids.unit_amount', 'analytic_line_ids.product_uom_id')
+    def _compute_qty_delivered(self):
         """
-        Trigger subscription quantity update when service deliveries change.
-        This field itself is not important, but its compute triggers the update.
+        Override to update subscription quantities when service deliveries change.
         """
+        res = super()._compute_qty_delivered()
+        
+        # Después de calcular qty_delivered, actualizar suscripciones relacionadas
         for line in self:
-            if line.is_subscription_line and line.order_id:
-                line.subscription_qty_trigger = 0.0
-                line._update_subscription_quantity()
-            else:
-                line.subscription_qty_trigger = 0.0
+            if line.product_id.subscription_product_id and line.order_id:
+                subscription_product = line.product_id.subscription_product_id
+                
+                # Buscar línea de suscripción en la orden
+                subscription_line = line.order_id.order_line.filtered(
+                    lambda l: l.product_id == subscription_product
+                )
+                
+                if subscription_line:
+                    subscription_line._update_subscription_quantity()
+        
+        return res
 
     def _update_subscription_quantity(self):
         """
-        Update product_uom_qty for subscription lines.
-        Calculate: SUM(delivered installations) - SUM(delivered uninstallations)
+        Update product_uom_qty for subscription lines based on service deliveries.
         """
         for line in self:
             if not line.is_subscription_line or not line.order_id:
@@ -175,8 +177,12 @@ class SaleOrderLine(models.Model):
                 
                 calculated_qty = 0.0
             
-            # Actualizar product_uom_qty en lugar de qty_delivered
+            # Actualizar product_uom_qty
             if line.product_uom_qty != calculated_qty:
+                _logger.info(
+                    'Updating subscription quantity for order %s, product %s: %s -> %s',
+                    line.order_id.name, line.product_id.name, line.product_uom_qty, calculated_qty
+                )
                 line.product_uom_qty = calculated_qty
 
     @api.onchange('product_id', 'product_uom_qty')
@@ -273,7 +279,7 @@ class SaleOrderLine(models.Model):
             '<tr><td style="padding: 10px; border: 1px solid #dee2e6;">➖ Calculated Quantity</td>'
             '<td style="padding: 10px; text-align: right; border: 1px solid #dee2e6;"><strong>%s</strong></td></tr>'
             '<tr style="background-color: %s;">'
-            '<td style="padding: 10px; border: 1px solid #dee2e6;"><strong>🔒 Final Quantity (Protected)</strong></td>'
+            '<td style="padding: 10px; border: 1px solid #dee2e6;"><strong>🔒 Final Quantity</strong></td>'
             '<td style="padding: 10px; text-align: right; border: 1px solid #dee2e6;">'
             '<strong style="font-size: 18px; color: %s;">%s</strong></td></tr>'
             '</table>'
@@ -318,7 +324,7 @@ class SaleOrderLine(models.Model):
             return
         
         service_lines = self.order_id.order_line.filtered(
-            lambda l: l.product_id.subscription_product_id == line.product_id
+            lambda l: l.product_id.subscription_product_id == self.product_id
         )
         
         return {
