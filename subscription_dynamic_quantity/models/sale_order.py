@@ -32,22 +32,18 @@ class SaleOrder(models.Model):
         
         for subscription_product in subscription_products:
             existing_line = self.order_line.filtered(
-                lambda l: l.product_id == subscription_product and l.auto_managed_subscription
+                lambda l: l.product_id == subscription_product
             )
             
             if not existing_line:
-                # Create subscription line
-                new_line_vals = {
+                # Use Command to add lines (works in onchange context)
+                self.order_line = [Command.create({
                     'product_id': subscription_product.id,
                     'product_uom_qty': 0,
                     'product_uom': subscription_product.uom_id.id,
                     'price_unit': subscription_product.list_price,
                     'name': subscription_product.name,
-                    'auto_managed_subscription': True,  # Marcar como auto-gestionada
-                }
-                
-                # Use Command to add lines (works in onchange context)
-                self.order_line = [Command.create(new_line_vals)]
+                })]
 
     def action_confirm(self):
         """Ensure subscription lines exist before confirming the order."""
