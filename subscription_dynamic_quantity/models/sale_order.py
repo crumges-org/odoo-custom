@@ -12,7 +12,6 @@ class SaleOrder(models.Model):
         store=True,
     )
     
-    # ⭐ NUEVO: Detectar suscripciones con cantidad negativa
     has_negative_subscription = fields.Boolean(
         string='Has Negative Subscription',
         compute='_compute_has_negative_subscription',
@@ -42,17 +41,15 @@ class SaleOrder(models.Model):
             order.has_negative_subscription = bool(negative_lines)
             
             if negative_lines:
+                # ⭐ MENSAJE SIMPLIFICADO
                 products_list = ', '.join([
-                    f'<strong>{line.product_id.name}</strong> ({line.product_uom_qty})' 
+                    f'{line.product_id.name} ({line.product_uom_qty})' 
                     for line in negative_lines
                 ])
                 
                 order.negative_subscription_message = _(
-                    '<strong>⚠️ Warning: Negative Subscription Quantities Detected</strong><br/>'
-                    'The following subscription products have negative quantities:<br/>'
-                    '%s<br/><br/>'
-                    '<strong>Action Required:</strong> Review the hours logged in the installation and '
-                    'uninstallation tasks. The uninstallation hours exceed the installation hours.'
+                    '⚠️ <strong>Negative Subscription:</strong> %s<br/>'
+                    'Review task hours - uninstallations exceed installations.'
                 ) % products_list
             else:
                 order.negative_subscription_message = False
@@ -74,7 +71,6 @@ class SaleOrder(models.Model):
             )
             
             if not existing_line:
-                # Use Command to add lines (works in onchange context)
                 self.order_line = [Command.create({
                     'product_id': subscription_product.id,
                     'product_uom_qty': 0,
