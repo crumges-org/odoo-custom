@@ -73,8 +73,6 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    @api.depends('qty_delivered_method', 'qty_delivered_manual', 'analytic_line_ids.so_line', 
-                 'analytic_line_ids.unit_amount', 'analytic_line_ids.product_uom_id')
     def _compute_qty_delivered(self):
         """
         Override to update subscription quantities when service deliveries change.
