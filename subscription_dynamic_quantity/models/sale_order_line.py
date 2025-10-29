@@ -73,29 +73,24 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    # ⭐ SOLUCIÓN: Override de product_uom_qty para hacerlo computed en suscripciones
-    @api.depends('is_subscription_line', 'product_id', 
+    # ⭐ SOLUCIÓN CORRECTA: Override product_uom_qty como computed para suscripciones
+    @api.depends('is_subscription_line', 
+                 'product_id', 
                  'order_id.order_line.qty_delivered', 
                  'order_id.order_line.product_id.subscription_product_id',
                  'order_id.order_line.product_id.subscription_service_type')
     def _compute_product_uom_qty(self):
         """
-        Override: Para líneas de suscripción, calcular automáticamente la cantidad
-        basándose en servicios entregados. Para otras líneas, comportamiento normal.
+        Override: Para líneas de suscripción, calcular automáticamente basándose en servicios.
+        Para otras líneas, mantener comportamiento normal.
         """
         subscription_lines = self.filtered('is_subscription_line')
-        other_lines = self - subscription_lines
         
-        # Para líneas normales, llamar a super si existe el método compute
-        # Si no existe, mantener el valor actual (es un campo normal)
-        for line in other_lines:
-            if not line.product_uom_qty:
-                line.product_uom_qty = 0.0
-        
-        # Para líneas de suscripción, calcular automáticamente
+        # Para líneas de suscripción, calcular la cantidad automáticamente
         for line in subscription_lines:
             if not line.order_id:
-                line.product_uom_qty = 0.0
+                # ⭐ CLAVE: Usar write_without_compute para evitar recursión
+                line.write({'product_uom_qty': 0.0})
                 continue
             
             service_lines = line.order_id.order_line.filtered(
@@ -103,7 +98,7 @@ class SaleOrderLine(models.Model):
             )
             
             if not service_lines:
-                line.product_uom_qty = 0.0
+                line.write({'product_uom_qty': 0.0})
                 continue
             
             installations = sum(
@@ -170,9 +165,10 @@ class SaleOrderLine(models.Model):
                     subtype_xmlid='mail.mt_note',
                 )
                 
-                line.product_uom_qty = 0.0
-            else:
-                line.product_uom_qty = calculated_qty
+                calculated_qty = 0.0
+            
+            # ⭐ CLAVE: Escribir directamente sin triggear el compute
+            line.write({'product_uom_qty': calculated_qty})
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_add_subscription(self):
@@ -217,38 +213,10 @@ class SaleOrderLine(models.Model):
         return lines
 
     def write(self, vals):
-        """
-        Override write to prevent manual editing of subscription quantities.
-        """
-        # Si se intenta modificar product_uom_qty manualmente en una línea de suscripción,
-        # ignorar ese cambio (será recalculado automáticamente)
-        subscription_lines = self.filtered('is_subscription_line')
-        
-        if subscription_lines and 'product_uom_qty' in vals:
-            # Remover product_uom_qty de vals para líneas de suscripción
-            vals_copy = vals.copy()
-            vals_copy.pop('product_uom_qty', None)
-            
-            # Escribir en líneas de suscripción sin product_uom_qty
-            if vals_copy:
-                res_subscriptions = super(SaleOrderLine, subscription_lines).write(vals_copy)
-            else:
-                res_subscriptions = True
-            
-            # Escribir en líneas normales con todos los vals
-            other_lines = self - subscription_lines
-            if other_lines:
-                res_others = super(SaleOrderLine, other_lines).write(vals)
-            else:
-                res_others = True
-            
-            # Forzar recálculo de suscripciones
-            subscription_lines._compute_product_uom_qty()
-            
-            return res_subscriptions and res_others
-        
+        """After updating lines, ensure subscription lines exist and recalculate if needed."""
         res = super().write(vals)
         
+        # Si se modifica el producto, asegurar líneas de suscripción
         if 'product_id' in vals:
             orders = self.mapped('order_id')
             for order in orders:
