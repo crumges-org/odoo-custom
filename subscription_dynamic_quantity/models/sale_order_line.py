@@ -73,7 +73,7 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    # ⭐ SOLUCIÓN CORRECTA: Override product_uom_qty como computed para suscripciones
+    # ⭐ SOLUCIÓN FINAL: Asignar directamente sin write()
     @api.depends('is_subscription_line', 
                  'product_id', 
                  'order_id.order_line.qty_delivered', 
@@ -89,8 +89,7 @@ class SaleOrderLine(models.Model):
         # Para líneas de suscripción, calcular la cantidad automáticamente
         for line in subscription_lines:
             if not line.order_id:
-                # ⭐ CLAVE: Usar write_without_compute para evitar recursión
-                line.write({'product_uom_qty': 0.0})
+                line.product_uom_qty = 0.0
                 continue
             
             service_lines = line.order_id.order_line.filtered(
@@ -98,7 +97,7 @@ class SaleOrderLine(models.Model):
             )
             
             if not service_lines:
-                line.write({'product_uom_qty': 0.0})
+                line.product_uom_qty = 0.0
                 continue
             
             installations = sum(
@@ -115,6 +114,7 @@ class SaleOrderLine(models.Model):
             
             calculated_qty = installations - uninstallations
             
+            # Postear mensaje solo si hay advertencia de negativo
             if calculated_qty < 0:
                 _logger.warning(
                     'Subscription quantity would be negative for order %s, product %s. '
@@ -122,53 +122,58 @@ class SaleOrderLine(models.Model):
                     line.order_id.name, line.product_id.name, installations, uninstallations
                 )
                 
-                line.order_id.message_post(
-                    body=_(
-                        '<div style="padding: 15px; border-left: 4px solid #ffc107; background-color: #fff3cd;">'
-                        '<h4 style="margin-top: 0; color: #856404;">⚠️ Subscription Quantity Adjusted</h4>'
-                        
-                        '<table style="width: 100%%; margin: 10px 0;">'
-                        '<tr><td><strong>Product:</strong></td><td>%s</td></tr>'
-                        '<tr><td><strong>Calculated Quantity:</strong></td>'
-                        '<td><span style="color: #dc3545;">%s - %s = %s</span></td></tr>'
-                        '<tr><td><strong>Adjusted To:</strong></td>'
-                        '<td><span style="color: #28a745; font-weight: bold;">0</span></td></tr>'
-                        '</table>'
-                        
-                        '<div style="margin: 10px 0; padding: 10px; background-color: #fff; border-radius: 4px;">'
-                        '<strong>📊 Details:</strong><br/>'
-                        '<ul style="margin: 5px 0; padding-left: 20px;">'
-                        '<li>Total Installations Delivered: <strong>%s</strong></li>'
-                        '<li>Total Uninstallations Delivered: <strong>%s</strong></li>'
-                        '<li>Difference: <strong style="color: #dc3545;">%s</strong></li>'
-                        '</ul>'
-                        '</div>'
-                        
-                        '<div style="margin-top: 10px;">'
-                        '<strong>💡 What happened?</strong><br/>'
-                        'The subscription quantity has been automatically adjusted to <strong>0</strong> '
-                        'to prevent negative values. This occurs when uninstallations in this order '
-                        'exceed installations in the same order.<br/><br/>'
-                        '<strong>✅ Action:</strong> The order will proceed normally with 0 subscription quantity.'
-                        '</div>'
-                        '</div>'
-                    ) % (
-                        line.product_id.name,
-                        installations,
-                        uninstallations,
-                        calculated_qty,
-                        installations,
-                        uninstallations,
-                        calculated_qty
-                    ),
-                    message_type='notification',
-                    subtype_xmlid='mail.mt_note',
-                )
+                # Solo postear mensaje si la orden existe y está guardada
+                if line.order_id and line.order_id.id:
+                    try:
+                        line.order_id.message_post(
+                            body=_(
+                                '<div style="padding: 15px; border-left: 4px solid #ffc107; background-color: #fff3cd;">'
+                                '<h4 style="margin-top: 0; color: #856404;">⚠️ Subscription Quantity Adjusted</h4>'
+                                
+                                '<table style="width: 100%%; margin: 10px 0;">'
+                                '<tr><td><strong>Product:</strong></td><td>%s</td></tr>'
+                                '<tr><td><strong>Calculated Quantity:</strong></td>'
+                                '<td><span style="color: #dc3545;">%s - %s = %s</span></td></tr>'
+                                '<tr><td><strong>Adjusted To:</strong></td>'
+                                '<td><span style="color: #28a745; font-weight: bold;">0</span></td></tr>'
+                                '</table>'
+                                
+                                '<div style="margin: 10px 0; padding: 10px; background-color: #fff; border-radius: 4px;">'
+                                '<strong>📊 Details:</strong><br/>'
+                                '<ul style="margin: 5px 0; padding-left: 20px;">'
+                                '<li>Total Installations Delivered: <strong>%s</strong></li>'
+                                '<li>Total Uninstallations Delivered: <strong>%s</strong></li>'
+                                '<li>Difference: <strong style="color: #dc3545;">%s</strong></li>'
+                                '</ul>'
+                                '</div>'
+                                
+                                '<div style="margin-top: 10px;">'
+                                '<strong>💡 What happened?</strong><br/>'
+                                'The subscription quantity has been automatically adjusted to <strong>0</strong> '
+                                'to prevent negative values. This occurs when uninstallations in this order '
+                                'exceed installations in the same order.<br/><br/>'
+                                '<strong>✅ Action:</strong> The order will proceed normally with 0 subscription quantity.'
+                                '</div>'
+                                '</div>'
+                            ) % (
+                                line.product_id.name,
+                                installations,
+                                uninstallations,
+                                calculated_qty,
+                                installations,
+                                uninstallations,
+                                calculated_qty
+                            ),
+                            message_type='notification',
+                            subtype_xmlid='mail.mt_note',
+                        )
+                    except Exception as e:
+                        _logger.debug('Could not post message to order: %s', e)
                 
                 calculated_qty = 0.0
             
-            # ⭐ CLAVE: Escribir directamente sin triggear el compute
-            line.write({'product_uom_qty': calculated_qty})
+            # ⭐ CLAVE: Asignar directamente, NO usar write()
+            line.product_uom_qty = calculated_qty
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_add_subscription(self):
