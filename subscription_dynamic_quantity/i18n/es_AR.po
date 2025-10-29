@@ -1,0 +1,269 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* subscription_dynamic_quantity
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-29 22:23+0000\n"
+"PO-Revision-Date: 2025-10-29 19:44-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: subscription_dynamic_quantity
+#: model_terms:ir.ui.view,arch_db:subscription_dynamic_quantity.product_template_form_view_inherit
+msgid ""
+"\"\n"
+"                        will be automatically \n"
+"                        <span invisible=\"subscription_service_type != 'installation'\">increased</span>\n"
+"                        <span invisible=\"subscription_service_type != 'uninstallation'\">decreased</span>."
+msgstr ""
+"\"\n"
+"                        se incrementará automáticamente \n"
+"                        <span invisible=\"subscription_service_type != 'installation'\">aumentará</span>\n"
+"                        <span invisible=\"subscription_service_type != 'uninstallation'\">disminuirá</"
+"span>."
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+msgid ""
+"<div style=\"background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 15px;"
+"\"><h4 style=\"margin-top: 0; color: #856404;\">⚠️ Negative Quantity</h4><p style=\"margin-bottom: "
+"0;\">Review task hours - uninstallations exceed installations.</p></div>"
+msgstr ""
+"<div style=\"background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 15px;"
+"\"><h4 style=\"margin-top: 0; color: #856404;\">⚠️ Cantidad Negativa</h4><p style=\"margin-bottom: "
+"0;\">Revisar las horas de las tareas: las desinstalaciones superan a las instalaciones.</p></div>"
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+msgid ""
+"<div style=\"font-family: Arial, sans-serif;\"><h3 style=\"color: #007bff;\">📊 Subscription Details: %s</"
+"h3><table style=\"width: 100%%; border-collapse: collapse; margin: 15px 0;\"><tr style=\"background-color: "
+"#f8f9fa;\"><th style=\"padding: 10px; text-align: left; border: 1px solid #dee2e6;\">Metric</th><th "
+"style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\">Value</th></tr><tr><td "
+"style=\"padding: 10px; border: 1px solid #dee2e6;\">✅ Installations Delivered</td><td style=\"padding: "
+"10px; text-align: right; border: 1px solid #dee2e6;\"><strong>%s</strong></td></tr><tr style=\"background-"
+"color: #f8f9fa;\"><td style=\"padding: 10px; border: 1px solid #dee2e6;\">❌ Uninstallations Delivered</"
+"td><td style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\"><strong>%s</strong></td></"
+"tr><tr><td style=\"padding: 10px; border: 1px solid #dee2e6;\">➖ Calculated Quantity</td><td "
+"style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\"><strong>%s</strong></td></tr><tr "
+"style=\"background-color: %s;\"><td style=\"padding: 10px; border: 1px solid #dee2e6;\"><strong>🔒 Final "
+"Quantity</strong></td><td style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\"><strong "
+"style=\"font-size: 18px; color: %s;\">%s</strong></td></tr></table></div>"
+msgstr ""
+"<div style=\"font-family: Arial, sans-serif;\"><h3 style=\"color: #007bff;\">📊 Detalle de suscripción: "
+"%s</h3><table style=\"width: 100%%; border-collapse: collapse; margin: 15px 0;\"><tr style=\"background-"
+"color: #f8f9fa;\"><th style=\"padding: 10px; text-align: left; border: 1px solid #dee2e6;\">Métrica</"
+"th><th style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\">Valor</th></tr><tr><td "
+"style=\"padding: 10px; border: 1px solid #dee2e6;\">✅ Instalaciones entregadas</td><td style=\"padding: "
+"10px; text-align: right; border: 1px solid #dee2e6;\"><strong>%s</strong></td></tr><tr style=\"background-"
+"color: #f8f9fa;\"><td style=\"padding: 10px; border: 1px solid #dee2e6;\">❌ Desinstalaciones entregadas</"
+"td><td style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\"><strong>%s</strong></td></"
+"tr><tr><td style=\"padding: 10px; border: 1px solid #dee2e6;\">➖ Cantidad calculada</td><td "
+"style=\"padding: 10px; text-align: right; border: 1px solid #dee2e6;\"><strong>%s</strong></td></tr><tr "
+"style=\"background-color: %s;\"><td style=\"padding: 10px; border: 1px solid #dee2e6;\"><strong>🔒 "
+"Cantidad final</strong></td><td style=\"padding: 10px; text-align: right; border: 1px solid "
+"#dee2e6;\"><strong style=\"font-size: 18px; color: %s;\">%s</strong></td></tr></table></div>"
+
+#. module: subscription_dynamic_quantity
+#: model_terms:ir.ui.view,arch_db:subscription_dynamic_quantity.product_template_form_view_inherit
+msgid ""
+"<strong>Automatic Subscription Management:</strong><br/>\n"
+"                        When this product is delivered, the quantity of \n"
+"                        \""
+msgstr ""
+"<strong>Gestión automática de suscripciones:</strong><br/>\n"
+"                        Cuando se entregue este producto, la cantidad de\n"
+"                        \""
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+msgid ""
+"A subscription line for \"%s\" will be automatically added to this order. The quantity will be calculated "
+"based on delivered installations/uninstallations."
+msgstr ""
+"Se añadirá automáticamente una línea de suscripción para \"%s\" a este pedido. La cantidad se calculará en "
+"función de las instalaciones/desinstalaciones realizadas."
+
+#. module: subscription_dynamic_quantity
+#: model_terms:ir.ui.view,arch_db:subscription_dynamic_quantity.view_order_form_subscription_tab
+msgid "Active Subscriptions"
+msgstr "Suscripciones activas"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_product_product__subscription_service_type
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_product_template__subscription_service_type
+msgid ""
+"Defines if this service increases (installation) or decreases (uninstallation) the subscription quantity."
+msgstr ""
+"Define si este servicio aumenta (instalación) o disminuye (desinstalación) la cantidad de la suscripción."
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_sale_order__has_negative_subscription
+msgid "Has Negative Subscription"
+msgstr "Tiene suscripción negativa"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_sale_order_line__has_negative_warning
+msgid "Has Negative Warning"
+msgstr "Contiene advertencia negativa"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_sale_order__has_subscription_lines
+msgid "Has Subscription Lines"
+msgstr "Tiene líneas de suscripción"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_sale_order__has_negative_subscription
+msgid "Indicates if any subscription line has negative quantity"
+msgstr "Indica si alguna línea de suscripción tiene una cantidad negativa."
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_sale_order_line__has_negative_warning
+msgid "Indicates if this line would have negative quantity without protection"
+msgstr "Indica si esta línea tendría una cantidad negativa sin protección."
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields.selection,name:subscription_dynamic_quantity.selection__product_template__subscription_service_type__installation
+msgid "Installation Service"
+msgstr "Servicio de instalación"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_sale_order_line__is_subscription_line
+msgid "Is Subscription Line"
+msgstr "Es línea de suscripción"
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_sale_order_line__linked_service_line_ids
+msgid "Linked Service Lines"
+msgstr "Líneas de servicio vinculadas"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_product_product__subscription_product_id
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_product_template__subscription_product_id
+msgid "Linked Subscription Product"
+msgstr "Producto de suscripción vinculado"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_sale_order__negative_subscription_message
+msgid "Negative Subscription Warning"
+msgstr "Advertencia de suscripción negativa"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model,name:subscription_dynamic_quantity.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/product_template.py:0
+msgid ""
+"Product \"%s\" has a linked subscription product but no service type defined. Please specify if this is an "
+"Installation or Uninstallation service."
+msgstr ""
+"El producto \"%s\" tiene un producto de suscripción vinculado, pero no se ha definido ningún tipo de "
+"servicio. Por favor, especifique si se trata de un servicio de instalación o desinstalación."
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model,name:subscription_dynamic_quantity.model_product_product
+msgid "Product Variant"
+msgstr "Variante del producto"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model,name:subscription_dynamic_quantity.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model,name:subscription_dynamic_quantity.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de la orden de venta"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_sale_order_line__linked_service_line_ids
+msgid "Service lines (installations/uninstallations) that affect this subscription quantity"
+msgstr "Líneas de servicio (instalaciones/desinstalaciones) que afectan a esta cantidad de suscripción"
+
+#. module: subscription_dynamic_quantity
+#: model_terms:ir.ui.view,arch_db:subscription_dynamic_quantity.view_order_form_subscription_tab
+msgid "Subscription Info"
+msgstr "Información de suscripción"
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+msgid "Subscription Information"
+msgstr "Información de la suscripción"
+
+#. module: subscription_dynamic_quantity
+#: model_terms:ir.ui.view,arch_db:subscription_dynamic_quantity.product_template_form_view_inherit
+msgid "Subscription Management"
+msgstr "Gestión de suscripciones"
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+msgid "Subscription Product Will Be Added"
+msgstr "Se añadirá el producto de suscripción."
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_product_product__subscription_service_type
+#: model:ir.model.fields,field_description:subscription_dynamic_quantity.field_product_template__subscription_service_type
+msgid "Subscription Service Type"
+msgstr "Tipo de servicio de suscripción"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_sale_order_line__is_subscription_line
+msgid "Technical field to identify subscription lines managed by this module"
+msgstr "Campo técnico para identificar las líneas de suscripción gestionadas por este módulo"
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_product_product__subscription_product_id
+#: model:ir.model.fields,help:subscription_dynamic_quantity.field_product_template__subscription_product_id
+msgid ""
+"The subscription product whose quantity will be automatically adjusted when this service product is "
+"delivered. Example: Link \"GPS Installation\" to \"GPS Monthly Subscription\""
+msgstr ""
+"El producto de suscripción cuya cantidad se ajustará automáticamente cuando se entregue este servicio. "
+"Ejemplo: Vincular \"Instalación de GPS\" a \"Suscripción mensual de GPS\"."
+
+#. module: subscription_dynamic_quantity
+#: model_terms:ir.ui.view,arch_db:subscription_dynamic_quantity.view_order_form_subscription_tab
+msgid "This order contains automatically managed subscription products."
+msgstr "Este pedido contiene productos de suscripción gestionados automáticamente."
+
+#. module: subscription_dynamic_quantity
+#: model:ir.model.fields.selection,name:subscription_dynamic_quantity.selection__product_template__subscription_service_type__uninstallation
+msgid "Uninstallation Service"
+msgstr "Servicio de desinstalación"
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order_line.py:0
+msgid ""
+"⚠️ <b>Negative Subscription:</b> %s (%s)<br/>Installations: %s | Uninstallations: %s<br/>Review task hours."
+msgstr ""
+"⚠️ <b>Suscripción negativa:</b> %s (%s)<br/>Instalaciones: %s | Desinstalaciones: %s<br/>Revisar horas de "
+"tareas."
+
+#. module: subscription_dynamic_quantity
+#. odoo-python
+#: code:addons/subscription_dynamic_quantity/models/sale_order.py:0
+msgid ""
+"⚠️ <strong>Negative Subscription:</strong> %s<br/>Review task hours - uninstallations exceed installations."
+msgstr ""
+"⚠️ <strong>Suscripción negativa:</strong> %s<br/>Revisar las horas de la tarea: las desinstalaciones "
+"superan las instalaciones."

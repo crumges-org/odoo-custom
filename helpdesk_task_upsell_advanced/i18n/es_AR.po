@@ -1,0 +1,291 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* helpdesk_task_upsell_advanced
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-29 21:45+0000\n"
+"PO-Revision-Date: 2025-10-29 19:15-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid ""
+"<b>Automatic Detection:</b> The system will find or create \n"
+"                            the parent task automatically."
+msgstr ""
+"<b>Detección automática:</b> El sistema encontrará o creará \n"
+"                            la tarea principal automáticamente."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid ""
+"<b>Parent Product:</b> Where hours accumulate and get invoiced \n"
+"                            (e.g., \"GPS Installations - 50 hours\")."
+msgstr ""
+"<b>Producto principal</b> Donde se acumulan las horas y se facturan \n"
+"                            (por ejemplo, \"Instalaciones GPS - 50 horas\")."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid ""
+"<b>Product (above):</b> Used for informative lines in the order \n"
+"                            (e.g., \"Installation: ABC-123\"). These lines don't invoice."
+msgstr ""
+"<b>Producto (comoding o dummy):</b> Se utiliza para líneas informativas en el pedido \n"
+"                            (p. ej., \"Instalación: ABC-123\"). Estas líneas no se facturan."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid ""
+"<b>Task Structure:</b> Creates subtasks under a parent task. \n"
+"                            Hours from subtasks accumulate in the parent."
+msgstr ""
+"<b>Estructura de la tarea:</b> Crea subtareas dentro de una tarea principal. \n"
+"                            Las horas de las subtareas se acumulan en la tarea principal."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid ""
+"<i class=\"fa fa-lightbulb-o\"/> \n"
+"                        <b>Example:</b> Category \"Installation\" → Product \"Installation\" "
+"(info only) \n"
+"                        + Parent Product \"GPS Installations\" (hour accumulator)"
+msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/> \n"
+"                        <b>Ejemplo:</b> Categoría \"Instalación\" → Producto \"Instalación\" "
+"(solo información) \n"
+"                        + Producto principal \"Instalaciones GPS\" (acumulador de horas)"
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid "<strong>How Parent Task Hierarchy Works:</strong>"
+msgstr "<strong>Cómo funciona la jerarquía de tareas principales:</strong>"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/wizards/helpdesk_create_fsm_task.py:0
+msgid "A subscription order is required for advanced upsell operations."
+msgstr "Para las operaciones de venta adicional avanzadas se requiere un pedido de suscripción."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.view_upsell_category_form_advanced
+msgid "Advanced Task Hierarchy Settings"
+msgstr "Configuración avanzada de la jerarquía de tareas"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/wizards/helpdesk_create_fsm_task.py:0
+msgid ""
+"Category: %(category)s\n"
+"Reference: %(reference)s\n"
+"Allocated Hours: %(hours)s"
+msgstr ""
+"Categoría: %(category)s\n"
+"Referencia: %(reference)s\n"
+"Horas asignadas: %(hours)s"
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model,name:helpdesk_task_upsell_advanced.model_helpdesk_create_fsm_task
+msgid "HelpdeskTicketConvertWizard"
+msgstr "Crear una tarea de servicio externo"
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,field_description:helpdesk_task_upsell_advanced.field_helpdesk_create_fsm_task__work_instructions
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.create_fsm_task_view_form_advanced_fields
+msgid "Instrucciones de Trabajo"
+msgstr "Instrucciones de Trabajo"
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,field_description:helpdesk_task_upsell_advanced.field_helpdesk_create_fsm_task__operation_reference
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.create_fsm_task_view_form_advanced_fields
+msgid "Operation Reference"
+msgstr "Referencia de operaciones"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/wizards/helpdesk_create_fsm_task.py:0
+msgid ""
+"Operation Reference is required.\n"
+"\n"
+"Please provide an identifier for this operation (e.g., vehicle plate, machine ID, serial number)."
+msgstr ""
+"Se requiere referencia de la operación..\n"
+"\n"
+"Por favor, proporcione un identificador para esta operación (p. ej., matrícula del vehículo, ID "
+"de la máquina, número de serie)."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.create_fsm_task_view_form_advanced_fields
+msgid ""
+"Optional: Add detailed instructions for the technician (e.g., verify cables, take photos, "
+"document issues...)"
+msgstr ""
+"Opcional: Añadir instrucciones detalladas para el técnico (por ejemplo, verificar los cables, "
+"tomar fotos, documentar los problemas...)."
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,help:helpdesk_task_upsell_advanced.field_helpdesk_create_fsm_task__work_instructions
+msgid "Optional: Detailed instructions for the technician performing this operation"
+msgstr "Opcional: Instrucciones detalladas para el técnico que realiza esta operación."
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,field_description:helpdesk_task_upsell_advanced.field_upsell_category__parent_product_id
+msgid "Parent Product (Hour Accumulator)"
+msgstr "Producto principal (acumulador de horas)"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/models/project_task.py:0
+msgid ""
+"Parent task for managing %(product)s operations.\n"
+"Total hours allocated: %(hours)s\n"
+"\n"
+"Subtasks will be created under this task and hours will accumulate here."
+msgstr ""
+"Tarea principal para gestionar las operaciones de %(producto).\n"
+"Total de horas asignadas: %(horas)\n"
+"\n"
+"Se crearán subtareas dentro de esta tarea y las horas se acumularán aquí."
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,help:helpdesk_task_upsell_advanced.field_upsell_category__parent_product_id
+msgid ""
+"Product where hours will actually accumulate and be invoiced.\n"
+"        This should be the main service product sold in the subscription \n"
+"        (e.g., 'GPS Installations' with 50 hours).\n"
+"        \n"
+"        When a task is created:\n"
+"        - The wizard will search for this product in the subscription order\n"
+"        - If found, it will use its parent task\n"
+"        - If not found, it will create a new line with this product\n"
+"        - Subtasks will log hours against this product's line\n"
+"        "
+msgstr ""
+"Producto donde se acumularán y facturarán las horas.\n"
+"        Este debe ser el producto de servicio principal incluido en la suscripción. \n"
+"        (p. ej., «Instalaciones GPS» con 50 horas).\n"
+"        \n"
+"        Al crear una tarea:\n"
+"        - El asistente buscará este producto en el pedido de la suscripción.\n"
+"        - Si lo encuentra, utilizará su tarea principal.\n"
+"        - Si no lo encuentra, creará una nueva línea con este producto.\n"
+"        - Las subtareas registrarán las horas en la línea de este producto."
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,help:helpdesk_task_upsell_advanced.field_helpdesk_create_fsm_task__operation_reference
+msgid "Short identifier for this operation (e.g., vehicle plate, machine ID, serial number)"
+msgstr ""
+"Identificador breve para esta operación (p. ej., matrícula del vehículo, ID de la máquina, "
+"número de serie)"
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model,name:helpdesk_task_upsell_advanced.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/models/upsell_category.py:0
+msgid ""
+"The 'Parent Product' and the 'Product' (dummy/informative) must be different.\n"
+"\n"
+"- Product: Used for informative lines (e.g., 'Installation: ABC-123')\n"
+"- Parent Product: Used for hour accumulation and invoicing (e.g., 'GPS Installations - 50 hours')"
+msgstr ""
+"El 'Producto Principal' y el 'Producto' (dummy/informativo) deben ser diferentes.\n"
+"\n"
+"- Producto: Se utiliza para líneas informativas (p. ej., 'Instalación: ABC-123')\n"
+"- Producto Principal: Se utiliza para el registro de horas y la facturación (p. ej., "
+"'Instalaciones de GPS - 50 hours')"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/wizards/helpdesk_create_fsm_task.py:0
+msgid ""
+"The category '%(category)s' is configured to use parent task hierarchy but does not have a "
+"'Parent Product' configured.\n"
+"\n"
+"Please configure the parent product in the category settings."
+msgstr ""
+"La categoría '%(category)s' está configurada para usar la jerarquía de tareas principales, pero "
+"no tiene configurado un 'Producto Principal'.\n"
+"\n"
+"Configure el producto principal en los ajustes de la categoría."
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/wizards/helpdesk_create_fsm_task.py:0
+msgid ""
+"The subscription order must be confirmed (state: 'sale') to create upsell tasks.\n"
+"\n"
+"Current state: %(state)s"
+msgstr ""
+"El pedido de suscripción debe estar confirmado (state: 'sale') Para crear tareas de venta "
+"adicional\n"
+"\n"
+"Estado actual: %(state)s"
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model,name:helpdesk_task_upsell_advanced.model_upsell_category
+msgid "Upsell Category"
+msgstr "Categoría de venta adicional"
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,field_description:helpdesk_task_upsell_advanced.field_upsell_category__use_parent_task
+msgid "Use Parent Task Hierarchy"
+msgstr "Utilizar jerarquía de tareas principales"
+
+#. module: helpdesk_task_upsell_advanced
+#. odoo-python
+#: code:addons/helpdesk_task_upsell_advanced/models/upsell_category.py:0
+msgid ""
+"When 'Use Parent Task Hierarchy' is enabled, you must specify a 'Parent Product (Hour "
+"Accumulator)'.\n"
+"\n"
+"This is the product where hours will accumulate and be invoiced."
+msgstr ""
+"Cuando la opción 'Usar jerarquía de tareas principales'está habilitada, debe especificar un "
+"'Producto principal (acumulador de horas)'.\n"
+"\n"
+"Este es el producto donde se acumularán las horas y se facturarán."
+
+#. module: helpdesk_task_upsell_advanced
+#: model:ir.model.fields,help:helpdesk_task_upsell_advanced.field_upsell_category__use_parent_task
+msgid ""
+"When enabled, this category will:\n"
+"        1. Create subtasks under a parent task (not independent tasks)\n"
+"        2. Use parent_product_id for hour accumulation\n"
+"        3. Create informative lines in SO with product_id (no invoicing)\n"
+"        4. Automatically find or create the parent task in the subscription order\n"
+"        \n"
+"        Use Case: For services sold in bulk (e.g., 50 GPS installations) where \n"
+"        you want individual operations as subtasks but hours accumulating in the \n"
+"        parent product line.\n"
+"        "
+msgstr ""
+"Cuando está habilitada, esta categoría hará lo siguiente:\n"
+"        1. Crear subtareas dentro de una tarea principal (no tareas independientes).\n"
+"        2. Utilizar el ID del producto principal para la acumulación de horas.\n"
+"        3. Crear líneas informativas en el pedido de venta con el ID del producto (sin "
+"facturación).\n"
+"        4. Encontrar o crear automáticamente la tarea principal en el pedido de suscripción.\n"
+"        \n"
+"        Caso de uso: Para servicios vendidos al por mayor (p. ej., 50 instalaciones de GPS) "
+"donde \n"
+"        se desean operaciones individuales como subtareas, pero con la acumulación de horas  \n"
+"        en la línea del producto principal."
+
+#. module: helpdesk_task_upsell_advanced
+#: model_terms:ir.ui.view,arch_db:helpdesk_task_upsell_advanced.create_fsm_task_view_form_advanced_fields
+msgid "e.g., ABC-123, M-789, Vehicle Plate..."
+msgstr "Por ejemplo, ABC-123, M-789, matrícula del vehículo..., n° Interno (123; 456; 78)"
