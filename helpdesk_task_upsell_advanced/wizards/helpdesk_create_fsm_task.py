@@ -119,7 +119,7 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
         parent_line_vals = {
             'order_id': self.subsription_id.id,
             'product_id': parent_product.id,
-            'product_uom_qty': self.qty,  # Initial quantity
+            'product_uom_qty': self.qty,
             'name': parent_product.name,
             'project_id': parent_product.project_id.id,
         }
@@ -159,8 +159,8 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
         :param parent_task: project.task record
         :return: project.task record (the created subtask)
         """
-        # Prepare subtask name
-        subtask_name = f"{self.name} - {self.upsell_category_id.name}: {self.task_description}"
+        # Prepare subtask name - SOLO categoría y descripción
+        subtask_name = f"{self.upsell_category_id.name}: {self.task_description}"
         
         # Prepare subtask description
         subtask_description = _(
@@ -213,11 +213,11 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
         line_vals = {
             'order_id': self.subsription_id.id,
             'product_id': dummy_product.id,
-            'product_uom_qty': 0,  # Zero quantity - won't invoice
+            'product_uom_qty': 0,
             'qty_delivered': 0,
             'name': f"{self.upsell_category_id.name}: {self.task_description}",
-            'price_unit': 0,  # Zero price
-            'task_id': subtask.id,  # Link to subtask for reference
+            'price_unit': 0,
+            'task_id': subtask.id,
         }
         
         # Create informative line
