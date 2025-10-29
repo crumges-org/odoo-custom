@@ -15,6 +15,11 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
     """
     _inherit = 'helpdesk.create.fsm.task'
 
+    task_full_description = fields.Text(
+        string='Task Full Description',
+        help="Optional: Detailed description for the task. If left empty, only basic info will be added."
+    )
+
     def action_generate_task(self):
         """
         Override to implement advanced task generation logic.
@@ -159,25 +164,23 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
         :param parent_task: project.task record
         :return: project.task record (the created subtask)
         """
-        # Prepare subtask name - SOLO categoría y descripción
+        # Prepare subtask name
         subtask_name = f"{self.upsell_category_id.name}: {self.task_description}"
         
-        # Prepare subtask description
-        subtask_description = _(
-            "%(category)s Operation\n"
-            "Description: %(description)s\n"
-            "Allocated Hours: %(hours)s\n\n"
-            "Related Ticket: %(ticket)s\n"
-            "Customer: %(customer)s\n\n"
-            "NOTE: This is a subtask. Hours logged here will accumulate in the parent task "
-            "and be invoiced through the parent product line."
-        ) % {
-            'category': self.upsell_category_id.name,
-            'description': self.task_description,
-            'hours': self.qty,
-            'ticket': self.helpdesk_ticket_id.name if self.helpdesk_ticket_id else 'N/A',
-            'customer': self.partner_id.name,
-        }
+        # Prepare subtask description - usar el campo task_full_description si existe
+        if self.task_full_description:
+            subtask_description = self.task_full_description
+        else:
+            # Descripción básica si no se proporcionó una personalizada
+            subtask_description = _(
+                "Category: %(category)s\n"
+                "Description: %(description)s\n"
+                "Allocated Hours: %(hours)s\n"
+            ) % {
+                'category': self.upsell_category_id.name,
+                'description': self.task_description,
+                'hours': self.qty,
+            }
         
         # Prepare subtask values using helper method
         subtask_vals = self.env['project.task']._prepare_subtask_values(
@@ -188,8 +191,13 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
             helpdesk_ticket_id=self.helpdesk_ticket_id.id if self.helpdesk_ticket_id else False
         )
         
-        # Create subtask
-        subtask = self.env['project.task'].create(subtask_vals)
+        # Create subtask with context to disable automatic emails
+        subtask = self.env['project.task'].with_context(
+            mail_create_nolog=True,
+            mail_create_nosubscribe=True,
+            mail_auto_subscribe_no_notify=True,
+            tracking_disable=True,
+        ).create(subtask_vals)
         
         _logger.info(
             f"Created subtask {subtask.id} '{subtask.name}' under parent task {parent_task.id}"

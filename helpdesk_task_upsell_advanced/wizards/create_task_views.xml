@@ -1,48 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
-    <!--
-        Wizard View Extensions
-        ======================
-        
-        NOTE: The base wizard from helpdesk_task_upsell already has all the 
-        necessary fields (for_upsell, upsell_category_id, subsription_id, 
-        task_description, qty).
-        
-        The advanced logic is handled entirely in Python (wizard model override).
-        No additional UI fields are needed at this time.
-        
-        This file is kept as a placeholder for potential future UI enhancements, such as:
-        - Help text about parent/child task hierarchy
-        - Visual indicators when use_parent_task is active
-        - Preview of parent task that will be used
-        - Information about existing parent lines
-        
-        For now, the wizard works transparently with the existing UI.
-    -->
-    
-    <!-- 
-        Example: Add help text when parent task hierarchy is active
-        Uncomment and customize if needed:
-    -->
-    <record id="create_fsm_task_view_form_advanced_help" model="ir.ui.view">
-        <field name="name">Create FSM Task - Advanced Help</field>
+    <!-- Add field for full task description in wizard -->
+    <record id="create_fsm_task_view_form_advanced_description" model="ir.ui.view">
+        <field name="name">Create FSM Task - Advanced Description Field</field>
         <field name="model">helpdesk.create.fsm.task</field>
         <field name="inherit_id" ref="helpdesk_task_upsell.create_fsm_task_view_form_inherited"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='upsell_category_id']" position="after">
-                <div class="alert alert-success" role="alert"
+            
+            <!-- Add task_full_description field after qty -->
+            <xpath expr="//field[@name='qty']" position="after">
+                <field name="task_full_description"
                     invisible="not for_upsell or not upsell_category_id.use_parent_task"
-                    colspan="2">
-                    <i class="fa fa-info-circle"/>
-                    <b>Parent Task Hierarchy Active</b>
-                    <p class="mb-0">
-                        This category uses advanced task hierarchy. 
-                        A subtask will be created under the parent task, 
-                        and hours will accumulate in the parent product line.
-                    </p>
-                </div>
+                    placeholder="Optional: Add detailed instructions or notes for the technician..."
+                    colspan="2"/>
             </xpath>
+            
         </field>
     </record>
 
