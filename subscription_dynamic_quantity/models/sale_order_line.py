@@ -16,6 +16,12 @@ class SaleOrderLine(models.Model):
         help='Technical field to identify subscription lines managed by this module',
     )
     
+    auto_managed_subscription = fields.Boolean(
+        string='Auto-Managed Subscription',
+        default=False,
+        help='Technical field to mark subscription lines managed automatically by this module',
+    )
+    
     linked_service_line_ids = fields.One2many(
         comodel_name='sale.order.line',
         inverse_name='id',
@@ -73,55 +79,65 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    @api.depends('product_id', 'product_id.subscription_product_id', 
-                 'order_id.order_line.qty_delivered', 'order_id.order_line.product_id')
-    def _compute_qty_delivered(self):
+    def _calculate_subscription_quantity(self):
         """
-        Override qty_delivered computation for subscription lines.
-        Calculate: SUM(delivered installations) - SUM(delivered uninstallations)
-        If negative, force to 0 and create message in chatter.
+        Calculate subscription quantity based on service deliveries.
+        Returns: (installations, uninstallations, final_quantity)
         """
-        subscription_lines = self.filtered('is_subscription_line')
-        other_lines = self - subscription_lines
+        self.ensure_one()
         
-        if other_lines:
-            super(SaleOrderLine, other_lines)._compute_qty_delivered()
+        if not self.is_subscription_line or not self.order_id:
+            return (0.0, 0.0, 0.0)
         
-        for line in subscription_lines:
-            if not line.order_id:
-                line.qty_delivered = 0.0
-                continue
+        service_lines = self.order_id.order_line.filtered(
+            lambda l: l.product_id.subscription_product_id == self.product_id
+        )
+        
+        if not service_lines:
+            return (0.0, 0.0, 0.0)
+        
+        installations = sum(
+            service_lines.filtered(
+                lambda l: l.product_id.subscription_service_type == 'installation'
+            ).mapped('qty_delivered')
+        )
+        
+        uninstallations = sum(
+            service_lines.filtered(
+                lambda l: l.product_id.subscription_service_type == 'uninstallation'
+            ).mapped('qty_delivered')
+        )
+        
+        calculated_qty = installations - uninstallations
+        final_qty = max(0.0, calculated_qty)  # Protección contra negativos
+        
+        return (installations, uninstallations, final_qty)
+
+    def _update_subscription_quantity(self):
+        """
+        Update subscription quantity based on delivered services.
+        This works with ANY invoicing policy (prepaid, fixed price, delivered).
+        """
+        self.ensure_one()
+        
+        if not self.auto_managed_subscription:
+            return
+        
+        installations, uninstallations, final_qty = self._calculate_subscription_quantity()
+        calculated_qty = installations - uninstallations
+        
+        # Solo actualizar si la cantidad cambió
+        if self.product_uom_qty != final_qty:
             
-            service_lines = line.order_id.order_line.filtered(
-                lambda l: l.product_id.subscription_product_id == line.product_id
-            )
-            
-            if not service_lines:
-                line.qty_delivered = 0.0
-                continue
-            
-            installations = sum(
-                service_lines.filtered(
-                    lambda l: l.product_id.subscription_service_type == 'installation'
-                ).mapped('qty_delivered')
-            )
-            
-            uninstallations = sum(
-                service_lines.filtered(
-                    lambda l: l.product_id.subscription_service_type == 'uninstallation'
-                ).mapped('qty_delivered')
-            )
-            
-            calculated_qty = installations - uninstallations
-            
+            # Logging en caso de cantidad negativa ajustada
             if calculated_qty < 0:
                 _logger.warning(
                     'Subscription quantity would be negative for order %s, product %s. '
                     'Installations: %s, Uninstallations: %s. Forcing to 0.',
-                    line.order_id.name, line.product_id.name, installations, uninstallations
+                    self.order_id.name, self.product_id.name, installations, uninstallations
                 )
                 
-                line.order_id.message_post(
+                self.order_id.message_post(
                     body=_(
                         '<div style="padding: 15px; border-left: 4px solid #ffc107; background-color: #fff3cd;">'
                         '<h4 style="margin-top: 0; color: #856404;">⚠️ Subscription Quantity Adjusted</h4>'
@@ -152,7 +168,7 @@ class SaleOrderLine(models.Model):
                         '</div>'
                         '</div>'
                     ) % (
-                        line.product_id.name,
+                        self.product_id.name,
                         installations,
                         uninstallations,
                         calculated_qty,
@@ -163,10 +179,16 @@ class SaleOrderLine(models.Model):
                     message_type='notification',
                     subtype_xmlid='mail.mt_note',
                 )
-                
-                line.qty_delivered = 0.0
-            else:
-                line.qty_delivered = calculated_qty
+            
+            # Actualizar la cantidad SIN disparar recursión
+            self.with_context(skip_subscription_update=True).write({
+                'product_uom_qty': final_qty
+            })
+            
+            _logger.info(
+                'Updated subscription quantity for order %s, product %s: %s (from %s installations, %s uninstallations)',
+                self.order_id.name, self.product_id.name, final_qty, installations, uninstallations
+            )
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_add_subscription(self):
@@ -212,6 +234,10 @@ class SaleOrderLine(models.Model):
 
     def write(self, vals):
         """After updating lines, ensure subscription lines exist and recalculate."""
+        # Prevenir recursión infinita
+        if self.env.context.get('skip_subscription_update'):
+            return super().write(vals)
+        
         res = super().write(vals)
         
         if 'product_id' in vals:
@@ -224,12 +250,12 @@ class SaleOrderLine(models.Model):
             for line in self:
                 if line.product_id.subscription_product_id:
                     # Buscar la línea de suscripción correspondiente
-                    subscription_line = line.order_id.order_line.filtered(
-                        lambda l: l.product_id == line.product_id.subscription_product_id
+                    subscription_lines = line.order_id.order_line.filtered(
+                        lambda l: l.product_id == line.product_id.subscription_product_id 
+                        and l.auto_managed_subscription
                     )
-                    if subscription_line:
-                        # Forzar recálculo
-                        subscription_line._compute_qty_delivered()
+                    for sub_line in subscription_lines:
+                        sub_line._update_subscription_quantity()
         
         return res
 
@@ -240,22 +266,7 @@ class SaleOrderLine(models.Model):
         if not self.is_subscription_line:
             return
         
-        service_lines = self.order_id.order_line.filtered(
-            lambda l: l.product_id.subscription_product_id == self.product_id
-        )
-        
-        installations = sum(
-            service_lines.filtered(
-                lambda l: l.product_id.subscription_service_type == 'installation'
-            ).mapped('qty_delivered')
-        )
-        
-        uninstallations = sum(
-            service_lines.filtered(
-                lambda l: l.product_id.subscription_service_type == 'uninstallation'
-            ).mapped('qty_delivered')
-        )
-        
+        installations, uninstallations, final_qty = self._calculate_subscription_quantity()
         calculated = installations - uninstallations
         
         message = _(
@@ -286,7 +297,7 @@ class SaleOrderLine(models.Model):
             calculated,
             '#fff3cd' if self.has_negative_warning else '#d4edda',
             '#dc3545' if self.has_negative_warning else '#28a745',
-            self.qty_delivered
+            self.product_uom_qty
         )
         
         if self.has_negative_warning:
