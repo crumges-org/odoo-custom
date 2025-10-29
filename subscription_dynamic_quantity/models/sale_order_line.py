@@ -73,23 +73,13 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    @api.depends('product_id', 'product_id.subscription_product_id', 
-                 'order_id.order_line.qty_delivered', 'order_id.order_line.product_id')
-    def _compute_qty_delivered(self):
+    def _update_subscription_quantity(self):
         """
-        Override qty_delivered computation for subscription lines.
+        Update product_uom_qty for subscription lines.
         Calculate: SUM(delivered installations) - SUM(delivered uninstallations)
-        If negative, force to 0 and create message in chatter.
         """
-        subscription_lines = self.filtered('is_subscription_line')
-        other_lines = self - subscription_lines
-        
-        if other_lines:
-            super(SaleOrderLine, other_lines)._compute_qty_delivered()
-        
-        for line in subscription_lines:
-            if not line.order_id:
-                line.qty_delivered = 0.0
+        for line in self:
+            if not line.is_subscription_line or not line.order_id:
                 continue
             
             service_lines = line.order_id.order_line.filtered(
@@ -97,7 +87,6 @@ class SaleOrderLine(models.Model):
             )
             
             if not service_lines:
-                line.qty_delivered = 0.0
                 continue
             
             installations = sum(
@@ -164,9 +153,11 @@ class SaleOrderLine(models.Model):
                     subtype_xmlid='mail.mt_note',
                 )
                 
-                line.qty_delivered = 0.0
-            else:
-                line.qty_delivered = calculated_qty
+                calculated_qty = 0.0
+            
+            # Actualizar product_uom_qty en lugar de qty_delivered
+            if line.product_uom_qty != calculated_qty:
+                line.product_uom_qty = calculated_qty
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_add_subscription(self):
@@ -228,8 +219,8 @@ class SaleOrderLine(models.Model):
                         lambda l: l.product_id == line.product_id.subscription_product_id
                     )
                     if subscription_line:
-                        # Forzar recálculo
-                        subscription_line._compute_qty_delivered()
+                        # Actualizar cantidad
+                        subscription_line._update_subscription_quantity()
         
         return res
 
@@ -286,7 +277,7 @@ class SaleOrderLine(models.Model):
             calculated,
             '#fff3cd' if self.has_negative_warning else '#d4edda',
             '#dc3545' if self.has_negative_warning else '#28a745',
-            self.qty_delivered
+            self.product_uom_qty
         )
         
         if self.has_negative_warning:
