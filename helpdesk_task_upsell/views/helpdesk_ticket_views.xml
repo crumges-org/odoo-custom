@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
+  <odoo>
       
-    <!-- Vista del formulario de helpdesk.ticket -->
+    <!-- View helpdesk.ticket form -->
     <record id="view_helpdesk_ticket_form_inherited" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.form.upsell</field>
+        <field name="name">view.helpdesk.ticket.form.inherited</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//page[@name='extra_info']" position="after">
-                <page string="Venta Adicional" name="upsell" invisible="not has_upsell">
+                <page string="Upsell" name="upsell" invisible="not for_upsell">
                     <group>
-                        <field name="has_upsell" invisible="1"/>
-                        <field name="upsell_product_id" readonly="1"/>
-                        <field name="subscription_id" readonly="1"/>
+                        <field name="for_upsell" invisible="1" 
+                            readonly="1"
+                        />
+                        <field name="upsell_category_id"
+                            readonly="1"
+                            invisible="not for_upsell" />
+                        <field name="subsription_id" 
+                          readonly="1" />
                     </group>
                 </page>
             </xpath>
         </field>
     </record>
 
-</odoo>
+  </odoo>

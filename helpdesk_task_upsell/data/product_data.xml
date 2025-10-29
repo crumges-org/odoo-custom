@@ -1,65 +1,29 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-        <!-- Productos Dummy para líneas informativas -->
-        <record id="product_dummy_generic" model="product.template">
-            <field name="name">Registro de Servicio (Informativo)</field>
+        <record id="product_template_1" model="product.template">
+            <field name="name">Reparation</field>
+            <field name="is_upsell">True</field>
             <field name="type">service</field>
-            <field name="list_price">0</field>
-            <field name="standard_price">0</field>
-            <field name="sale_ok">False</field>
-            <field name="purchase_ok">False</field>
-            <field name="invoice_policy">order</field>
-            <field name="description_sale">Línea informativa para trazabilidad - No facturable</field>
-        </record>
-        
-        <!-- Ejemplo: Producto de Servicio Pre-contratado (Bolsa de horas) -->
-        <record id="product_gps_installation_bulk" model="product.template">
-            <field name="name">Instalación de GPS - Paquete 30 unidades</field>
-            <field name="type">service</field>
-            <field name="list_price">3000</field>
-            <field name="service_tracking">task_global_project</field>
-            <field name="service_policy">delivered_timesheet</field>
-            <field name="project_id" ref="industry_fsm.fsm_project" />
-            <field name="description_sale">Paquete de 30 instalaciones de GPS para ejecutar bajo demanda</field>
-        </record>
-        
-        <!-- Ejemplo: Categoría de Venta Adicional - Instalación -->
-        <record id="product_category_installation" model="product.template">
-            <field name="name">Instalación</field>
-            <field name="type">service</field>
-            <field name="is_upsell_category">True</field>
-            <field name="upsell_mode">prepaid_consumption</field>
-            <field name="parent_service_product_id" ref="product_gps_installation_bulk"/>
-            <field name="dummy_product_id" ref="product_dummy_generic"/>
             <field name="service_tracking">task_global_project</field>
             <field name="service_policy">delivered_timesheet</field>
             <field name="project_id" ref="industry_fsm.fsm_project" />
         </record>
-        
-        <!-- Ejemplo: Categoría de Venta Adicional - Reparación -->
-        <record id="product_category_repair" model="product.template">
-            <field name="name">Reparación</field>
+        <record id="product_template_2" model="product.template">
+            <field name="name">Installation</field>
+            <field name="is_upsell">True</field>
             <field name="type">service</field>
-            <field name="is_upsell_category">True</field>
-            <field name="upsell_mode">additional_sale</field>
-            <field name="list_price">100</field>
             <field name="service_tracking">task_global_project</field>
             <field name="service_policy">delivered_timesheet</field>
             <field name="project_id" ref="industry_fsm.fsm_project" />
         </record>
-        
-        <!-- Ejemplo: Categoría de Venta Adicional - Desinstalación -->
-        <record id="product_category_uninstall" model="product.template">
-            <field name="name">Desinstalación</field>
+        <record id="product_template_3" model="product.template">
+            <field name="name">Uninstallation</field>
+            <field name="is_upsell">True</field>
             <field name="type">service</field>
-            <field name="is_upsell_category">True</field>
-            <field name="upsell_mode">additional_sale</field>
-            <field name="list_price">75</field>
             <field name="service_tracking">task_global_project</field>
             <field name="service_policy">delivered_timesheet</field>
             <field name="project_id" ref="industry_fsm.fsm_project" />
         </record>
-        
     </data>
 </odoo>
