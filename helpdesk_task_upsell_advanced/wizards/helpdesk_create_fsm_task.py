@@ -15,9 +15,14 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
     """
     _inherit = 'helpdesk.create.fsm.task'
 
-    task_full_description = fields.Text(
-        string='Task Full Description',
-        help="Optional: Detailed description for the task. If left empty, only basic info will be added."
+    operation_reference = fields.Char(
+        string='Operation Reference',
+        help="Short identifier for this operation (e.g., vehicle plate, machine ID, serial number)"
+    )
+    
+    work_instructions = fields.Text(
+        string='Instrucciones de Trabajo',
+        help="Optional: Detailed instructions for the technician performing this operation"
     )
 
     def action_generate_task(self):
@@ -96,6 +101,13 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
                 "to create upsell tasks.\n\n"
                 "Current state: %(state)s"
             ) % {'state': self.subsription_id.state})
+        
+        if not self.operation_reference:
+            raise ValidationError(_(
+                "Operation Reference is required.\n\n"
+                "Please provide an identifier for this operation "
+                "(e.g., vehicle plate, machine ID, serial number)."
+            ))
 
     def _get_or_create_parent_line(self):
         """
@@ -165,20 +177,21 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
         :return: project.task record (the created subtask)
         """
         # Prepare subtask name
-        subtask_name = f"{self.upsell_category_id.name}: {self.task_description}"
+        subtask_name = f"{self.upsell_category_id.name}: {self.operation_reference}"
         
-        # Prepare subtask description - usar el campo task_full_description si existe
-        if self.task_full_description:
-            subtask_description = self.task_full_description
+        # Prepare subtask description
+        if self.work_instructions:
+            # Usar instrucciones de trabajo si se proporcionaron
+            subtask_description = self.work_instructions
         else:
-            # Descripción básica si no se proporcionó una personalizada
+            # Descripción básica si no hay instrucciones
             subtask_description = _(
                 "Category: %(category)s\n"
-                "Description: %(description)s\n"
-                "Allocated Hours: %(hours)s\n"
+                "Reference: %(reference)s\n"
+                "Allocated Hours: %(hours)s"
             ) % {
                 'category': self.upsell_category_id.name,
-                'description': self.task_description,
+                'reference': self.operation_reference,
                 'hours': self.qty,
             }
         
@@ -223,7 +236,7 @@ class HelpdeskCreateFSMTaskAdvanced(models.TransientModel):
             'product_id': dummy_product.id,
             'product_uom_qty': 0,
             'qty_delivered': 0,
-            'name': f"{self.upsell_category_id.name}: {self.task_description}",
+            'name': f"{self.upsell_category_id.name}: {self.operation_reference}",
             'price_unit': 0,
             'task_id': subtask.id,
         }

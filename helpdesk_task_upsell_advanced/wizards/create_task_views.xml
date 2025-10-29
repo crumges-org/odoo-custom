@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
-    <!-- Add field for full task description in wizard -->
-    <record id="create_fsm_task_view_form_advanced_description" model="ir.ui.view">
-        <field name="name">Create FSM Task - Advanced Description Field</field>
+    <!-- Add new fields for advanced upsell operations -->
+    <record id="create_fsm_task_view_form_advanced_fields" model="ir.ui.view">
+        <field name="name">Create FSM Task - Advanced Fields</field>
         <field name="model">helpdesk.create.fsm.task</field>
         <field name="inherit_id" ref="helpdesk_task_upsell.create_fsm_task_view_form_inherited"/>
         <field name="arch" type="xml">
             
-            <!-- Add task_full_description field after qty -->
-            <xpath expr="//field[@name='qty']" position="after">
-                <field name="task_full_description"
+            <!-- Hide original task_description field when using advanced mode -->
+            <xpath expr="//field[@name='task_description']" position="attributes">
+                <attribute name="invisible">for_upsell and upsell_category_id.use_parent_task</attribute>
+            </xpath>
+            
+            <!-- Add operation_reference after upsell_category_id -->
+            <xpath expr="//field[@name='upsell_category_id']" position="after">
+                
+                <field name="operation_reference"
                     invisible="not for_upsell or not upsell_category_id.use_parent_task"
-                    placeholder="Optional: Add detailed instructions or notes for the technician..."
+                    required="for_upsell and upsell_category_id.use_parent_task"
+                    placeholder="e.g., ABC-123, M-789, Vehicle Plate..."
+                    string="Operation Reference"/>
+                
+            </xpath>
+            
+            <!-- Add work_instructions after qty -->
+            <xpath expr="//field[@name='qty']" position="after">
+                
+                <field name="work_instructions"
+                    invisible="not for_upsell or not upsell_category_id.use_parent_task"
+                    placeholder="Optional: Add detailed instructions for the technician (e.g., verify cables, take photos, document issues...)"
+                    string="Instrucciones de Trabajo"
                     colspan="2"/>
+                
             </xpath>
             
         </field>
     </record>
 
 </odoo>
+
