@@ -25,7 +25,6 @@
         Example: Add help text when parent task hierarchy is active
         Uncomment and customize if needed:
     -->
-    <!--
     <record id="create_fsm_task_view_form_advanced_help" model="ir.ui.view">
         <field name="name">Create FSM Task - Advanced Help</field>
         <field name="model">helpdesk.create.fsm.task</field>
@@ -46,6 +45,5 @@
             </xpath>
         </field>
     </record>
-    -->
 
 </odoo>
