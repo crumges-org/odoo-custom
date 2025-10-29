@@ -31,6 +31,13 @@ class SaleOrderLine(models.Model):
         help='Indicates if this line would have negative quantity without protection',
     )
 
+    subscription_qty_trigger = fields.Float(
+        string='Subscription Quantity Trigger',
+        compute='_compute_subscription_qty_trigger',
+        store=False,
+        help='Technical field to trigger subscription quantity updates',
+    )
+
     @api.depends('product_id', 'product_id.recurring_invoice')
     def _compute_is_subscription_line(self):
         """Identify if this line is a subscription product."""
@@ -72,6 +79,19 @@ class SaleOrderLine(models.Model):
             )
             
             line.has_negative_warning = (installations - uninstallations) < 0
+
+    @api.depends('order_id.order_line.qty_delivered', 'order_id.order_line.product_id.subscription_product_id')
+    def _compute_subscription_qty_trigger(self):
+        """
+        Trigger subscription quantity update when service deliveries change.
+        This field itself is not important, but its compute triggers the update.
+        """
+        for line in self:
+            if line.is_subscription_line and line.order_id:
+                line.subscription_qty_trigger = 0.0
+                line._update_subscription_quantity()
+            else:
+                line.subscription_qty_trigger = 0.0
 
     def _update_subscription_quantity(self):
         """
@@ -202,25 +222,13 @@ class SaleOrderLine(models.Model):
         return lines
 
     def write(self, vals):
-        """After updating lines, ensure subscription lines exist and recalculate."""
+        """After updating lines, ensure subscription lines exist."""
         res = super().write(vals)
         
         if 'product_id' in vals:
             orders = self.mapped('order_id')
             for order in orders:
                 order._ensure_subscription_lines()
-        
-        # Si se modifica qty_delivered en una línea de servicio, recalcular suscripciones
-        if 'qty_delivered' in vals:
-            for line in self:
-                if line.product_id.subscription_product_id:
-                    # Buscar la línea de suscripción correspondiente
-                    subscription_line = line.order_id.order_line.filtered(
-                        lambda l: l.product_id == line.product_id.subscription_product_id
-                    )
-                    if subscription_line:
-                        # Actualizar cantidad
-                        subscription_line._update_subscription_quantity()
         
         return res
 
@@ -310,7 +318,7 @@ class SaleOrderLine(models.Model):
             return
         
         service_lines = self.order_id.order_line.filtered(
-            lambda l: l.product_id.subscription_product_id == self.product_id
+            lambda l: l.product_id.subscription_product_id == line.product_id
         )
         
         return {
