@@ -73,13 +73,19 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
+    # ⭐ CAMBIO CLAVE #1: No modificar qty_delivered de suscripciones
+    @api.depends('product_id', 'product_id.subscription_product_id', 
+                 'order_id.order_line.qty_delivered', 'order_id.order_line.product_id')
     def _compute_qty_delivered(self):
         """
-        Override to update subscription quantities when service deliveries change.
+        Override para actualizar suscripciones cuando cambian entregas de servicios.
+        YA NO modificamos qty_delivered de líneas de suscripción.
+        En su lugar, actualizamos product_uom_qty.
         """
+        # Llamar a super para TODAS las líneas (incluidas suscripciones)
         res = super()._compute_qty_delivered()
         
-        # Después de calcular qty_delivered, actualizar suscripciones relacionadas
+        # Después de calcular qty_delivered, actualizar product_uom_qty de suscripciones relacionadas
         for line in self:
             if line.product_id.subscription_product_id and line.order_id:
                 subscription_product = line.product_id.subscription_product_id
@@ -90,13 +96,16 @@ class SaleOrderLine(models.Model):
                 )
                 
                 if subscription_line:
+                    # ⭐ Actualizar product_uom_qty (no qty_delivered)
                     subscription_line._update_subscription_quantity()
         
         return res
 
+    # ⭐ CAMBIO CLAVE #2: Nuevo método que actualiza product_uom_qty
     def _update_subscription_quantity(self):
         """
-        Update product_uom_qty for subscription lines based on service deliveries.
+        Actualizar product_uom_qty de líneas de suscripción basándose en entregas de servicios.
+        Este método es llamado cuando cambia qty_delivered de servicios relacionados.
         """
         for line in self:
             if not line.is_subscription_line or not line.order_id:
@@ -175,7 +184,7 @@ class SaleOrderLine(models.Model):
                 
                 calculated_qty = 0.0
             
-            # Actualizar product_uom_qty
+            # ⭐ CAMBIO CLAVE #3: Actualizar product_uom_qty en lugar de qty_delivered
             if line.product_uom_qty != calculated_qty:
                 _logger.info(
                     'Updating subscription quantity for order %s, product %s: %s -> %s',
@@ -234,6 +243,9 @@ class SaleOrderLine(models.Model):
             for order in orders:
                 order._ensure_subscription_lines()
         
+        # ⭐ ELIMINADO: Ya no necesitamos forzar recálculo aquí
+        # El método _compute_qty_delivered() se encarga automáticamente
+        
         return res
 
     def action_view_subscription_details(self):
@@ -289,7 +301,7 @@ class SaleOrderLine(models.Model):
             calculated,
             '#fff3cd' if self.has_negative_warning else '#d4edda',
             '#dc3545' if self.has_negative_warning else '#28a745',
-            self.product_uom_qty
+            self.product_uom_qty  # ⭐ CAMBIO: Mostrar product_uom_qty en lugar de qty_delivered
         )
         
         if self.has_negative_warning:
