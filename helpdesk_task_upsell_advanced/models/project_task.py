@@ -13,6 +13,7 @@ class ProjectTaskAdvanced(models.Model):
     """
     _inherit = 'project.task'
 
+    @api.model
     def _get_or_create_parent_task(self, sale_line, project_id, partner_id):
         """
         Find or create a parent task for a given sale order line.
@@ -26,8 +27,6 @@ class ProjectTaskAdvanced(models.Model):
         :param partner_id: res.partner record (customer)
         :return: project.task record (parent task)
         """
-        self.ensure_one()
-        
         # Search for existing parent task
         parent_task = self.search([
             ('sale_line_id', '=', sale_line.id),
