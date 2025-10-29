@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Extend Upsell Category Form View -->
+    <record id="view_upsell_category_form_advanced" model="ir.ui.view">
+        <field name="name">view.upsell.category.form.advanced</field>
+        <field name="model">upsell.category</field>
+        <field name="inherit_id" ref="helpdesk_task_upsell.view_upsell_category_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add advanced fields after product_id -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                
+                <!-- Separator for advanced settings -->
+                <separator string="Advanced Task Hierarchy Settings" 
+                    colspan="2"/>
+                
+                <!-- Use Parent Task checkbox -->
+                <field name="use_parent_task" 
+                    widget="boolean_toggle"/>
+                
+                <!-- Parent Product field -->
+                <field name="parent_product_id"
+                    invisible="not use_parent_task"
+                    required="use_parent_task"
+                    options="{'no_create': True, 'no_create_edit': True}"/>
+                
+                <!-- Help text / Information -->
+                <div class="alert alert-info" role="alert" 
+                    invisible="not use_parent_task"
+                    colspan="2">
+                    <strong>How Parent Task Hierarchy Works:</strong>
+                    <ul>
+                        <li><b>Product (above):</b> Used for informative lines in the order 
+                            (e.g., "Installation: ABC-123"). These lines don't invoice.</li>
+                        <li><b>Parent Product:</b> Where hours accumulate and get invoiced 
+                            (e.g., "GPS Installations - 50 hours").</li>
+                        <li><b>Task Structure:</b> Creates subtasks under a parent task. 
+                            Hours from subtasks accumulate in the parent.</li>
+                        <li><b>Automatic Detection:</b> The system will find or create 
+                            the parent task automatically.</li>
+                    </ul>
+                    <p class="mb-0">
+                        <i class="fa fa-lightbulb-o"/> 
+                        <b>Example:</b> Category "Installation" → Product "Installation" (info only) 
+                        + Parent Product "GPS Installations" (hour accumulator)
+                    </p>
+                </div>
+                
+            </xpath>
+            
+        </field>
+    </record>
+
+    <!-- Extend Upsell Category List View -->
+    <record id="view_upsell_category_list_advanced" model="ir.ui.view">
+        <field name="name">view.upsell.category.list.advanced</field>
+        <field name="model">upsell.category</field>
+        <field name="inherit_id" ref="helpdesk_task_upsell.view_upsell_category_list"/>
+        <field name="arch" type="xml">
+            
+            <!-- Add columns for advanced fields -->
+            <xpath expr="//field[@name='product_id']" position="after">
+                <field name="use_parent_task" widget="boolean_toggle"/>
+                <field name="parent_product_id" 
+                    optional="show"
+                    invisible="not use_parent_task"/>
+            </xpath>
+            
+        </field>
+    </record>
+
+</odoo>
