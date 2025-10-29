@@ -73,7 +73,6 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    # ⭐ SOLUCIÓN: Mostrar valor real (incluso negativo)
     @api.depends('is_subscription_line', 
                  'product_id', 
                  'order_id.order_line.qty_delivered', 
@@ -86,7 +85,6 @@ class SaleOrderLine(models.Model):
         """
         subscription_lines = self.filtered('is_subscription_line')
         
-        # Para líneas de suscripción, calcular la cantidad automáticamente
         for line in subscription_lines:
             if not line.order_id:
                 line.product_uom_qty = 0.0
@@ -114,8 +112,7 @@ class SaleOrderLine(models.Model):
             
             calculated_qty = installations - uninstallations
             
-            # ⭐ CAMBIO: Mostrar el valor real, incluso si es negativo
-            # El usuario necesita ver que algo está mal
+            # Si es negativo, registrar warning Y postear mensaje simple
             if calculated_qty < 0:
                 _logger.warning(
                     'Subscription quantity is NEGATIVE for order %s, product %s. '
@@ -123,6 +120,32 @@ class SaleOrderLine(models.Model):
                     line.order_id.name, line.product_id.name, 
                     installations, uninstallations, calculated_qty
                 )
+                
+                # ⭐ MENSAJE SIMPLE que funciona bien en el chatter
+                if line.order_id and line.order_id.id:
+                    try:
+                        message = _(
+                            "⚠️ <b>Negative Subscription Quantity Detected</b><br/><br/>"
+                            "<b>Product:</b> %s<br/>"
+                            "<b>Installations Delivered:</b> %s<br/>"
+                            "<b>Uninstallations Delivered:</b> %s<br/>"
+                            "<b>Resulting Quantity:</b> <span style='color: red;'><b>%s</b></span><br/><br/>"
+                            "⚠️ <b>Action Required:</b> Please review the hours logged in the tasks. "
+                            "The uninstallation hours exceed the installation hours."
+                        ) % (
+                            line.product_id.name,
+                            installations,
+                            uninstallations,
+                            calculated_qty
+                        )
+                        
+                        line.order_id.message_post(
+                            body=message,
+                            message_type='comment',
+                            subtype_xmlid='mail.mt_note',
+                        )
+                    except Exception as e:
+                        _logger.debug('Could not post message to order: %s', e)
             
             # Asignar el valor real (puede ser negativo)
             line.product_uom_qty = calculated_qty
