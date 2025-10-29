@@ -10,7 +10,21 @@
             
             <field name="partner_id" position="after">
                 <field name="has_subscription_lines" invisible="1"/>
+                <field name="has_negative_subscription" invisible="1"/>
+                <field name="negative_subscription_message" invisible="1"/>
             </field>
+            
+            <!-- ⭐ ADVERTENCIA VISUAL en la parte superior de la orden -->
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-warning" role="alert" 
+                     invisible="not has_negative_subscription"
+                     style="margin-bottom: 0px;">
+                    <field name="negative_subscription_message" 
+                           nolabel="1" 
+                           readonly="1"
+                           widget="html"/>
+                </div>
+            </xpath>
             
             <xpath expr="//notebook" position="inside">
                 <page string="Subscription Info" 

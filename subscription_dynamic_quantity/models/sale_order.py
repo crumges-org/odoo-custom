@@ -12,12 +12,50 @@ class SaleOrder(models.Model):
         store=True,
     )
     
+    # ⭐ NUEVO: Detectar suscripciones con cantidad negativa
+    has_negative_subscription = fields.Boolean(
+        string='Has Negative Subscription',
+        compute='_compute_has_negative_subscription',
+        help='Indicates if any subscription line has negative quantity',
+    )
+    
+    negative_subscription_message = fields.Html(
+        string='Negative Subscription Warning',
+        compute='_compute_has_negative_subscription',
+    )
+    
     @api.depends('order_line.is_subscription_line')
     def _compute_has_subscription_lines(self):
         for order in self:
             order.has_subscription_lines = any(
                 line.is_subscription_line for line in order.order_line
             )
+
+    @api.depends('order_line.is_subscription_line', 'order_line.product_uom_qty', 'order_line.has_negative_warning')
+    def _compute_has_negative_subscription(self):
+        """Check if any subscription line has negative quantity."""
+        for order in self:
+            negative_lines = order.order_line.filtered(
+                lambda l: l.is_subscription_line and l.product_uom_qty < 0
+            )
+            
+            order.has_negative_subscription = bool(negative_lines)
+            
+            if negative_lines:
+                products_list = ', '.join([
+                    f'<strong>{line.product_id.name}</strong> ({line.product_uom_qty})' 
+                    for line in negative_lines
+                ])
+                
+                order.negative_subscription_message = _(
+                    '<strong>⚠️ Warning: Negative Subscription Quantities Detected</strong><br/>'
+                    'The following subscription products have negative quantities:<br/>'
+                    '%s<br/><br/>'
+                    '<strong>Action Required:</strong> Review the hours logged in the installation and '
+                    'uninstallation tasks. The uninstallation hours exceed the installation hours.'
+                ) % products_list
+            else:
+                order.negative_subscription_message = False
 
     def _ensure_subscription_lines(self):
         """
