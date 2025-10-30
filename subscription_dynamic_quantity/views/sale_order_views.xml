@@ -44,52 +44,5 @@
             
         </field>
     </record>
-    
-    <!-- Heredar la vista tree de order_line para agregar campos y decoraciones -->
-    <record id="view_order_line_tree_subscription" model="ir.ui.view">
-        <field name="name">sale.order.line.tree.subscription</field>
-        <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="sale.view_order_line_tree"/>
-        <field name="arch" type="xml">
-            
-            <!-- Agregar campos después de product_uom_qty -->
-            <field name="product_uom_qty" position="after">
-                <field name="is_subscription_line" column_invisible="1"/>
-                <field name="has_negative_warning" column_invisible="1"/>
-            </field>
-            
-            <!-- Agregar decoraciones al tree -->
-            <tree position="attributes">
-                <attribute name="decoration-info">is_subscription_line</attribute>
-                <attribute name="decoration-danger">has_negative_warning</attribute>
-            </tree>
-            
-        </field>
-    </record>
-    
-    <!-- Heredar la vista form de order_line para agregar botones -->
-    <record id="view_order_line_form_subscription" model="ir.ui.view">
-        <field name="name">sale.order.line.form.subscription</field>
-        <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="sale.view_order_line_form"/>
-        <field name="arch" type="xml">
-            
-            <!-- Agregar campos y botones después de product_uom_qty -->
-            <field name="product_uom_qty" position="after">
-                <field name="is_subscription_line" invisible="1"/>
-                <button name="action_view_subscription_details" 
-                        type="object" 
-                        string="📊 View Details"
-                        class="btn-link"
-                        invisible="not is_subscription_line"/>
-                <button name="action_recalculate_subscription_qty" 
-                        type="object" 
-                        string="🔄 Recalculate"
-                        class="btn-link"
-                        invisible="not is_subscription_line"/>
-            </field>
-            
-        </field>
-    </record>
 
 </odoo>
