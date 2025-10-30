@@ -15,7 +15,6 @@ class SaleOrder(models.Model):
     has_negative_subscription = fields.Boolean(
         string='Has Negative Subscription',
         compute='_compute_has_negative_subscription',
-        help='Indicates if any subscription line has negative quantity',
     )
     
     negative_subscription_message = fields.Html(
@@ -30,21 +29,19 @@ class SaleOrder(models.Model):
                 line.is_subscription_line for line in order.order_line
             )
 
-    @api.depends('order_line.is_subscription_line', 
-                 'order_line.calculated_subscription_qty',
-                 'order_line.has_negative_warning')
+    @api.depends('order_line.is_subscription_line', 'order_line.product_uom_qty')
     def _compute_has_negative_subscription(self):
         """Check if any subscription line has negative quantity."""
         for order in self:
             negative_lines = order.order_line.filtered(
-                lambda l: l.is_subscription_line and l.calculated_subscription_qty < 0
+                lambda l: l.is_subscription_line and l.product_uom_qty < 0
             )
             
             order.has_negative_subscription = bool(negative_lines)
             
             if negative_lines:
                 products_list = ', '.join([
-                    f'{line.product_id.name} ({line.calculated_subscription_qty})' 
+                    f'{line.product_id.name} ({line.product_uom_qty})' 
                     for line in negative_lines
                 ])
                 
@@ -56,14 +53,10 @@ class SaleOrder(models.Model):
                 order.negative_subscription_message = False
 
     def _ensure_subscription_lines(self):
-        """
-        Ensure that for each unique subscription product referenced by service lines,
-        there is a corresponding subscription line in the order.
-        """
+        """Ensure subscription lines exist for all service lines."""
         self.ensure_one()
         
         service_lines = self.order_line.filtered('product_id.subscription_product_id')
-        
         subscription_products = service_lines.mapped('product_id.subscription_product_id')
         
         for subscription_product in subscription_products:
@@ -81,13 +74,9 @@ class SaleOrder(models.Model):
                 })]
 
     def action_confirm(self):
-        """Ensure subscription lines exist before confirming the order."""
+        """Ensure subscription lines exist before confirming."""
         for order in self:
             order._ensure_subscription_lines()
-            # Sincronizar cantidades antes de confirmar
-            subscription_lines = order.order_line.filtered('is_subscription_line')
-            if subscription_lines:
-                subscription_lines.action_sync_subscription_qty()
         
         return super().action_confirm()
 
@@ -96,36 +85,3 @@ class SaleOrder(models.Model):
         """Trigger subscription line creation when order lines change."""
         for order in self:
             order._ensure_subscription_lines()
-
-    def action_sync_all_subscriptions(self):
-        """Sync all subscription lines in this order."""
-        self.ensure_one()
-        
-        subscription_lines = self.order_line.filtered('is_subscription_line')
-        
-        if not subscription_lines:
-            return {
-                'type': 'ir.actions.client',
-                'tag': 'display_notification',
-                'params': {
-                    'title': _('No Subscriptions'),
-                    'message': _('This order has no subscription lines to synchronize.'),
-                    'type': 'info',
-                }
-            }
-        
-        # Sincronizar todas las líneas
-        subscription_lines.action_sync_subscription_qty()
-        
-        # Contar cuántas se actualizaron
-        synced_count = len(subscription_lines)
-        
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                'title': _('Subscriptions Synchronized'),
-                'message': _('%s subscription line(s) updated successfully.') % synced_count,
-                'type': 'success',
-            }
-        }
