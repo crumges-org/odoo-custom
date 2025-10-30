@@ -73,108 +73,110 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    # ⭐ SOLUCIÓN: Actualizar suscripciones cuando cambia qty_delivered de servicios
-    def write(self, vals):
-        """Intercept writes to update subscription quantities when service deliveries change."""
+    # ⭐ ESTRATEGIA: Override _compute_qty_delivered solo para actualizar suscripciones
+    @api.depends('qty_delivered_method', 'qty_delivered_manual', 'analytic_line_ids.so_line',
+                 'analytic_line_ids.unit_amount', 'analytic_line_ids.product_uom_id')
+    def _compute_qty_delivered(self):
+        """
+        Override to update related subscription lines when service qty_delivered changes.
+        """
+        # Primero, llamar al método original para calcular qty_delivered
+        super()._compute_qty_delivered()
         
-        # ⭐ Prevenir loop infinito: si estamos en contexto de actualización automática, salir
-        if self.env.context.get('skip_subscription_update'):
-            return super().write(vals)
+        # Luego, actualizar suscripciones relacionadas (solo para servicios con subscription_product_id)
+        service_lines = self.filtered(lambda l: l.product_id.subscription_product_id and l.order_id)
         
-        res = super().write(vals)
+        if not service_lines:
+            return
         
-        # Si cambió qty_delivered en líneas de servicio, actualizar suscripciones relacionadas
-        if 'qty_delivered' in vals:
-            for line in self:
-                if line.product_id.subscription_product_id and line.order_id:
-                    subscription_product = line.product_id.subscription_product_id
-                    
-                    # Buscar línea de suscripción
-                    subscription_line = line.order_id.order_line.filtered(
-                        lambda l: l.product_id == subscription_product
-                    )
-                    
-                    if subscription_line:
-                        subscription_line._update_subscription_quantity()
+        # Agrupar por orden para evitar múltiples actualizaciones
+        orders_to_update = service_lines.mapped('order_id')
         
-        # Si cambió el producto, asegurar líneas de suscripción
-        if 'product_id' in vals:
-            orders = self.mapped('order_id')
-            for order in orders:
-                order._ensure_subscription_lines()
-        
-        return res
+        for order in orders_to_update:
+            # Obtener todos los productos de suscripción únicos afectados
+            affected_subscriptions = service_lines.filtered(
+                lambda l: l.order_id == order
+            ).mapped('product_id.subscription_product_id')
+            
+            for subscription_product in affected_subscriptions:
+                # Buscar la línea de suscripción
+                subscription_line = order.order_line.filtered(
+                    lambda l: l.product_id == subscription_product
+                )
+                
+                if subscription_line:
+                    subscription_line._update_subscription_quantity()
 
     def _update_subscription_quantity(self):
         """
         Calculate and update product_uom_qty for subscription lines based on service deliveries.
-        Uses context to prevent infinite loops.
         """
-        for line in self:
-            if not line.is_subscription_line or not line.order_id:
-                continue
-            
-            service_lines = line.order_id.order_line.filtered(
-                lambda l: l.product_id.subscription_product_id == line.product_id
+        self.ensure_one()
+        
+        if not self.is_subscription_line or not self.order_id:
+            return
+        
+        service_lines = self.order_id.order_line.filtered(
+            lambda l: l.product_id.subscription_product_id == self.product_id
+        )
+        
+        if not service_lines:
+            return
+        
+        installations = sum(
+            service_lines.filtered(
+                lambda l: l.product_id.subscription_service_type == 'installation'
+            ).mapped('qty_delivered')
+        )
+        
+        uninstallations = sum(
+            service_lines.filtered(
+                lambda l: l.product_id.subscription_service_type == 'uninstallation'
+            ).mapped('qty_delivered')
+        )
+        
+        calculated_qty = installations - uninstallations
+        
+        # Log si es negativo
+        if calculated_qty < 0:
+            _logger.warning(
+                'Subscription quantity is NEGATIVE for order %s, product %s. '
+                'Installations: %s, Uninstallations: %s, Result: %s',
+                self.order_id.name, self.product_id.name, 
+                installations, uninstallations, calculated_qty
             )
             
-            if not service_lines:
-                continue
-            
-            installations = sum(
-                service_lines.filtered(
-                    lambda l: l.product_id.subscription_service_type == 'installation'
-                ).mapped('qty_delivered')
+            # Mensaje simple en chatter (solo si la orden está guardada)
+            if self.order_id.id:
+                try:
+                    message = _(
+                        "⚠️ <b>Negative Subscription:</b> %s (%s)<br/>"
+                        "Installations: %s | Uninstallations: %s<br/>"
+                        "Review task hours."
+                    ) % (
+                        self.product_id.name,
+                        calculated_qty,
+                        installations,
+                        uninstallations
+                    )
+                    
+                    self.order_id.message_post(
+                        body=message,
+                        message_type='comment',
+                        subtype_xmlid='mail.mt_note',
+                    )
+                except Exception as e:
+                    _logger.debug('Could not post message: %s', e)
+        
+        # Solo actualizar si cambió
+        if self.product_uom_qty != calculated_qty:
+            _logger.info(
+                'Updating subscription quantity for %s: %s -> %s',
+                self.product_id.name, self.product_uom_qty, calculated_qty
             )
             
-            uninstallations = sum(
-                service_lines.filtered(
-                    lambda l: l.product_id.subscription_service_type == 'uninstallation'
-                ).mapped('qty_delivered')
-            )
-            
-            calculated_qty = installations - uninstallations
-            
-            # Log si es negativo
-            if calculated_qty < 0:
-                _logger.warning(
-                    'Subscription quantity is NEGATIVE for order %s, product %s. '
-                    'Installations: %s, Uninstallations: %s, Result: %s',
-                    line.order_id.name, line.product_id.name, 
-                    installations, uninstallations, calculated_qty
-                )
-                
-                # Mensaje simple en chatter
-                if line.order_id and line.order_id.id:
-                    try:
-                        message = _(
-                            "⚠️ <b>Negative Subscription:</b> %s (%s)<br/>"
-                            "Installations: %s | Uninstallations: %s<br/>"
-                            "Review task hours."
-                        ) % (
-                            line.product_id.name,
-                            calculated_qty,
-                            installations,
-                            uninstallations
-                        )
-                        
-                        line.order_id.message_post(
-                            body=message,
-                            message_type='comment',
-                            subtype_xmlid='mail.mt_note',
-                        )
-                    except Exception as e:
-                        _logger.debug('Could not post message: %s', e)
-            
-            # ⭐ Actualizar usando contexto para prevenir loop infinito
-            if line.product_uom_qty != calculated_qty:
-                _logger.info(
-                    'Updating subscription quantity for %s: %s -> %s',
-                    line.product_id.name, line.product_uom_qty, calculated_qty
-                )
-                line.with_context(skip_subscription_update=True).write({
-                    'product_uom_qty': calculated_qty
-                })
+            # ⭐ Actualizar sin triggear onchanges ni validaciones adicionales
+            self.sudo().write({'product_uom_qty': calculated_qty})
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_add_subscription(self):
@@ -217,6 +219,17 @@ class SaleOrderLine(models.Model):
             order._ensure_subscription_lines()
         
         return lines
+
+    def write(self, vals):
+        """After updating lines, ensure subscription lines exist."""
+        res = super().write(vals)
+        
+        if 'product_id' in vals:
+            orders = self.mapped('order_id')
+            for order in orders:
+                order._ensure_subscription_lines()
+        
+        return res
 
     def action_view_subscription_details(self):
         """Show subscription details popup."""
