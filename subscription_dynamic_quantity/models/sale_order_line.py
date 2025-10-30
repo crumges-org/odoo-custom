@@ -73,39 +73,45 @@ class SaleOrderLine(models.Model):
             
             line.has_negative_warning = (installations - uninstallations) < 0
 
-    # ⭐ ESTRATEGIA: Override _compute_qty_delivered solo para actualizar suscripciones
-    @api.depends('qty_delivered_method', 'qty_delivered_manual', 'analytic_line_ids.so_line',
-                 'analytic_line_ids.unit_amount', 'analytic_line_ids.product_uom_id')
-    def _compute_qty_delivered(self):
+    # ⭐ SOLUCIÓN SIMPLE: Interceptar write() solo cuando cambia qty_delivered
+    def write(self, vals):
         """
-        Override to update related subscription lines when service qty_delivered changes.
+        Intercept writes to update subscription quantities when service deliveries change.
         """
-        # Primero, llamar al método original para calcular qty_delivered
-        super()._compute_qty_delivered()
+        # Guardar valores anteriores de qty_delivered para comparar
+        old_qty_delivered = {line.id: line.qty_delivered for line in self}
         
-        # Luego, actualizar suscripciones relacionadas (solo para servicios con subscription_product_id)
-        service_lines = self.filtered(lambda l: l.product_id.subscription_product_id and l.order_id)
+        # Ejecutar el write normal
+        res = super().write(vals)
         
-        if not service_lines:
-            return
-        
-        # Agrupar por orden para evitar múltiples actualizaciones
-        orders_to_update = service_lines.mapped('order_id')
-        
-        for order in orders_to_update:
-            # Obtener todos los productos de suscripción únicos afectados
-            affected_subscriptions = service_lines.filtered(
-                lambda l: l.order_id == order
-            ).mapped('product_id.subscription_product_id')
-            
-            for subscription_product in affected_subscriptions:
-                # Buscar la línea de suscripción
-                subscription_line = order.order_line.filtered(
+        # Si cambió qty_delivered en líneas de servicio, actualizar suscripciones
+        if 'qty_delivered' in vals:
+            for line in self:
+                # Solo procesar si es un servicio con producto de suscripción vinculado
+                if not line.product_id.subscription_product_id or not line.order_id:
+                    continue
+                
+                # Solo actualizar si realmente cambió el valor
+                if old_qty_delivered.get(line.id) == line.qty_delivered:
+                    continue
+                
+                subscription_product = line.product_id.subscription_product_id
+                
+                # Buscar línea de suscripción
+                subscription_line = line.order_id.order_line.filtered(
                     lambda l: l.product_id == subscription_product
                 )
                 
                 if subscription_line:
                     subscription_line._update_subscription_quantity()
+        
+        # Si cambió el producto, asegurar líneas de suscripción
+        if 'product_id' in vals:
+            orders = self.mapped('order_id')
+            for order in orders:
+                order._ensure_subscription_lines()
+        
+        return res
 
     def _update_subscription_quantity(self):
         """
@@ -175,8 +181,14 @@ class SaleOrderLine(models.Model):
                 self.product_id.name, self.product_uom_qty, calculated_qty
             )
             
-            # ⭐ Actualizar sin triggear onchanges ni validaciones adicionales
-            self.sudo().write({'product_uom_qty': calculated_qty})
+            # ⭐ Actualizar directamente, evitando recursión
+            # Usamos SQL directo para evitar triggear otros computes/onchanges
+            self.env.cr.execute(
+                "UPDATE sale_order_line SET product_uom_qty = %s WHERE id = %s",
+                (calculated_qty, self.id)
+            )
+            # Invalidar cache para que se recargue el valor
+            self.invalidate_recordset(['product_uom_qty'])
 
     @api.onchange('product_id', 'product_uom_qty')
     def _onchange_product_id_add_subscription(self):
@@ -219,17 +231,6 @@ class SaleOrderLine(models.Model):
             order._ensure_subscription_lines()
         
         return lines
-
-    def write(self, vals):
-        """After updating lines, ensure subscription lines exist."""
-        res = super().write(vals)
-        
-        if 'product_id' in vals:
-            orders = self.mapped('order_id')
-            for order in orders:
-                order._ensure_subscription_lines()
-        
-        return res
 
     def action_view_subscription_details(self):
         """Show subscription details popup."""
