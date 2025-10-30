@@ -40,20 +40,40 @@
                 </page>
             </xpath>
             
-            <!-- Campos adicionales en líneas del tree -->
-            <xpath expr="//field[@name='order_line']/tree//field[@name='product_uom_qty']" position="after">
+        </field>
+    </record>
+    
+    <!-- Heredar la vista tree de order_line para agregar campos y decoraciones -->
+    <record id="view_order_line_tree_subscription" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.subscription</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="arch" type="xml">
+            
+            <!-- Agregar campos después de product_uom_qty -->
+            <field name="product_uom_qty" position="after">
                 <field name="is_subscription_line" column_invisible="1"/>
                 <field name="has_negative_warning" column_invisible="1"/>
-            </xpath>
+            </field>
             
-            <!-- Decoración para líneas de suscripción en el tree -->
-            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+            <!-- Agregar decoraciones al tree -->
+            <tree position="attributes">
                 <attribute name="decoration-info">is_subscription_line</attribute>
                 <attribute name="decoration-danger">has_negative_warning</attribute>
-            </xpath>
+            </tree>
             
-            <!-- Botones en el formulario de líneas -->
-            <xpath expr="//field[@name='order_line']/form//field[@name='product_uom_qty']" position="after">
+        </field>
+    </record>
+    
+    <!-- Heredar la vista form de order_line para agregar botones -->
+    <record id="view_order_line_form_subscription" model="ir.ui.view">
+        <field name="name">sale.order.line.form.subscription</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_form"/>
+        <field name="arch" type="xml">
+            
+            <!-- Agregar campos y botones después de product_uom_qty -->
+            <field name="product_uom_qty" position="after">
                 <field name="is_subscription_line" invisible="1"/>
                 <button name="action_view_subscription_details" 
                         type="object" 
@@ -65,7 +85,7 @@
                         string="🔄 Recalculate"
                         class="btn-link"
                         invisible="not is_subscription_line"/>
-            </xpath>
+            </field>
             
         </field>
     </record>
