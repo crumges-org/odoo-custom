@@ -32,30 +32,32 @@
                       name="subscription_info"
                       invisible="not has_subscription_lines">
                     <group>
-                        <p>This order contains automatically managed subscription products.</p>
-                        <p>Subscription quantities update automatically when service deliveries are validated.</p>
+                        <group>
+                            <label string="This order contains automatically managed subscription products."/>
+                            <label string="Subscription quantities update automatically when service deliveries are validated."/>
+                        </group>
                     </group>
                 </page>
             </xpath>
             
-            <!-- Decoración para líneas de suscripción -->
-            <xpath expr="//field[@name='order_line']//tree" position="attributes">
-                <attribute name="decoration-info">is_subscription_line</attribute>
-                <attribute name="decoration-danger">has_negative_warning</attribute>
-            </xpath>
-            
-            <!-- Campos adicionales en líneas -->
-            <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="after">
+            <!-- Campos adicionales en líneas del tree -->
+            <xpath expr="//field[@name='order_line']/tree//field[@name='product_uom_qty']" position="after">
                 <field name="is_subscription_line" column_invisible="1"/>
                 <field name="has_negative_warning" column_invisible="1"/>
             </xpath>
             
-            <!-- Botón de detalle en form de líneas -->
-            <xpath expr="//field[@name='order_line']//form//field[@name='product_uom_qty']" position="after">
+            <!-- Decoración para líneas de suscripción en el tree -->
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="decoration-info">is_subscription_line</attribute>
+                <attribute name="decoration-danger">has_negative_warning</attribute>
+            </xpath>
+            
+            <!-- Botones en el formulario de líneas -->
+            <xpath expr="//field[@name='order_line']/form//field[@name='product_uom_qty']" position="after">
                 <field name="is_subscription_line" invisible="1"/>
                 <button name="action_view_subscription_details" 
                         type="object" 
-                        string="📊 Details"
+                        string="📊 View Details"
                         class="btn-link"
                         invisible="not is_subscription_line"/>
                 <button name="action_recalculate_subscription_qty" 

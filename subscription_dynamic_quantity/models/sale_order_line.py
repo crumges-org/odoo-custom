@@ -13,13 +13,14 @@ class SaleOrderLine(models.Model):
         string='Is Subscription Line',
         compute='_compute_is_subscription_line',
         store=True,
-        help='Technical field to identify subscription lines',
+        help='Technical field to identify subscription lines managed by this module',
     )
     
     has_negative_warning = fields.Boolean(
         string='Has Negative Warning',
-        compute='_compute_has_negative_warning',
-        help='True if subscription quantity is negative',
+        compute='_compute_subscription_quantity',
+        store=True,
+        help='Indicates if this line would have negative quantity without protection',
     )
     
     linked_service_line_ids = fields.One2many(
@@ -27,21 +28,19 @@ class SaleOrderLine(models.Model):
         inverse_name='id',
         compute='_compute_linked_service_lines',
         string='Linked Service Lines',
+        help='Service lines (installations/uninstallations) that affect this subscription quantity',
     )
 
     @api.depends('product_id', 'product_id.recurring_invoice')
     def _compute_is_subscription_line(self):
+        """Identify subscription lines automatically."""
         for line in self:
-            line.is_subscription_line = line.product_id.recurring_invoice if line.product_id else False
-
-    @api.depends('is_subscription_line', 'product_uom_qty')
-    def _compute_has_negative_warning(self):
-        for line in self:
-            line.has_negative_warning = (
-                line.is_subscription_line and line.product_uom_qty < 0
+            line.is_subscription_line = bool(
+                line.product_id and line.product_id.recurring_invoice
             )
 
     def _compute_linked_service_lines(self):
+        """Find all service lines that affect this subscription."""
         for line in self:
             if line.is_subscription_line and line.order_id:
                 line.linked_service_line_ids = line.order_id.order_line.filtered(
@@ -50,11 +49,84 @@ class SaleOrderLine(models.Model):
             else:
                 line.linked_service_line_ids = False
 
+    @api.depends(
+        'is_subscription_line',
+        'order_id.order_line.qty_delivered',
+        'order_id.order_line.product_id.subscription_product_id',
+        'order_id.order_line.product_id.subscription_service_type',
+    )
+    def _compute_subscription_quantity(self):
+        """
+        Automatically calculate subscription quantity based on delivered services.
+        This compute field triggers whenever related service lines change.
+        """
+        for line in self:
+            if not line.is_subscription_line or not line.order_id:
+                line.has_negative_warning = False
+                continue
+            
+            # Find all service lines for this subscription
+            service_lines = line.order_id.order_line.filtered(
+                lambda l: l.product_id.subscription_product_id == line.product_id
+            )
+            
+            if not service_lines:
+                line.has_negative_warning = False
+                continue
+            
+            # Calculate quantities
+            installations = sum(
+                service_lines.filtered(
+                    lambda l: l.product_id.subscription_service_type == 'installation'
+                ).mapped('qty_delivered')
+            )
+            
+            uninstallations = sum(
+                service_lines.filtered(
+                    lambda l: l.product_id.subscription_service_type == 'uninstallation'
+                ).mapped('qty_delivered')
+            )
+            
+            calculated_qty = installations - uninstallations
+            
+            # Set warning flag if negative
+            line.has_negative_warning = calculated_qty < 0
+            
+            # Update quantity if different (prevents infinite loops)
+            if line.product_uom_qty != calculated_qty:
+                # Use SQL to avoid triggering computes recursively
+                try:
+                    self.env.cr.execute("""
+                        UPDATE sale_order_line 
+                        SET product_uom_qty = %s, 
+                            write_date = NOW(), 
+                            write_uid = %s
+                        WHERE id = %s
+                    """, (calculated_qty, self.env.uid, line.id))
+                    
+                    # Invalidate cache for this record
+                    line.invalidate_recordset(['product_uom_qty'])
+                    
+                    _logger.info(
+                        'Auto-updated subscription %s (ID: %s): qty %s -> %s',
+                        line.product_id.name,
+                        line.id,
+                        line.product_uom_qty,
+                        calculated_qty
+                    )
+                except Exception as e:
+                    _logger.warning(
+                        'Failed to auto-update subscription qty for line %s: %s',
+                        line.id, str(e)
+                    )
+
     def write(self, vals):
-        """Update subscription quantities when service deliveries change."""
+        """
+        Override write to trigger subscription recalculation when service deliveries change.
+        """
         res = super().write(vals)
         
-        # Solo si cambió qty_delivered
+        # If qty_delivered changed on service lines, recalculate affected subscriptions
         if 'qty_delivered' in vals:
             service_lines = self.filtered('product_id.subscription_product_id')
             
@@ -63,91 +135,69 @@ class SaleOrderLine(models.Model):
                     continue
                 
                 subscription_product = service_line.product_id.subscription_product_id
-                subscription_line = service_line.order_id.order_line.filtered(
-                    lambda l: l.product_id == subscription_product
+                subscription_lines = service_line.order_id.order_line.filtered(
+                    lambda l: l.product_id == subscription_product and l.is_subscription_line
                 )
                 
-                if subscription_line:
-                    new_qty = subscription_line._calculate_subscription_qty()
-                    
-                    if subscription_line.product_uom_qty != new_qty:
-                        # Usar SQL directo para evitar recursión
-                        self.env.cr.execute("""
-                            UPDATE sale_order_line 
-                            SET product_uom_qty = %s, write_date = NOW(), write_uid = %s
-                            WHERE id = %s
-                        """, (new_qty, self.env.uid, subscription_line.id))
-                        
-                        subscription_line.invalidate_recordset(['product_uom_qty'])
-                        
-                        _logger.info(
-                            'Updated subscription %s: %s -> %s',
-                            subscription_line.product_id.name,
-                            subscription_line.product_uom_qty,
-                            new_qty
-                        )
-        
-        if 'product_id' in vals:
-            for order in self.mapped('order_id'):
-                order._ensure_subscription_lines()
+                # Trigger recompute
+                if subscription_lines:
+                    subscription_lines._compute_subscription_quantity()
         
         return res
 
-    def _calculate_subscription_qty(self):
-        """Calculate subscription quantity based on service lines."""
-        self.ensure_one()
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Ensure subscription lines exist when creating service lines."""
+        lines = super().create(vals_list)
         
-        if not self.is_subscription_line or not self.order_id:
-            return 0.0
+        # Group by order to avoid multiple calls
+        for order in lines.mapped('order_id'):
+            order._ensure_subscription_lines()
         
-        service_lines = self.order_id.order_line.filtered(
-            lambda l: l.product_id.subscription_product_id == self.product_id
-        )
-        
-        if not service_lines:
-            return 0.0
-        
-        installations = sum(
-            service_lines.filtered(
-                lambda l: l.product_id.subscription_service_type == 'installation'
-            ).mapped('qty_delivered')
-        )
-        
-        uninstallations = sum(
-            service_lines.filtered(
-                lambda l: l.product_id.subscription_service_type == 'uninstallation'
-            ).mapped('qty_delivered')
-        )
-        
-        return installations - uninstallations
+        return lines
 
     def action_recalculate_subscription_qty(self):
-        """Manual recalculation button."""
-        for line in self:
-            if not line.is_subscription_line:
-                continue
-            
-            new_qty = line._calculate_subscription_qty()
-            
-            if line.product_uom_qty != new_qty:
-                line.write({'product_uom_qty': new_qty})
+        """Manual recalculation action (button in UI)."""
+        subscription_lines = self.filtered('is_subscription_line')
+        
+        if not subscription_lines:
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('No Subscription Lines'),
+                    'message': _('Please select subscription lines to recalculate'),
+                    'type': 'warning',
+                }
+            }
+        
+        # Trigger recompute
+        subscription_lines._compute_subscription_quantity()
         
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _('Updated'),
-                'message': _('Subscription quantities recalculated'),
+                'title': _('Recalculated'),
+                'message': _('Subscription quantities have been updated'),
                 'type': 'success',
             }
         }
 
     def action_view_subscription_details(self):
-        """Show detailed subscription info."""
+        """Show detailed subscription calculation breakdown."""
         self.ensure_one()
         
         if not self.is_subscription_line:
-            return
+            return {
+                'type': 'ir.actions.client',
+                'tag': 'display_notification',
+                'params': {
+                    'title': _('Not a Subscription'),
+                    'message': _('This line is not a subscription product'),
+                    'type': 'warning',
+                }
+            }
         
         service_lines = self.order_id.order_line.filtered(
             lambda l: l.product_id.subscription_product_id == self.product_id
@@ -165,28 +215,42 @@ class SaleOrderLine(models.Model):
             ).mapped('qty_delivered')
         )
         
-        is_negative = self.product_uom_qty < 0
+        calculated_qty = installations - uninstallations
+        is_negative = calculated_qty < 0
         
+        # Build detailed HTML message
         message = _(
             '<div style="font-family: Arial, sans-serif;">'
-            '<h3 style="color: #007bff;">📊 %s</h3>'
-            '<table style="width: 100%%; margin: 15px 0; border-collapse: collapse;">'
-            '<tr style="background: #f8f9fa;"><td style="padding: 8px; border: 1px solid #ddd;">✅ Installations</td>'
-            '<td style="padding: 8px; border: 1px solid #ddd; text-align: right;"><b>%s</b></td></tr>'
-            '<tr><td style="padding: 8px; border: 1px solid #ddd;">❌ Uninstallations</td>'
-            '<td style="padding: 8px; border: 1px solid #ddd; text-align: right;"><b>%s</b></td></tr>'
-            '<tr style="background: %s;"><td style="padding: 8px; border: 1px solid #ddd;"><b>Total</b></td>'
-            '<td style="padding: 8px; border: 1px solid #ddd; text-align: right;">'
-            '<b style="font-size: 18px; color: %s;">%s</b></td></tr>'
-            '</table>%s</div>'
+            '<h3 style="color: #007bff;">📊 Subscription Details: %s</h3>'
+            '<table style="width: 100%%; border-collapse: collapse; margin: 15px 0;">'
+            '<tr style="background-color: #f8f9fa;">'
+            '<th style="padding: 10px; text-align: left; border: 1px solid #dee2e6;">Metric</th>'
+            '<th style="padding: 10px; text-align: right; border: 1px solid #dee2e6;">Value</th>'
+            '</tr>'
+            '<tr><td style="padding: 10px; border: 1px solid #dee2e6;">✅ Installations Delivered</td>'
+            '<td style="padding: 10px; text-align: right; border: 1px solid #dee2e6;"><strong>%s</strong></td></tr>'
+            '<tr style="background-color: #f8f9fa;"><td style="padding: 10px; border: 1px solid #dee2e6;">❌ Uninstallations Delivered</td>'
+            '<td style="padding: 10px; text-align: right; border: 1px solid #dee2e6;"><strong>%s</strong></td></tr>'
+            '<tr><td style="padding: 10px; border: 1px solid #dee2e6;">➖ Calculated Quantity</td>'
+            '<td style="padding: 10px; text-align: right; border: 1px solid #dee2e6;"><strong>%s</strong></td></tr>'
+            '<tr style="background-color: %s;">'
+            '<td style="padding: 10px; border: 1px solid #dee2e6;"><strong>🔒 Final Quantity</strong></td>'
+            '<td style="padding: 10px; text-align: right; border: 1px solid #dee2e6;">'
+            '<strong style="font-size: 18px; color: %s;">%s</strong></td></tr>'
+            '</table>'
+            '%s'
+            '</div>'
         ) % (
             self.product_id.name,
             installations,
             uninstallations,
+            calculated_qty,
             '#fff3cd' if is_negative else '#d4edda',
             '#dc3545' if is_negative else '#28a745',
             self.product_uom_qty,
-            '<p style="color: #dc3545; margin-top: 10px;">⚠️ <b>Negative - Review task hours</b></p>' 
+            '<div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin-top: 15px;">'
+            '<h4 style="margin-top: 0; color: #856404;">⚠️ Negative Quantity</h4>'
+            '<p style="margin-bottom: 0;">Review task hours - uninstallations exceed installations.</p></div>'
             if is_negative else ''
         )
         
@@ -194,7 +258,7 @@ class SaleOrderLine(models.Model):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _('Subscription Details'),
+                'title': _('Subscription Information'),
                 'message': message,
                 'type': 'warning' if is_negative else 'success',
                 'sticky': True,
@@ -202,9 +266,12 @@ class SaleOrderLine(models.Model):
         }
 
     @api.onchange('product_id')
-    def _onchange_product_id_add_subscription(self):
+    def _onchange_product_id_subscription_warning(self):
+        """Show warning when adding a service product with linked subscription."""
         if self.product_id and self.product_id.subscription_product_id and self.order_id:
             subscription_product = self.product_id.subscription_product_id
+            
+            # Check if subscription already exists
             existing = self.order_id.order_line.filtered(
                 lambda l: l.product_id == subscription_product and l.id != self.id
             )
@@ -212,16 +279,10 @@ class SaleOrderLine(models.Model):
             if not existing:
                 return {
                     'warning': {
-                        'title': _('Subscription Will Be Added'),
-                        'message': _('"%s" will be added automatically') % subscription_product.name
+                        'title': _('Subscription Product Will Be Added'),
+                        'message': _(
+                            'A subscription line for "%s" will be automatically added to this order. '
+                            'The quantity will be calculated based on delivered installations/uninstallations.'
+                        ) % subscription_product.name
                     }
                 }
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        lines = super().create(vals_list)
-        
-        for order in lines.mapped('order_id'):
-            order._ensure_subscription_lines()
-        
-        return lines
