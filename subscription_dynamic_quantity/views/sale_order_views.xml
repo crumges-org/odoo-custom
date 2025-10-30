@@ -37,6 +37,7 @@
                             <p>• This order contains automatically managed subscription products.</p>
                             <p>• Subscription quantities update automatically when service deliveries are validated.</p>
                             <p>• Formula: Subscription Qty = Installations Delivered - Uninstallations Delivered</p>
+                            <p style="color: #856404;">• ⚠️ Subscription quantities are READ-ONLY and auto-calculated.</p>
                         </div>
                     </group>
                 </page>

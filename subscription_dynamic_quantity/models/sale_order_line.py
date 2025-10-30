@@ -122,8 +122,34 @@ class SaleOrderLine(models.Model):
 
     def write(self, vals):
         """
-        Override write to trigger subscription recalculation when service deliveries change.
+        Override write to:
+        1. Block manual edits to subscription quantity
+        2. Trigger subscription recalculation when service deliveries change
         """
+        # Block manual quantity changes on subscription lines
+        if 'product_uom_qty' in vals:
+            subscription_lines = self.filtered('is_subscription_line')
+            if subscription_lines:
+                # Remove product_uom_qty from vals for subscription lines
+                vals_copy = vals.copy()
+                vals_copy.pop('product_uom_qty', None)
+                
+                # Write other fields
+                if vals_copy:
+                    super(SaleOrderLine, subscription_lines).write(vals_copy)
+                
+                # Write non-subscription lines normally
+                non_subscription_lines = self - subscription_lines
+                if non_subscription_lines:
+                    res = super(SaleOrderLine, non_subscription_lines).write(vals)
+                else:
+                    res = True
+                
+                # Force recalculation
+                subscription_lines._compute_subscription_quantity()
+                
+                return res
+        
         res = super().write(vals)
         
         # If qty_delivered changed on service lines, recalculate affected subscriptions
