@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     
-    <!-- Add subscription info tab to sale.order -->
-    <record id="view_order_form_subscription_tab" model="ir.ui.view">
-        <field name="name">sale.order.form.subscription.tab</field>
+    <record id="view_order_form_subscription_info" model="ir.ui.view">
+        <field name="name">sale.order.form.subscription.info</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             
+            <!-- Campos invisibles para cálculos -->
             <field name="partner_id" position="after">
                 <field name="has_subscription_lines" invisible="1"/>
                 <field name="has_negative_subscription" invisible="1"/>
                 <field name="negative_subscription_message" invisible="1"/>
             </field>
             
-            <!-- ⭐ ADVERTENCIA VISUAL en la parte superior de la orden -->
+            <!-- Advertencia en la parte superior -->
             <xpath expr="//sheet" position="before">
                 <div class="alert alert-warning" role="alert" 
                      invisible="not has_negative_subscription"
-                     style="margin-bottom: 0px;">
+                     style="margin-bottom: 0;">
                     <field name="negative_subscription_message" 
                            nolabel="1" 
                            readonly="1"
@@ -26,16 +26,43 @@
                 </div>
             </xpath>
             
+            <!-- Tab de información -->
             <xpath expr="//notebook" position="inside">
                 <page string="Subscription Info" 
                       name="subscription_info"
                       invisible="not has_subscription_lines">
-                    
-                    <group string="Active Subscriptions">
+                    <group>
                         <p>This order contains automatically managed subscription products.</p>
+                        <p>Subscription quantities update automatically when service deliveries are validated.</p>
                     </group>
-                    
                 </page>
+            </xpath>
+            
+            <!-- Decoración para líneas de suscripción -->
+            <xpath expr="//field[@name='order_line']//tree" position="attributes">
+                <attribute name="decoration-info">is_subscription_line</attribute>
+                <attribute name="decoration-danger">has_negative_warning</attribute>
+            </xpath>
+            
+            <!-- Campos adicionales en líneas -->
+            <xpath expr="//field[@name='order_line']//tree//field[@name='product_uom_qty']" position="after">
+                <field name="is_subscription_line" column_invisible="1"/>
+                <field name="has_negative_warning" column_invisible="1"/>
+            </xpath>
+            
+            <!-- Botón de detalle en form de líneas -->
+            <xpath expr="//field[@name='order_line']//form//field[@name='product_uom_qty']" position="after">
+                <field name="is_subscription_line" invisible="1"/>
+                <button name="action_view_subscription_details" 
+                        type="object" 
+                        string="📊 Details"
+                        class="btn-link"
+                        invisible="not is_subscription_line"/>
+                <button name="action_recalculate_subscription_qty" 
+                        type="object" 
+                        string="🔄 Recalculate"
+                        class="btn-link"
+                        invisible="not is_subscription_line"/>
             </xpath>
             
         </field>
