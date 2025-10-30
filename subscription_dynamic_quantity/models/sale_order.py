@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import logging
 from odoo import api, fields, models, Command, _
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -95,26 +98,33 @@ class SaleOrder(models.Model):
         for subscription_product in subscription_products:
             # Check if subscription line already exists
             existing_line = self.order_line.filtered(
-                lambda l: l.product_id == subscription_product and l.is_subscription_line
+                lambda l: l.product_id == subscription_product
             )
             
             if not existing_line:
-                # Create new subscription line with initial quantity 0
-                self.env['sale.order.line'].create({
-                    'order_id': self.id,
+                # Use Command.create for proper handling in all contexts
+                subscription_line_vals = {
                     'product_id': subscription_product.id,
                     'product_uom_qty': 0,
                     'product_uom': subscription_product.uom_id.id,
                     'price_unit': subscription_product.list_price,
-                    'name': subscription_product.name,
-                })
+                    'name': subscription_product.display_name,
+                    'tax_id': [(6, 0, subscription_product.taxes_id.ids)],
+                }
                 
-                _logger = logging.getLogger(__name__)
-                _logger.info(
-                    'Auto-created subscription line for "%s" in order %s',
-                    subscription_product.name,
-                    self.name
-                )
+                # If order is saved, create directly; otherwise use Command
+                if self.id:
+                    subscription_line_vals['order_id'] = self.id
+                    self.env['sale.order.line'].create(subscription_line_vals)
+                    
+                    _logger.info(
+                        'Auto-created subscription line for "%s" in order %s',
+                        subscription_product.name,
+                        self.name
+                    )
+                else:
+                    # For unsaved orders (onchange context), use Command
+                    self.order_line = [Command.create(subscription_line_vals)]
 
     def action_confirm(self):
         """Override to ensure subscription lines exist before confirming."""
@@ -129,9 +139,41 @@ class SaleOrder(models.Model):
         Automatically create subscription lines when service lines are added.
         This is triggered in the UI when the user adds/removes order lines.
         """
-        for order in self:
-            if order.order_line:
-                order._ensure_subscription_lines()
+        if not self.order_line:
+            return
+        
+        # Find service lines with linked subscriptions
+        service_lines = self.order_line.filtered('product_id.subscription_product_id')
+        
+        if not service_lines:
+            return
+        
+        # Get unique subscription products
+        subscription_products = service_lines.mapped('product_id.subscription_product_id')
+        
+        # Check which subscriptions are missing
+        for subscription_product in subscription_products:
+            existing_line = self.order_line.filtered(
+                lambda l: l.product_id == subscription_product
+            )
+            
+            if not existing_line:
+                # Create subscription line using Command for onchange context
+                subscription_line_vals = {
+                    'product_id': subscription_product.id,
+                    'product_uom_qty': 0,
+                    'product_uom': subscription_product.uom_id.id,
+                    'price_unit': subscription_product.list_price,
+                    'name': subscription_product.display_name,
+                    'tax_id': [(6, 0, subscription_product.taxes_id.ids)],
+                }
+                
+                self.order_line = [Command.create(subscription_line_vals)]
+                
+                _logger.info(
+                    'Auto-adding subscription line for "%s" via onchange',
+                    subscription_product.name
+                )
 
     def action_recalculate_all_subscriptions(self):
         """
@@ -165,6 +207,3 @@ class SaleOrder(models.Model):
                 'type': 'success',
             }
         }
-
-
-import logging
