@@ -32,10 +32,12 @@
                       name="subscription_info"
                       invisible="not has_subscription_lines">
                     <group>
-                        <group>
-                            <label string="This order contains automatically managed subscription products."/>
-                            <label string="Subscription quantities update automatically when service deliveries are validated."/>
-                        </group>
+                        <div class="alert alert-info" role="alert">
+                            <p><strong>📊 Automatic Subscription Management</strong></p>
+                            <p>• This order contains automatically managed subscription products.</p>
+                            <p>• Subscription quantities update automatically when service deliveries are validated.</p>
+                            <p>• Formula: Subscription Qty = Installations Delivered - Uninstallations Delivered</p>
+                        </div>
                     </group>
                 </page>
             </xpath>
