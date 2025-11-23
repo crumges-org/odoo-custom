@@ -8,105 +8,113 @@
     'version': '18.0.1.0.0',
     'category': 'Sales/Sales',
     'website': 'https://crumges.com',
-    'author': 'Crumges (Adaptación de Cybrosys Technologies Pvt. Ltd.)',
+    'author': 'Crumges (Basado en Shopping Through Agent de Cybrosys Technologies)',
     'license': 'LGPL-3',
-    'summary': 'Permite que agentes (internos y de portal) realicen compras en nombre de clientes',
+    'summary': 'Permite que agentes realicen compras en nombre de clientes con mejoras de seguridad y soporte para usuarios de portal',
     'description': '''
         Multi Agent Shop
         ================
         
-        Este módulo es una adaptación mejorada del módulo "Shopping Through Agent" de 
-        Cybrosys Technologies Pvt. Ltd., con mejoras significativas en seguridad, 
-        permisos de usuario y soporte completo para usuarios de portal.
+        Módulo Original
+        ---------------
+        Este módulo es una adaptación mejorada del módulo **"Shopping Through Agent"** 
+        de Cybrosys Technologies Pvt. Ltd. (https://www.cybrosys.com/)
         
-        Características Principales:
-        ----------------------------
+        Agradecemos a Cybrosys por el concepto original y la base del módulo.
         
-        * **Compras por Agentes:** Usuarios marcados como agentes pueden crear pedidos
-          en nombre de clientes específicos
+        Funcionalidad Original (Cybrosys)
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        * **Soporte Completo para Usuarios de Portal:** Los usuarios de portal pueden 
-          actuar como agentes sin necesidad de ser usuarios internos. El módulo maneja 
-          correctamente los permisos y restricciones de acceso
+        El módulo original permitía:
         
-        * **Soporte para Usuarios Internos:** Los usuarios internos también pueden 
-          actuar como agentes con todas las funcionalidades disponibles
+        * Marcar contactos como "agentes"
+        * Que los agentes realicen compras en el portal web
+        * Asignar un cliente a cada compra realizada por un agente
+        * Registro básico del agente en la orden de venta
         
-        * **Gestión de Clientes Asignados:** Los agentes solo pueden comprar para
-          clientes que les han sido específicamente asignados
+        Mejoras Implementadas por Crumges
+        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         
-        * **Interfaz Intuitiva:** Menú dedicado para seleccionar cliente antes de
-          comenzar la compra
+        **Seguridad Mejorada:**
         
-        * **Trazabilidad Completa:** Registro automático del agente responsable en
-          cada pedido de venta
+        * Validaciones robustas de permisos en múltiples capas
+        * Uso estratégico de sudo() solo donde es necesario
+        * Aislamiento completo de datos según tipo de usuario
+        * Restricciones de acceso granulares para usuarios de portal
+        * Verificación de que agentes solo compren para clientes asignados
         
-        * **Gestión de Direcciones:** Manejo automático de direcciones de facturación
-          y envío según el cliente seleccionado
+        **Soporte Completo para Usuarios de Portal:**
         
-        * **Reportes Mejorados:** Vistas y reportes adaptados para mostrar información
-          de agentes en órdenes de venta e invoices
+        * Los usuarios de portal pueden actuar como agentes sin ser usuarios internos
+        * Acceso controlado a información sensible sin exposición de datos
+        * Gestión segura de sesiones y carritos por usuario
+        * Validaciones de permisos en cada operación crítica
         
-        * **Validaciones de Seguridad Robustas:** Múltiples capas de validación de
-          permisos para asegurar que solo agentes autorizados puedan crear pedidos
+        **Experiencia de Usuario Mejorada:**
         
-        Mejoras Respecto a la Versión Original:
-        ----------------------------------------
+        * Interfaz intuitiva dedicada (/agent/shop) para selección de cliente
+        * Información clara del cliente durante todo el flujo de compra
+        * Carrito persistente mientras se compra para un cliente
+        * Advertencias explícitas sobre cambio de cliente
+        * Diseño responsivo para dispositivos móviles
+        * Mensajes informativos y recordatorios estratégicos
         
-        * ✅ Soporte completo para usuarios de portal como agentes
-        * ✅ Validaciones mejoradas de permisos de acceso
-        * ✅ Uso estratégico de sudo() para operaciones seguras
-        * ✅ Mejor manejo de carritos en transiciones entre clientes
-        * ✅ Integración mejorada con el flujo de Website Sale
-        * ✅ Compatibilidad total con Odoo 18
-        * ✅ Documentación completa en estilo OCA
+        **Gestión Avanzada de Clientes:**
         
-        Funcionalidades Técnicas:
-        -------------------------
+        * Asignación clara de clientes a agentes
+        * Vista filtrada de clientes disponibles por agente
+        * Validación de asignación en cada compra
+        * Soporte para múltiples clientes por agente
         
-        * Campo booleano `is_agent` para marcar contactos como agentes
+        **Trazabilidad y Reportes:**
         
-        * Relación many2one `agent_id` para asignar agentes a clientes
+        * Campo agent_id en órdenes de venta para trazabilidad completa
+        * Información del agente visible en reportes de órdenes
+        * Integración en reportes de facturas
+        * Capacidad de filtrar y analizar ventas por agente
         
-        * Campo many2many `agent_ids` para múltiples agentes por cliente
+        **Controladores Mejorados:**
         
-        * Controlador web mejorado para soportar tanto usuarios internos como de portal
+        * Herencia correcta de WebsiteSale para Odoo 18
+        * Rutas seguras con validación de permisos
+        * Manejo correcto de carritos y sesiones
+        * Integración fluida con el flujo de checkout estándar
         
-        * Flujo de compra seguro con validaciones de permisos en múltiples puntos
+        Características Principales
+        ===========================
         
-        * Soporte para módulo complementario `shopping_through_agent_ux` para 
-          mejoras adicionales de UX
+        ✅ Compras por agentes en nombre de clientes específicos
+        ✅ Soporte para usuarios internos y de portal como agentes
+        ✅ Gestión de clientes asignados a cada agente
+        ✅ Información del cliente visible en toda la compra
+        ✅ Advertencias y recordatorios en interfaz
+        ✅ Trazabilidad completa del agente responsable
+        ✅ Validaciones de seguridad robustas
+        ✅ Diseño responsivo para móviles
+        ✅ Compatible con Odoo 18
+        ✅ Código limpio y bien documentado
         
-        Flujo de Uso:
-        ---------
+        Créditos y Atribuciones
+        ========================
         
-        1. Administrador marca un contacto como "Es Agente"
-        2. Administrador asigna clientes específicos al agente
-        3. Agente accede al menú "Multi Agent Shop"
-        4. Selecciona un cliente de su lista de clientes asignados
-        5. Sistema crea un carrito a nombre del cliente
-        6. Agente completa la compra normalmente
-        7. El pedido se crea automáticamente con el cliente y agente registrados
+        **Módulo Original:**
         
-        Dependencias:
-        ----------------
+        * "Shopping Through Agent" por Cybrosys Technologies Pvt. Ltd.
+        * https://www.cybrosys.com/
+        * Versión original para Odoo 15/16
         
-        * sale: Módulo base de ventas
-        * website_sale: Portal de tienda web
-        * base: Módulo base de Odoo
-        * account: Módulo de contabilidad
+        **Adaptación y Mejoras:**
         
-        Dependencias Opcionales:
-        -------------------------
+        * Crumges (https://crumges.com/)
+        * Adaptación a Odoo 18
+        * Mejoras de seguridad y UX
+        * Soporte completo para usuarios de portal
+        * Documentación y mantenimiento
         
-        * sale_ux: Para mejoras avanzadas de experiencia de usuario
-        * shopping_through_agent_ux: Módulo complementario con mejoras UX
+        **Licencia:**
         
-        Créditos:
-        ---------
-        
-        Módulo original: "Shopping Through Agent" por Cybrosys Technologies Pvt. Ltd.
-        Adaptación, mejoras y soporte para portal: Crumges
+        * LGPL-3.0 (compatible con OCA)
+        * Respeta la licencia original del módulo de Cybrosys
     ''',
     'depends': [
         'sale',
@@ -120,6 +128,7 @@
         'views/sale_order_views.xml',
         'views/account_move_views.xml',
         'views/agent_shop_template.xml',
+        'views/sale_order_cart_template.xml',
         'views/sale_order_portal_template.xml',
         'views/invoice_report_template.xml',
         'views/sale_order_report_template.xml',

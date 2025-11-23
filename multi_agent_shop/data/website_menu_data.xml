@@ -4,7 +4,6 @@
         <record id="menu_agent_shop" model="website.menu">
             <field name="name">Multi Agent Shop</field>
             <field name="url">/agent/shop</field>
-            <field name="parent_id" ref="website.menu_homepage"/>
             <field name="sequence">10</field>
         </record>
     </data>

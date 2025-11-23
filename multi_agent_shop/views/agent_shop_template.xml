@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="agent_shop_template" name="Agent Shop Template">
+    <template id="agent_shop_template" name="Multi Agent Shop Template">
         <t t-call="website.layout">
             <div id="wrap">
-                <div class="container">
+                <div class="container mt-5">
                     <div class="row">
-                        <div class="col-md-12">
-                            <h1>Multi Agent Shop</h1>
-                            <p>Selecciona un cliente para realizar la compra</p>
+                        <div class="col-md-8 offset-md-2">
+                            <h1 class="mb-4">Multi Agent Shop</h1>
+                            <p class="lead">Selecciona un cliente para realizar la compra</p>
                             
                             <div class="card">
                                 <div class="card-body">
                                     <form method="POST" action="/agent/shop/customer">
-                                        <div class="form-group">
-                                            <label for="customer">Cliente:</label>
-                                            <select class="form-control" id="customer" name="customer" required>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <div class="form-group mb-3">
+                                            <label for="customer" class="form-label">Cliente:</label>
+                                            <select class="form-control" id="customer" name="customer" required="required">
                                                 <option value="">-- Selecciona un cliente --</option>
                                                 <t t-foreach="customer_ids" t-as="customer">
                                                     <option t-att-value="customer.id" t-esc="customer.name"/>
                                                 </t>
                                             </select>
                                         </div>
+                                        
+                                        <!-- Alert Warning -->
+                                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                            <div class="d-flex align-items-start">
+                                                <i class="fa fa-exclamation-triangle me-3 mt-1" style="font-size: 1.25rem;"/>
+                                                <div>
+                                                    <strong>⚠️ Importante:</strong>
+                                                    <p class="mb-0 mt-2">
+                                                        Una vez selecciones un cliente, completa y finaliza la compra antes de cambiar a otro cliente. 
+                                                        Si cambias de cliente sin completar la compra actual, se perderán los productos del carrito.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fa fa-shopping-cart"/> Ir a Comprar
                                         </button>
