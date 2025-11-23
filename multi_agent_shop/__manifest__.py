@@ -133,9 +133,6 @@
         'views/invoice_report_template.xml',
         'views/sale_order_report_template.xml',
     ],
-    'assets': {
-        'web.assets_frontend': [],
-    },
     'installable': True,
     'auto_install': False,
     'application': True,
