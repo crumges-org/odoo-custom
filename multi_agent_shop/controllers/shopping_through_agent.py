@@ -23,6 +23,7 @@
 ################################################################################
 from odoo import http
 from odoo.http import request
+from werkzeug.exceptions import Forbidden
 
 
 class Agent(http.Controller):
@@ -38,7 +39,7 @@ class Agent(http.Controller):
         is_agent = user.partner_id.is_agent
         
         if not is_agent:
-            return request.render('website.403')
+            raise Forbidden("No tienes permiso para acceder a esta página.")
         
         # Get customers assigned to this agent using sudo()
         customer_ids = request.env['res.partner'].sudo().search([
@@ -52,13 +53,19 @@ class Agent(http.Controller):
     @http.route(['/agent/shop/customer'], type='http', auth='user', website=True, methods=['POST'])
     def agent_shop_customer(self, **post):
         """Handle customer selection and redirect to shop"""
+        # Get current user
+        user = request.env.user
+        
+        # Check if user is an agent
+        is_agent = user.partner_id.is_agent
+        
+        if not is_agent:
+            raise Forbidden("No tienes permiso para realizar esta acción.")
+        
         customer_id = int(post.get('customer', 0))
         
         if not customer_id:
             return request.redirect('/agent/shop')
-        
-        # Get current user
-        user = request.env.user
         
         # Verify that the customer is assigned to the agent using sudo()
         customer = request.env['res.partner'].sudo().browse(customer_id)
@@ -66,16 +73,23 @@ class Agent(http.Controller):
         
         # Check if customer is assigned to this agent
         if customer.agent_id.id != user_partner.id:
-            return request.render('website.403')
+            raise Forbidden("Este cliente no está asignado a tu cuenta.")
         
-        # Clear the cart
-        sale_order = request.website.sale_get_order()
-        if sale_order:
-            sale_order.order_line.unlink()
+        # Get or create sale order for the customer (NOT the agent)
+        # The key is to use the CUSTOMER as the partner, not the agent
+        sale_order = request.website.sale_get_order(force_create=True)
+        
+        # Update the order to use the customer instead of the agent
+        if sale_order and sale_order.partner_id.id != customer_id:
+            sale_order.write({
+                'partner_id': customer_id,
+                'agent_id': user_partner.id,  # Store the agent reference
+            })
         
         # Store customer in session with explicit key
         request.session['agent_customer_id'] = customer_id
         request.session['agent_customer_name'] = customer.name
+        request.session['agent_id'] = user_partner.id
         request.session.modified = True
         
         # Redirect to shop

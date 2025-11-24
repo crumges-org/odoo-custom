@@ -5,6 +5,8 @@
 #    Copyright (C) 2024-TODAY Cybrosys Technologies(<https://www.cybrosys.com>).
 #    Author: Ashok PK (odoo@cybrosys.com)
 #
+#    Adaptación y mejoras: Crumges
+#
 #    This program is free software: you can modify
 #    it under the terms of the GNU Affero General Public License (AGPL) as
 #    published by the Free Software Foundation, either version 3 of the
@@ -33,127 +35,207 @@ class WebsiteSaleInherit(WebsiteSale):
         website session."""
         res = super().shop(page, category, search, min_price,
                            max_price, ppg, **post)
-        order = request.website.sale_get_order()
-        if request.env.user.partner_id.is_agent and 'customer' not in post:
-            post['customer'] = str(request.env.user.partner_id.id)
+        
+        # Si el usuario es agente y tiene un cliente seleccionado en sesión
+        if request.env.user.partner_id.is_agent:
+            agent_customer_id = request.session.get('agent_customer_id')
+            if agent_customer_id:
+                # Usar el cliente de la sesión, no el del post
+                post['customer'] = str(agent_customer_id)
+            elif 'customer' not in post:
+                # Si no hay cliente en sesión y tampoco en post, usar el agente
+                post['customer'] = str(request.env.user.partner_id.id)
+        
+        # Gestionar cambios de cliente
         if 'post_values' in request.session:
             stored_post_values = request.session['post_values']
             if stored_post_values != post and post:
-                order.sudo().unlink()
+                order = request.website.sale_get_order()
+                if order:
+                    order.sudo().unlink()
+        
         if post:
             request.session['post_values'] = post
+        
         return res
 
     def cart(self, access_token=None, revive='', **post):
         """Function to update the address from cart when the sale order is
         created"""
         res = super().cart(access_token, revive, **post)
-        if 'post_values' in request.session:
-            post_values = request.session['post_values']
-            order = request.website.sale_get_order()
-            if post_values and order:
+        
+        # Obtener el cliente del agente desde la sesión
+        agent_customer_id = request.session.get('agent_customer_id')
+        order = request.website.sale_get_order()
+        
+        if order and request.env.user.partner_id.is_agent:
+            if agent_customer_id:
+                # Si hay cliente en sesión, usar ese
+                customer = request.env['res.partner'].sudo().browse(int(agent_customer_id))
+                order.sudo().write({
+                    'partner_id': customer.id,
+                    'partner_invoice_id': customer.id,
+                    'partner_shipping_id': customer.id,
+                    'agent_id': request.env.user.partner_id.id,
+                })
+            elif 'post_values' in request.session:
+                # Fallback a post_values si existe
+                post_values = request.session['post_values']
                 customer_id = post_values.get('customer')
                 if customer_id:
-                    customer = request.env['res.partner'].sudo().browse(
-                        int(customer_id))
-                    if request.env.user.partner_id.is_agent:
-                        order.sudo().write({
-                            'partner_id': customer.id,
-                            'partner_invoice_id': customer.id,
-                            'partner_shipping_id': customer.id,
-                            'agent_id': request.env.user.partner_id.id,
-                        })
+                    customer = request.env['res.partner'].sudo().browse(int(customer_id))
+                    order.sudo().write({
+                        'partner_id': customer.id,
+                        'partner_invoice_id': customer.id,
+                        'partner_shipping_id': customer.id,
+                        'agent_id': request.env.user.partner_id.id,
+                    })
+        
         return res
 
     def _get_shop_payment_values(self, order, **kwargs):
         """Function to update the sale order details created from website"""
         res = super()._get_shop_payment_values(order, **kwargs)
-        if 'post_values' in request.session:
-            post_values = request.session['post_values']
-            if post_values and order:
+        
+        agent_customer_id = request.session.get('agent_customer_id')
+        
+        if order and request.env.user.partner_id.is_agent:
+            if agent_customer_id:
+                # Si hay cliente en sesión, usar ese
+                customer = request.env['res.partner'].sudo().browse(int(agent_customer_id))
+                website_sale_order = res.get('website_sale_order', {})
+                website_sale_order.update({
+                    'partner_id': customer.id,
+                    'partner_invoice_id': customer.id,
+                    'partner_shipping_id': customer.id,
+                    'agent_id': request.env.user.partner_id.id,
+                })
+                res.update({
+                    'partner': customer,
+                    'partner_id': customer.id,
+                    'website_sale_order': website_sale_order,
+                })
+            elif 'post_values' in request.session:
+                # Fallback a post_values si existe
+                post_values = request.session['post_values']
                 customer_id = post_values.get('customer')
                 if customer_id:
-                    customer = request.env['res.partner'].sudo().browse(
-                        int(customer_id))
-                    if request.env.user.partner_id.is_agent:
-                        order = order.sudo()
-                        website_sale_order = res.get('website_sale_order', {})
-                        website_sale_order.update({
-                            'partner_id': customer.id,
-                            'partner_invoice_id': customer.id,
-                            'partner_shipping_id': customer.id,
-                            'agent_id': request.env.user.partner_id.id,
-                        })
-                        res.update({
-                            'partner': customer,
-                            'partner_id': customer.id,
-                            'website_sale_order': website_sale_order,
-                        })
+                    customer = request.env['res.partner'].sudo().browse(int(customer_id))
+                    website_sale_order = res.get('website_sale_order', {})
+                    website_sale_order.update({
+                        'partner_id': customer.id,
+                        'partner_invoice_id': customer.id,
+                        'partner_shipping_id': customer.id,
+                        'agent_id': request.env.user.partner_id.id,
+                    })
+                    res.update({
+                        'partner': customer,
+                        'partner_id': customer.id,
+                        'website_sale_order': website_sale_order,
+                    })
+        
         return res
 
     def _prepare_shop_payment_confirmation_values(self, order):
         """Function to prepare payment confirmation values"""
         res = super()._prepare_shop_payment_confirmation_values(order)
-        if 'post_values' in request.session:
-            post_values = request.session['post_values']
-            if post_values and order:
+        
+        agent_customer_id = request.session.get('agent_customer_id')
+        
+        if order and request.env.user.partner_id.is_agent:
+            if agent_customer_id:
+                # Si hay cliente en sesión, usar ese
+                customer = request.env['res.partner'].sudo().browse(int(agent_customer_id))
+                order.sudo().write({
+                    'partner_id': customer.id,
+                    'partner_invoice_id': customer.id,
+                    'partner_shipping_id': customer.id,
+                    'agent_id': request.env.user.partner_id.id,
+                })
+            elif 'post_values' in request.session:
+                # Fallback a post_values si existe
+                post_values = request.session['post_values']
                 customer_id = post_values.get('customer')
                 if customer_id:
-                    customer = request.env['res.partner'].sudo().browse(
-                        int(customer_id))
-                    if request.env.user.partner_id.is_agent:
-                        order.sudo().write({
-                            'partner_id': customer.id,
-                            'partner_invoice_id': customer.id,
-                            'partner_shipping_id': customer.id,
-                            'agent_id': request.env.user.partner_id.id,
-                        })
+                    customer = request.env['res.partner'].sudo().browse(int(customer_id))
+                    order.sudo().write({
+                        'partner_id': customer.id,
+                        'partner_invoice_id': customer.id,
+                        'partner_shipping_id': customer.id,
+                        'agent_id': request.env.user.partner_id.id,
+                    })
+        
         return res
 
     def checkout_values(self, order, **kw):
         """Updating the billing and shipping address based on customer"""
         res = super().checkout_values(order, **kw)
-        if 'post_values' in request.session:
-            post_values = request.session['post_values']
-            if post_values:
+        
+        agent_customer_id = request.session.get('agent_customer_id')
+        
+        if request.env.user.partner_id.is_agent:
+            if agent_customer_id:
+                # Si hay cliente en sesión, usar ese
+                customer = request.env['res.partner'].sudo().browse(int(agent_customer_id))
+                res.update({
+                    'shippings': customer,
+                    'billings': customer,
+                })
+            elif 'post_values' in request.session:
+                # Fallback a post_values si existe
+                post_values = request.session['post_values']
                 customer_id = post_values.get('customer')
                 if customer_id:
-                    customer = request.env['res.partner'].sudo().browse(
-                        int(customer_id))
-                    if request.env.user.partner_id.is_agent:
-                        res.update({
-                            'shippings': customer,
-                            'billings': customer,
-                        })
+                    customer = request.env['res.partner'].sudo().browse(int(customer_id))
+                    res.update({
+                        'shippings': customer,
+                        'billings': customer,
+                    })
+        
         return res
 
     def shop_payment_confirmation(self, **post):
         """Function to remove the values of post_values from the session."""
         res = super().shop_payment_confirmation(**post)
         request.session['post_values'] = {}
+        request.session['agent_customer_id'] = None
+        request.session['agent_id'] = None
         return res
 
 
 class PaymentPortal(payment_portal.PaymentPortal):
     """Class to inherit the function to change the details of the
     transactions."""
+    
     def shop_payment_transaction(self, order_id, access_token, **kwargs):
         """Function to change the order details for delivery and invoice"""
         res = super().shop_payment_transaction(order_id, access_token, **kwargs)
+        
         if order_id:
             order = request.env['sale.order'].sudo().browse(int(order_id))
-            if 'post_values' in request.session:
-                post_values = request.session['post_values']
-                if post_values:
+            agent_customer_id = request.session.get('agent_customer_id')
+            
+            if request.env.user.partner_id.is_agent:
+                if agent_customer_id:
+                    # Si hay cliente en sesión, usar ese
+                    customer = request.env['res.partner'].sudo().browse(int(agent_customer_id))
+                    order.sudo().write({
+                        'partner_id': customer.id,
+                        'partner_invoice_id': customer.id,
+                        'partner_shipping_id': customer.id,
+                        'agent_id': request.env.user.partner_id.id,
+                    })
+                elif 'post_values' in request.session:
+                    # Fallback a post_values si existe
+                    post_values = request.session['post_values']
                     customer_id = post_values.get('customer')
                     if customer_id:
-                        customer = request.env['res.partner'].sudo().browse(
-                            int(customer_id))
-                        if request.env.user.partner_id.is_agent:
-                            order.sudo().write({
-                                'partner_id': customer.id,
-                                'partner_invoice_id': customer.id,
-                                'partner_shipping_id': customer.id,
-                                'agent_id': request.env.user.partner_id.id,
-                            })
+                        customer = request.env['res.partner'].sudo().browse(int(customer_id))
+                        order.sudo().write({
+                            'partner_id': customer.id,
+                            'partner_invoice_id': customer.id,
+                            'partner_shipping_id': customer.id,
+                            'agent_id': request.env.user.partner_id.id,
+                        })
+        
         return res
