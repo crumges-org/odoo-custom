@@ -12,6 +12,15 @@ class ProjectTask(models.Model):
         default=False,
     )
 
+    def _get_root_with_switch(self):
+        self.ensure_one()
+        current = self
+        while current.parent_id:
+            if current.parent_id.auto_log_timesheet:
+                return current.parent_id
+            current = current.parent_id
+        return current if current.auto_log_timesheet else None
+
     def write(self, vals):
         old_states = {}
         if 'state' in vals:
@@ -31,10 +40,14 @@ class ProjectTask(models.Model):
                     task._create_automatic_timesheet()
                 
                 if task.parent_id:
-                    if task.state == '1_done':
-                        task.parent_id._check_all_subtasks_done()
-                    else:
-                        task.parent_id._check_subtasks_status()
+                    task.parent_id._recalculate_parent_state()
+        
+        if 'allocated_hours' in vals:
+            for task in self:
+                if task.child_ids:
+                    task._recalculate_parent_state()
+                if task.parent_id:
+                    task.parent_id._recalculate_parent_state()
         
         if 'parent_id' in vals:
             for task in self:
@@ -53,41 +66,49 @@ class ProjectTask(models.Model):
         
         return tasks
 
-    def _check_subtasks_status(self):
-        self.ensure_one()
-        
-        if not self.child_ids:
-            return
-        
-        all_done = all(child.state == '1_done' for child in self.child_ids)
-        
-        if not all_done and self.state in ['1_done', '03_approved', '02_changes_requested']:
-            _logger.info(f'Task {self.name}: hay subtareas sin completar, marcando como en progreso')
-            self.write({'state': '01_in_progress'})
+    def unlink(self):
+        parents = self.mapped('parent_id')
+        res = super(ProjectTask, self).unlink()
+        for parent in parents:
+            if parent.exists():
+                parent._recalculate_parent_state()
+        return res
 
-    def _check_all_subtasks_done(self):
+    def _recalculate_parent_state(self):
         self.ensure_one()
         
         if not self.child_ids:
             return
         
-        all_done = all(child.state == '1_done' for child in self.child_ids)
+        direct_children = self.child_ids.filtered(lambda t: t.allocated_hours and t.allocated_hours > 0)
         
-        if not all_done:
+        if not direct_children:
             return
         
-        total_subtask_hours = sum(child.allocated_hours for child in self.child_ids)
+        completed_children = direct_children.filtered(lambda t: t.state == '1_done')
+        pending_children = direct_children.filtered(lambda t: t.state != '1_done')
+        
+        if pending_children:
+            if self.state in ['1_done', '03_approved', '02_changes_requested']:
+                _logger.info(f'Task {self.name}: hay hijos directos sin completar, marcando como en progreso')
+                self.write({'state': '01_in_progress'})
+            return
+        
+        total_completed_hours = sum(child.allocated_hours for child in completed_children)
         parent_allocated_hours = self.allocated_hours or 0
         
-        if total_subtask_hours > parent_allocated_hours:
-            _logger.info(f'Task {self.name}: todas las subtareas completadas pero se excedió el tiempo asignado, marcando como cambios solicitados')
-            self.write({'state': '02_changes_requested'})
-        elif total_subtask_hours >= parent_allocated_hours:
-            _logger.info(f'Task {self.name}: todas las subtareas completadas y tiempo consumido, marcando como hecha')
-            self.write({'state': '1_done'})
+        if total_completed_hours > parent_allocated_hours:
+            if self.state != '02_changes_requested':
+                _logger.info(f'Task {self.name}: horas completadas ({total_completed_hours}) exceden lo asignado ({parent_allocated_hours}), marcando como cambios solicitados')
+                self.write({'state': '02_changes_requested'})
+        elif total_completed_hours == parent_allocated_hours:
+            if self.state != '1_done':
+                _logger.info(f'Task {self.name}: horas completadas ({total_completed_hours}) coinciden con lo asignado ({parent_allocated_hours}), marcando como hecha')
+                self.write({'state': '1_done'})
         else:
-            _logger.info(f'Task {self.name}: todas las subtareas completadas pero falta tiempo por asignar, marcando como aprobada')
-            self.write({'state': '03_approved'})
+            if self.state != '03_approved':
+                _logger.info(f'Task {self.name}: horas completadas ({total_completed_hours}) son menores a lo asignado ({parent_allocated_hours}), marcando como aprobada')
+                self.write({'state': '03_approved'})
 
     def _reopen_parent_task(self):
         self.ensure_one()
@@ -100,18 +121,17 @@ class ProjectTask(models.Model):
         self.ensure_one()
         
         if self.child_ids:
-            _logger.info(f'Task {self.name}: es una tarea padre con hijos, no se elimina timesheet')
+            _logger.info(f'Task {self.name}: tiene hijos, no se elimina timesheet')
             return
         
-        should_remove = False
+        root_with_switch = self._get_root_with_switch()
         
-        if self.parent_id and self.parent_id.auto_log_timesheet:
-            should_remove = True
-        elif not self.parent_id and self.auto_log_timesheet:
-            should_remove = True
+        if not root_with_switch:
+            _logger.info(f'Task {self.name}: no hay ancestro con auto_log_timesheet activo, no se elimina timesheet')
+            return
         
-        if not should_remove:
-            _logger.info(f'Task {self.name}: auto_log_timesheet no está activo, no se elimina timesheet')
+        if not self.allocated_hours or self.allocated_hours <= 0:
+            _logger.info(f'Task {self.name}: no tiene horas asignadas, no se elimina timesheet')
             return
         
         user_to_assign = self._get_user_for_timesheet()
@@ -140,18 +160,13 @@ class ProjectTask(models.Model):
         self.ensure_one()
         
         if self.child_ids:
-            _logger.info(f'Task {self.name}: es una tarea padre con hijos, no se registra timesheet')
+            _logger.info(f'Task {self.name}: tiene hijos, no se registra timesheet')
             return
         
-        should_create = False
+        root_with_switch = self._get_root_with_switch()
         
-        if self.parent_id and self.parent_id.auto_log_timesheet:
-            should_create = True
-        elif not self.parent_id and self.auto_log_timesheet:
-            should_create = True
-        
-        if not should_create:
-            _logger.info(f'Task {self.name}: auto_log_timesheet no está activo')
+        if not root_with_switch:
+            _logger.info(f'Task {self.name}: no hay ancestro con auto_log_timesheet activo')
             return
         
         if not self.allocated_hours or self.allocated_hours <= 0:

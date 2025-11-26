@@ -14,14 +14,14 @@
                     <strong>Registro Automático:</strong> Al marcar esta tarea como completada, se registrarán automáticamente las horas asignadas, siempre que tenga tiempo asignado y al menos una persona asignada. Si hay múltiples personas asignadas, se registrará a nombre de la primera persona de la lista.
                 </div>
                 <div class="alert alert-info" role="alert" invisible="not auto_log_timesheet or parent_id or not child_ids">
-                    <strong>Registro Automático:</strong> Al completar subtareas se registran sus horas automáticamente (requiere tiempo y persona; con múltiples personas se usa la primera). Al cambiar estado de subtarea se eliminan las horas registradas.
+                    <strong>Registro Automático:</strong> Solo las tareas finales (sin subtareas) registran horas automáticamente al completarse. Las tareas intermedias solo actualizan su estado automáticamente. Al cambiar estado de una tarea final se eliminan las horas registradas.
                     <br/>
                     <strong>Estados automáticos:</strong>
                     <ul class="mb-0">
-                        <li><strong>Cambios solicitados:</strong> horas exceden lo asignado</li>
-                        <li><strong>Hecho:</strong> horas coinciden exactamente</li>
+                        <li><strong>Cambios solicitados:</strong> horas totales exceden lo asignado</li>
+                        <li><strong>Hecho:</strong> horas totales coinciden exactamente</li>
                         <li><strong>Aprobada:</strong> queda tiempo sin asignar</li>
-                        <li><strong>En progreso:</strong> al quedar subtareas sin completar o agregar nueva subtarea</li>
+                        <li><strong>En progreso:</strong> al quedar tareas finales sin completar o agregar nueva subtarea</li>
                     </ul>
                 </div>
             </field>
