@@ -117,6 +117,23 @@ class ProjectTask(models.Model):
             _logger.info(f'Task {self.name}: nueva subtarea agregada, reabriendo tarea padre')
             self.write({'state': '01_in_progress'})
 
+    def _get_employee_for_timesheet(self, user):
+        self.ensure_one()
+        
+        search_company = self.project_id.company_id if self.project_id.company_id else self.env.company
+        
+        employee = self.env['hr.employee'].search([
+            ('user_id', '=', user.id),
+            ('company_id', '=', search_company.id)
+        ], limit=1)
+        
+        if not employee:
+            employee = self.env['hr.employee'].search([
+                ('user_id', '=', user.id)
+            ], limit=1)
+        
+        return employee
+
     def _remove_automatic_timesheet(self):
         self.ensure_one()
         
@@ -139,9 +156,7 @@ class ProjectTask(models.Model):
         if not user_to_assign:
             return
         
-        employee = self.env['hr.employee'].search([
-            ('user_id', '=', user_to_assign.id)
-        ], limit=1)
+        employee = self._get_employee_for_timesheet(user_to_assign)
         
         if not employee:
             return
@@ -179,9 +194,7 @@ class ProjectTask(models.Model):
             _logger.info(f'Task {self.name}: no tiene usuario asignado')
             return
         
-        employee = self.env['hr.employee'].search([
-            ('user_id', '=', user_to_assign.id)
-        ], limit=1)
+        employee = self._get_employee_for_timesheet(user_to_assign)
         
         if not employee:
             _logger.warning(f'Task {self.name}: el usuario {user_to_assign.name} no tiene empleado asociado')
@@ -202,11 +215,12 @@ class ProjectTask(models.Model):
             'project_id': self.project_id.id,
             'task_id': self.id,
             'employee_id': employee.id,
+            'company_id': employee.company_id.id,
             'unit_amount': self.allocated_hours,
             'date': fields.Date.context_today(self),
         })
         
-        _logger.info(f'Task {self.name}: timesheet creado con ID {timesheet.id} - {self.allocated_hours} horas')
+        _logger.info(f'Task {self.name}: timesheet creado con ID {timesheet.id} - {self.allocated_hours} horas en compañía {employee.company_id.name}')
 
     def _get_user_for_timesheet(self):
         self.ensure_one()
