@@ -5,24 +5,58 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_force_complete_with_wizard" 
+                        string="✅ Finalizar Tarea" 
+                        type="object" 
+                        invisible="state == '1_done' or state == '1_canceled' or not child_ids"
+                        class="btn-success"/>
+                <button name="action_cancel_with_wizard" 
+                        string="🗑️ Cancelar Tarea" 
+                        type="object" 
+                        invisible="state == '1_canceled' or not child_ids"
+                        class="btn-warning"/>
+                <button name="action_reopen_with_wizard" 
+                        string="🔄 Reabrir Tarea" 
+                        type="object" 
+                        invisible="(state != '1_canceled' or not child_ids) and state == '1_canceled'"
+                        class="btn-info"/>
+            </xpath>
+            
             <field name="tag_ids" position="after">
                 <label for="auto_log_timesheet" string="Registrar Horas Automáticamente" invisible="parent_id"/>
                 <div invisible="parent_id">
                     <field name="auto_log_timesheet" widget="boolean_toggle" nolabel="1"/>
                 </div>
-                <div class="alert alert-info" role="alert" invisible="not auto_log_timesheet or parent_id or child_ids">
-                    <strong>Registro Automático:</strong> Al marcar esta tarea como completada, se registrarán automáticamente las horas asignadas, siempre que tenga tiempo asignado y al menos una persona asignada. Si hay múltiples personas asignadas, se registrará a nombre de la primera persona de la lista.
+                
+                <div class="alert alert-secondary" role="alert" invisible="parent_id or auto_log_timesheet or child_ids">
+                    <strong>ℹ️ Tarea Raíz sin Automatización</strong><br/>
+                    Esta tarea no tiene automatización activada. Active el switch para habilitar el registro automático de horas en toda la jerarquía de subtareas.
                 </div>
-                <div class="alert alert-info" role="alert" invisible="not auto_log_timesheet or parent_id or not child_ids">
-                    <strong>Registro Automático:</strong> Solo las tareas finales (sin subtareas) registran horas automáticamente al completarse. Las tareas intermedias solo actualizan su estado automáticamente. Al cambiar estado de una tarea final se eliminan las horas registradas.
-                    <br/>
-                    <strong>Estados automáticos:</strong>
-                    <ul class="mb-0">
-                        <li><strong>Cambios solicitados:</strong> horas totales exceden lo asignado</li>
-                        <li><strong>Hecho:</strong> horas totales coinciden exactamente</li>
-                        <li><strong>Aprobada:</strong> queda tiempo sin asignar</li>
-                        <li><strong>En progreso:</strong> al quedar tareas finales sin completar o agregar nueva subtarea</li>
+                
+                <div class="alert alert-primary" role="alert" invisible="parent_id or not auto_log_timesheet or not child_ids">
+                    <strong>🔵 Tarea Raíz con Automatización Activa</strong><br/>
+                    <strong>Registro de Horas:</strong> Solo las tareas finales (sin subtareas) registran horas automáticamente al completarse.<br/>
+                    <strong>Cambio de Estado Automático:</strong> Esta tarea actualiza su estado según sus hijos directos:
+                    <ul class="mb-0 mt-1">
+                        <li><strong>Hecho:</strong> todos los hijos completos y horas coinciden</li>
+                        <li><strong>Aprobada:</strong> todos los hijos completos y sobra tiempo</li>
+                        <li><strong>Cambios solicitados:</strong> horas exceden lo asignado</li>
+                        <li><strong>En progreso:</strong> hay hijos sin completar</li>
                     </ul>
+                    <strong>Finalización Forzada:</strong> Use el botón "✅ Finalizar Tarea" para marcar como Hecho y cancelar subtareas pendientes.
+                </div>
+                
+                <div class="alert alert-info" role="alert" invisible="not parent_id or not child_ids">
+                    <strong>🟢 Tarea Intermedia con Subtareas</strong><br/>
+                    <strong>Registro de Horas:</strong> Esta tarea NO registra horas automáticamente. Solo las tareas finales lo hacen.<br/>
+                    <strong>Cambio de Estado Automático:</strong> El estado se actualiza según los hijos directos con la misma lógica que la tarea raíz.
+                </div>
+                
+                <div class="alert alert-success" role="alert" invisible="not parent_id or child_ids">
+                    <strong>✅ Tarea Final (sin subtareas)</strong><br/>
+                    <strong>Registro de Horas:</strong> Al marcar como "Hecho", se registran automáticamente las horas asignadas. Al cambiar a otro estado, se eliminan las horas automáticas.<br/>
+                    <strong>Cambio de Estado:</strong> Manual (no automático).
                 </div>
             </field>
         </field>
