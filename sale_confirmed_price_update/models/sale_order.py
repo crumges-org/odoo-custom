@@ -5,17 +5,22 @@ class SaleOrder(models.Model):
 
     def action_recalculate_prices(self):
         for order in self:
-            if order.order_line:
-                for line in order.order_line:
-                    if line.product_id:
-                        price = order.pricelist_id._get_product_price(
-                            line.product_id,
-                            line.product_uom_qty or 1.0,
-                            partner=order.partner_id,
-                            date=order.date_order,
-                            uom_id=line.product_uom.id
-                        )
-                        line.price_unit = price
+            normal_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+            
+            order_updates = {}
+            for line in normal_lines:
+                if line.product_id:
+                    values = line._prepare_price_update_values()
+                    line.sudo().write(values)
+                    order_updates[line.id] = {
+                        'new_price': values['price_unit'] * (1 - values.get('discount', 0) / 100)
+                    }
+            
+            reward_lines = order.order_line.filtered(lambda l: l.is_reward_line)
+            for reward_line in reward_lines:
+                new_reward_price = reward_line._calculate_reward_price(order_updates)
+                reward_line.sudo().write({'price_unit': new_reward_price})
+        
         return True
 
     def action_open_recalculate_prices_wizard(self):

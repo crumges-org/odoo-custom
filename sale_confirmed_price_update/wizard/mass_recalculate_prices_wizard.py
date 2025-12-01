@@ -12,6 +12,7 @@ class MassRecalculatePricesWizard(models.TransientModel):
     difference = fields.Monetary(string='Difference', compute='_compute_totals', currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', string='Currency', compute='_compute_currency')
     show_detail = fields.Boolean(string='Show Detail', default=False)
+    has_rewards = fields.Boolean(string='Has Rewards', compute='_compute_has_rewards')
 
     @api.model
     def default_get(self, fields_list):
@@ -29,6 +30,14 @@ class MassRecalculatePricesWizard(models.TransientModel):
             else:
                 wizard.currency_id = False
 
+    @api.depends('sale_order_ids')
+    def _compute_has_rewards(self):
+        for wizard in self:
+            wizard.has_rewards = any(
+                order.order_line.filtered(lambda l: l.is_reward_line)
+                for order in wizard.sale_order_ids
+            )
+
     @api.depends('line_ids.current_subtotal', 'line_ids.new_subtotal', 'order_summary_ids.current_total', 'order_summary_ids.new_total')
     def _compute_totals(self):
         for wizard in self:
@@ -45,40 +54,56 @@ class MassRecalculatePricesWizard(models.TransientModel):
         if self.show_detail:
             lines = []
             for order in self.sale_order_ids:
+                normal_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+                
+                order_updates = {}
+                for line in normal_lines:
+                    if line.product_id:
+                        new_price = line.get_new_price_with_promotions()
+                        order_updates[line.id] = {'new_price': new_price}
+                
                 for line in order.order_line:
                     if line.product_id:
-                        new_price = order.pricelist_id._get_product_price(
-                            line.product_id,
-                            line.product_uom_qty or 1.0,
-                            partner=order.partner_id,
-                            date=order.date_order,
-                            uom_id=line.product_uom.id
-                        )
+                        current_price = line.price_unit * (1 - line.discount / 100)
+                        
+                        if line.is_reward_line:
+                            new_price = line._calculate_reward_price(order_updates)
+                        else:
+                            new_price = line.get_new_price_with_promotions()
+                        
                         lines.append((0, 0, {
                             'order_id': order.id,
                             'order_line_id': line.id,
                             'product_id': line.product_id.id,
-                            'current_price': line.price_unit,
+                            'current_price': current_price,
                             'new_price': new_price,
                             'quantity': line.product_uom_qty,
+                            'is_reward': line.is_reward_line,
                         }))
             self.line_ids = lines
         else:
             summaries = []
             for order in self.sale_order_ids:
-                current_total = 0
-                new_total = 0
-                for line in order.order_line:
+                current_total = order.amount_total
+                
+                normal_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+                
+                order_updates = {}
+                new_normal_total = 0
+                for line in normal_lines:
                     if line.product_id:
-                        new_price = order.pricelist_id._get_product_price(
-                            line.product_id,
-                            line.product_uom_qty or 1.0,
-                            partner=order.partner_id,
-                            date=order.date_order,
-                            uom_id=line.product_uom.id
-                        )
-                        current_total += line.price_unit * line.product_uom_qty
-                        new_total += new_price * line.product_uom_qty
+                        new_price = line.get_new_price_with_promotions()
+                        order_updates[line.id] = {'new_price': new_price}
+                        new_normal_total += new_price * line.product_uom_qty
+                
+                reward_lines = order.order_line.filtered(lambda l: l.is_reward_line)
+                new_reward_total = sum(
+                    line._calculate_reward_price(order_updates) * line.product_uom_qty
+                    for line in reward_lines
+                )
+                
+                new_total = new_normal_total + new_reward_total
+                
                 summaries.append((0, 0, {
                     'order_id': order.id,
                     'current_total': current_total,
@@ -108,6 +133,7 @@ class MassRecalculatePricesLineWizard(models.TransientModel):
     new_subtotal = fields.Monetary(string='New Subtotal', compute='_compute_subtotals', currency_field='currency_id')
     price_difference = fields.Monetary(string='Difference', compute='_compute_subtotals', currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', related='order_id.currency_id', string='Currency')
+    is_reward = fields.Boolean(string='Is Reward', readonly=True)
 
     @api.depends('current_price', 'new_price', 'quantity')
     def _compute_subtotals(self):
