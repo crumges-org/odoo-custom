@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mass_recalculate_prices_wizard,access.mass.recalculate.prices.wizard,model_mass_recalculate_prices_wizard,base.group_user,1,1,1,1
+access_mass_recalculate_prices_line_wizard,access.mass.recalculate.prices.line.wizard,model_mass_recalculate_prices_line_wizard,base.group_user,1,1,1,1
+access_mass_recalculate_prices_order_summary_wizard,access.mass.recalculate.prices.order.summary.wizard,model_mass_recalculate_prices_order_summary_wizard,base.group_user,1,1,1,1

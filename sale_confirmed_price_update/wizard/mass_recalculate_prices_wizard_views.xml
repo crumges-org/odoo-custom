@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mass_recalculate_prices_line_wizard_tree" model="ir.ui.view">
+        <field name="name">mass.recalculate.prices.line.wizard.tree</field>
+        <field name="model">mass.recalculate.prices.line.wizard</field>
+        <field name="arch" type="xml">
+            <list string="Price Changes" create="0" edit="0" delete="0">
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="current_price" widget="monetary"/>
+                <field name="new_price" widget="monetary"/>
+                <field name="current_subtotal" widget="monetary"/>
+                <field name="new_subtotal" widget="monetary"/>
+                <field name="price_difference" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mass_recalculate_prices_order_summary_wizard_tree" model="ir.ui.view">
+        <field name="name">mass.recalculate.prices.order.summary.wizard.tree</field>
+        <field name="model">mass.recalculate.prices.order.summary.wizard</field>
+        <field name="arch" type="xml">
+            <list string="Order Summary" create="0" edit="0" delete="0">
+                <field name="order_id"/>
+                <field name="current_total" widget="monetary"/>
+                <field name="new_total" widget="monetary"/>
+                <field name="difference" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mass_recalculate_prices_wizard_form" model="ir.ui.view">
+        <field name="name">mass.recalculate.prices.wizard.form</field>
+        <field name="model">mass.recalculate.prices.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Recalculate Prices">
+                <group>
+                    <group>
+                        <field name="current_total" widget="monetary"/>
+                        <field name="new_total" widget="monetary"/>
+                        <field name="difference" widget="monetary"/>
+                        <field name="currency_id" invisible="1"/>
+                        <field name="show_detail" invisible="1"/>
+                    </group>
+                </group>
+                <notebook invisible="not show_detail">
+                    <page string="Price Changes Detail">
+                        <field name="line_ids" nolabel="1">
+                            <list create="0" edit="0" delete="0">
+                                <field name="order_id"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="current_price" widget="monetary"/>
+                                <field name="new_price" widget="monetary"/>
+                                <field name="current_subtotal" widget="monetary"/>
+                                <field name="new_subtotal" widget="monetary"/>
+                                <field name="price_difference" widget="monetary"/>
+                                <field name="currency_id" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <group invisible="show_detail">
+                    <field name="order_summary_ids" nolabel="1">
+                        <list create="0" edit="0" delete="0">
+                            <field name="order_id"/>
+                            <field name="current_total" widget="monetary"/>
+                            <field name="new_total" widget="monetary"/>
+                            <field name="difference" widget="monetary"/>
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </group>
+                <field name="sale_order_ids" invisible="1"/>
+                <footer>
+                    <button string="Apply Changes" name="action_recalculate_prices" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mass_recalculate_prices" model="ir.actions.act_window">
+        <field name="name">Recalculate Prices</field>
+        <field name="res_model">mass.recalculate.prices.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

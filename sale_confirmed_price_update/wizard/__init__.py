@@ -1,0 +1,1 @@
+from . import mass_recalculate_prices_wizard
