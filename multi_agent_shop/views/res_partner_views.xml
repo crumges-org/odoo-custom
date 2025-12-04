@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend res.partner form to add agent fields -->
+    <record id="res_partner_form_view_agent" model="ir.ui.view">
+        <field name="name">res.partner.form.agent</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <!-- Agregar campos en la solapa "Ventas y Compras" -->
+            <xpath expr="//notebook/page[@name='sales_purchases']" position="inside">
+                <group string="Información del Agente" name="agent_info">
+                    <field name="is_agent" string="Es Agente"/>
+                    <field name="agent_id" string="Agente Asignado"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
