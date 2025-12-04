@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi Agent Shop - Odoo 18</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        .header-info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .badge {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .badge.secondary {
+            background: #95a5a6;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding-left: 30px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .feature-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .section-box {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .section-box h3 {
+            margin-top: 0;
+        }
+        .credit-section {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .credit-section strong {
+            color: #856404;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Multi Agent Shop</h1>
+        
+        <div class="header-info">
+            <p>
+                <span class="badge">Odoo 18</span>
+                <span class="badge secondary">LGPL-3</span>
+                <span class="badge secondary">Production Ready</span>
+            </p>
+            <p><strong>Versión:</strong> 18.0.1.0.0</p>
+            <p><strong>Autor:</strong> Crumges (Basado en Shopping Through Agent de Cybrosys Technologies)</p>
+        </div>
+
+        <!-- Origen -->
+        <h2>📚 Origen del Módulo</h2>
+        <div class="section-box">
+            <p>
+                Este módulo es una <strong>adaptación mejorada</strong> de <strong>"Shopping Through Agent"</strong> 
+                creado por <strong>Cybrosys Technologies Pvt. Ltd.</strong>
+            </p>
+            <ul>
+                <li><strong>Módulo Original:</strong> <a href="https://www.cybrosys.com/" target="_blank">Shopping Through Agent (Cybrosys)</a></li>
+                <li><strong>Versiones Originales:</strong> Odoo 15/16</li>
+                <li><strong>Adaptado por:</strong> <a href="https://crumges.com/" target="_blank">Crumges</a></li>
+                <li><strong>Versión Actual:</strong> Odoo 18</li>
+            </ul>
+        </div>
+
+        <!-- Qué traía el original -->
+        <h2>🔍 ¿Qué Traía el Módulo Original?</h2>
+        <ul class="feature-list">
+            <li>Opción para marcar contactos como "agentes"</li>
+            <li>Capacidad de que agentes realicen compras en el portal</li>
+            <li>Asignación de un cliente a cada compra</li>
+            <li>Registro básico del agente en la orden de venta</li>
+            <li>Interfaz simple para seleccionar cliente</li>
+        </ul>
+
+        <!-- Qué se agregó -->
+        <h2>⭐ ¿Qué Se Agregó en Esta Versión?</h2>
+
+        <h3>🔒 Mejoras de Seguridad</h3>
+        <ul class="feature-list">
+            <li>Validaciones robustas de permisos en múltiples capas</li>
+            <li>Verificación de que agentes solo compren para clientes asignados</li>
+            <li>Soporte completo para usuarios de portal como agentes</li>
+            <li>Acceso controlado a datos sin exposición de información sensible</li>
+            <li>Uso estratégico de sudo() con validaciones</li>
+        </ul>
+
+        <h3>✨ Mejoras de Experiencia de Usuario</h3>
+        <ul class="feature-list">
+            <li>Interfaz dedicada (/agent/shop) para selección clara de cliente</li>
+            <li>Cliente visible en la parte superior del carrito</li>
+            <li>Sección destacada "Compra a nombre de: [Cliente]"</li>
+            <li>Mensaje de advertencia en formulario de selección</li>
+            <li>Recordatorio en el carrito sobre cambio de cliente</li>
+            <li>Diseño completamente responsivo para móviles</li>
+        </ul>
+
+        <h3>⚙️ Mejoras Técnicas</h3>
+        <ul class="feature-list">
+            <li>Compatibilidad total con Odoo 18</li>
+            <li>Herencia correcta de WebsiteSale</li>
+            <li>Gestión avanzada de carritos y sesiones</li>
+            <li>Trazabilidad mejorada del agente</li>
+            <li>Código limpio y bien documentado</li>
+            <li>Integración fluida con flujo estándar</li>
+        </ul>
+
+        <!-- Características -->
+        <h2>🎯 Características Principales</h2>
+        <ul class="feature-list">
+            <li>Compras por agentes en nombre de clientes específicos</li>
+            <li>Soporte para usuarios internos y de portal como agentes</li>
+            <li>Gestión de clientes asignados a cada agente</li>
+            <li>Información del cliente visible en toda la compra</li>
+            <li>Advertencias y recordatorios en interfaz</li>
+            <li>Trazabilidad completa del agente responsable</li>
+            <li>Validaciones de seguridad robustas</li>
+            <li>Diseño responsivo para móviles</li>
+        </ul>
+
+        <!-- Créditos -->
+        <h2>🙏 Créditos y Atribuciones</h2>
+        <div class="credit-section">
+            <h3>Módulo Original</h3>
+            <p>
+                <strong>Shopping Through Agent</strong><br>
+                Autor: <strong>Cybrosys Technologies Pvt. Ltd.</strong><br>
+                Sitio: <a href="https://www.cybrosys.com/" target="_blank">https://www.cybrosys.com/</a><br>
+                Licencia: LGPL-3<br>
+                <br>
+                Agradecemos especialmente a Cybrosys por la base original del módulo.
+            </p>
+        </div>
+
+        <div class="credit-section">
+            <h3>Adaptación y Mejoras</h3>
+            <p>
+                <strong>Crumges</strong><br>
+                Sitio: <a href="https://crumges.com/" target="_blank">https://crumges.com/</a><br>
+                <br>
+                Adaptación a Odoo 18, mejoras de seguridad, soporte para usuarios de portal, 
+                mejoras de UX y documentación completa.
+            </p>
+        </div>
+
+        <!-- Información adicional -->
+        <h2>ℹ️ Información Adicional</h2>
+        <ul>
+            <li><strong>Versión:</strong> 18.0.1.0.0</li>
+            <li><strong>Compatible con:</strong> Odoo 18.0</li>
+            <li><strong>Dependencias:</strong> sale, website_sale, base, account</li>
+            <li><strong>Base de datos:</strong> PostgreSQL 12+</li>
+            <li><strong>Navegadores:</strong> Chrome, Firefox, Safari, Edge (versiones recientes)</li>
+            <li><strong>Licencia:</strong> LGPL-3.0</li>
+        </ul>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>
+                Multi Agent Shop © 2024 Crumges<br>
+                Basado en Shopping Through Agent © Cybrosys Technologies Pvt. Ltd.<br>
+                Licencia LGPL-3.0
+            </p>
+        </div>
+    </div>
+</body>
+</html>

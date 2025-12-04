@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="agent_menu_visibility_control" inherit_id="website.layout" priority="50">
+        <xpath expr="//body" position="inside">
+            <t t-set="is_agent" t-value="request.env.user and not request.env.user._is_public() and request.env.user.partner_id.is_agent"/>
+            <script type="text/javascript">
+                (function() {
+                    var isAgent = <t t-esc="json.dumps(is_agent)"/>;
+                    
+                    function toggleAgentMenu() {
+                        var links = document.querySelectorAll('a[href="/agent/shop"]');
+                        links.forEach(function(link) {
+                            var menuItem = link.closest('li');
+                            if (menuItem) {
+                                if (isAgent) {
+                                    menuItem.style.display = '';
+                                } else {
+                                    menuItem.style.display = 'none';
+                                }
+                            }
+                        });
+                    }
+                    
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', toggleAgentMenu);
+                    } else {
+                        toggleAgentMenu();
+                    }
+                    
+                    var observer = new MutationObserver(toggleAgentMenu);
+                    observer.observe(document.body, { childList: true, subtree: true });
+                })();
+            </script>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_agent_user_res_partner,Agent User Access res.partner,base.model_res_partner,multi_agent_shop.group_agent,1,1,1,1
