@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <!-- Direct Insertion Strategy: Force visibility by appending to main container -->
+    <!-- Timesheet visibility is now handled in the Controller by forcing timesheet_count > 0 -->
+    <!-- Inject 'Create New' Button into List View -->
+    <template id="portal_my_timesheets_inherit_create_btn" inherit_id="hr_timesheet.portal_my_timesheets">
+        <xpath expr="//t[@t-call='portal.portal_searchbar']" position="after">
+            <div class="d-flex justify-content-end mb-3">
+                <a href="/create/new/timesheet" class="btn btn-primary">
+                    <i class="fa fa-plus"/> Create New Timesheet
+                </a>
+            </div>
+        </xpath>
+        
+        <!-- Add Delete Button -->
+        <xpath expr="//tbody//td[last()]" position="after">
+            <td class="text-end">
+                <a t-attf-href="/my/timesheet/delete/#{timesheet.id}" class="btn btn-sm btn-link text-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this timesheet?');">
+                    <i class="fa fa-trash"/>
+                </a>
+            </td>
+        </xpath>
+        <!-- Add Header for Delete op -->
+        <xpath expr="//thead//th[last()]" position="after">
+            <th/>
+        </xpath>
+    </template>
+
+    <!-- Create Timesheet Form -->
+    <template id="portal_create_timesheet_form" name="Create Timesheet">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">New Timesheet</t>
+            </t>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <h4 class="card-title my-2">Timesheet Entry</h4>
+                        </div>
+                        <div class="card-body">
+                            <!-- Error Message -->
+                            <div t-if="request.params.get('error_msg')" class="alert alert-danger" role="alert">
+                                <t t-esc="request.params.get('error_msg')"/>
+                            </div>
+
+                            <form action="/create/timesheet" method="POST" id="timesheet_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Description *</label>
+                                    <input type="text" name="name" class="form-control" required="required" placeholder="e.g. Development work..."/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="project_id" class="form-label">Project *</label>
+                                        <select name="project_id" id="project_id" class="form-select" required="required">
+                                            <option value="">Select Project...</option>
+                                            <t t-foreach="projects" t-as="p">
+                                                <option t-att-value="p.id"><t t-esc="p.name"/></option>
+                                            </t>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="task_id" class="form-label">Task</label>
+                                        <select name="task_id" id="task_id" class="form-select">
+                                            <option value="">Select Project First...</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="date" class="form-label">Date *</label>
+                                        <input type="date" name="date" class="form-control" required="required" t-att-value="current_date"/>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Duration *</label>
+                                        <div class="input-group">
+                                            <input type="number" name="unit_amount_hours" class="form-control" placeholder="Hours" min="0" value="0"/>
+                                            <span class="input-group-text">:</span>
+                                            <input type="number" name="unit_amount_minutes" class="form-control" placeholder="Mins" min="0" max="59" value="0"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-4">
+                                    <a href="/my/timesheets" class="btn btn-secondary">Discard</a>
+                                    <button type="submit" class="btn btn-primary">Save Timesheet</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

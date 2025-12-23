@@ -1,0 +1,22 @@
+{
+    'name': 'UX de Subtareas y Partes de Horas',
+    'version': '18.0.1.0.0',
+    'category': 'Project',
+    'summary': 'Automatiza estados de tareas y partes de horas según el progreso de subtareas.',
+    'author': 'Crumges',
+    'website': 'https://crumges.com',
+    'license': 'AGPL-3',
+    'maintainers': ['Crumges'],
+    'depends': ['project', 'hr_timesheet'],
+    'data': [
+        'security/ir.model.access.csv',
+        'wizards/views/project_task_cancel_wizard_views.xml',
+        'wizards/views/project_task_reopen_wizard_views.xml',
+        'wizards/views/project_task_complete_wizard_views.xml',
+        'views/project_task_views.xml',
+    ],
+    'installable': True,
+    'application': False,
+    'auto_install': False,
+    'images': ['static/description/icon.png'],
+}

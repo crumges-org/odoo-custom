@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_slide_slide_form" model="ir.ui.view">
+        <field name="name">slide.slide.form.crumges.video</field>
+        <field name="model">slide.slide</field>
+        <field name="inherit_id" ref="website_slides.view_slide_slide_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='slide_type']" position="attributes">
+                 <attribute name="invisible">0</attribute>
+                 <attribute name="readonly">0</attribute>
+                 <attribute name="string">Video Source</attribute>
+            </xpath>
+            <xpath expr="//field[@name='slide_type']" position="after">
+                <field name="zoom_meeting_id" invisible="slide_type != 'zoom_meeting'"/>
+                <field name="zoom_meeting_pwd" invisible="slide_type != 'zoom_meeting'"/>
+                <field name="local_video_file" filename="local_video_filename" invisible="slide_type != 'localvideo'"/>
+                <field name="local_video_filename" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='video_url']" position="attributes">
+                 <attribute name="invisible">slide_category != 'video' or slide_type in ['localvideo', 'zoom_meeting']</attribute>
+            </xpath>
+             <xpath expr="//field[@name='video_url']" position="after">
+                 <field name="external_url" invisible="slide_type not in ['externalvideo', 'googledrivevideo', 'vimeovideo']" required="slide_type in ['externalvideo', 'googledrivevideo', 'vimeovideo']"/>
+                 <field name="show_drive_popout"/>
+                 <field name="hide_embed_option"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

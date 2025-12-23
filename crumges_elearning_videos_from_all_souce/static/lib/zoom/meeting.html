@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Zoom Meeting</title>
+    <meta charset="utf-8" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.13.0/css/bootstrap.css" />
+    <link type="text/css" rel="stylesheet" href="https://source.zoom.us/2.13.0/css/react-select.css" />
+</head>
+
+<body>
+    <div id="zmmtg-root"></div>
+    <div id="aria-notify-area"></div>
+
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/react.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/react-dom.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/redux.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/redux-thunk.min.js"></script>
+    <script src="https://source.zoom.us/2.13.0/lib/vendor/lodash.min.js"></script>
+    <script src="https://source.zoom.us/zoom-meeting-2.13.0.min.js"></script>
+
+    <script>
+        ZoomMtg.preLoadWasm();
+        ZoomMtg.prepareWebSDK();
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const mn = urlParams.get('mn');
+        const pwd = urlParams.get('pwd');
+        const signature = urlParams.get('signature');
+        const apiKey = urlParams.get('apiKey');
+        const name = urlParams.get('name');
+        const email = urlParams.get('email');
+
+        ZoomMtg.init({
+            leaveUrl: window.location.origin, // Return to Odoo
+            isSupportAV: true,
+            success: function () {
+                ZoomMtg.join({
+                    meetingNumber: mn,
+                    userName: name,
+                    signature: signature,
+                    apiKey: apiKey,
+                    passWord: pwd,
+                    success: function (res) {
+                        console.log('join meeting success');
+                    },
+                    error: function (res) {
+                        console.log(res);
+                    }
+                });
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    </script>
+</body>
+
+</html>

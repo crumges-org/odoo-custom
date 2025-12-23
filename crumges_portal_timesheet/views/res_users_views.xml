@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_users_view_form_inherit_portal" model="ir.ui.view">
+        <field name="name">res.users.form.inherit.portal</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="hr.res_users_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Allow Create Employee button to show validation based only on existing employee link -->
+            <button name="action_create_employee" position="attributes">
+                <attribute name="invisible">id == False or employee_id != False</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>
