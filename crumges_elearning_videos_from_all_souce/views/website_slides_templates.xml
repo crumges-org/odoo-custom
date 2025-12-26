@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- Override the content template itself for maximum reliability -->
-    <template id="slide_social_embed" inherit_id="website_slides.slide_social_embed">
-        <xpath expr="//div[hasclass('oe_slide_js_embed_code_widget')]" position="attributes">
-            <attribute name="t-if">not (slide.hide_embed_option)</attribute>
-        </xpath>
-    </template>
+    <!-- Template override removed as requested (hide_embed_option feature removal) -->
 
     <template id="slide_content_detailed" inherit_id="website_slides.slide_content_detailed">
         <!-- Reverted debugging stuff -->

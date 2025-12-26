@@ -38,8 +38,7 @@ class Slide(models.Model):
     zoom_meeting_pwd = fields.Char(string="Zoom Meeting Password")
     
     # Visualization options
-    show_drive_popout = fields.Boolean(string="Show Drive Popout", default=True, help="If unchecked, hides the external link button on Google Drive videos.")
-    hide_embed_option = fields.Boolean(string="Hide Embed Option", default=False, help="If checked, the 'Embed in another website' option will be hidden in the share modal.")
+    # Removed show_drive_popout and hide_embed_option as they were causing issues
 
     # Local video storage
     local_video_file = fields.Binary(string="Local Video File", attachment=True)
@@ -101,7 +100,7 @@ class Slide(models.Model):
         
         return final_signature.rstrip("=")
 
-    @api.depends("slide_type", "external_url", "zoom_meeting_id", "local_video_file", "show_drive_popout")
+    @api.depends("slide_type", "external_url", "zoom_meeting_id", "local_video_file")
     def _compute_embed_code(self):
         # We override to handle new types, fallback to super for standard types
         super()._compute_embed_code()
@@ -128,11 +127,7 @@ class Slide(models.Model):
                 file_id = record.external_url if record.slide_type == "googledrivevideo" else record.google_drive_id
                 url = f"https://drive.google.com/file/d/{file_id}/preview"
                 
-                # We inject the overlay directly here because the Fullscreen player fetches embed_code via JS/RPC
-                if not record.show_drive_popout:
-                    code = f'<div class="crm-drive-wrapper position-relative w-100 h-100"><div class="drivehidecontrols"></div><iframe src="{url}" width="100%" height="100%" frameborder="0" allow="autoplay"></iframe></div>'
-                else:
-                    code = f'<iframe src="{url}" width="100%" height="100%" frameborder="0" allow="autoplay"></iframe>'
+                code = f'<iframe src="{url}" width="100%" height="100%" frameborder="0" allow="autoplay"></iframe>'
 
             elif record.slide_type == "vimeovideo" and record.external_url:
                 # Basic parsing to get ID, or use oEmbed link if available

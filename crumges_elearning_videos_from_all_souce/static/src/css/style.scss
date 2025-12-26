@@ -1,30 +1,4 @@
 /* 
     Updated Popout Blocker CSS
-    Using slight opacity to ensure hit-testing works in all browsers.
+    Feature removed as requested. File kept for future SCSS usage.
 */
-.drivehidecontrols {
-    position: absolute !important;
-    top: 0 !important;
-    right: 0 !important;
-    width: 65px !important;
-    height: 65px !important;
-    z-index: 2147483647 !important;
-    /* Max integer value */
-    background: rgba(255, 255, 255, 0.01) !important;
-    /* Almost transparent but technically visible */
-    pointer-events: auto !important;
-    cursor: default !important;
-    display: block !important;
-}
-
-.crm-drive-wrapper {
-    position: relative !important;
-    width: 100% !important;
-    height: 100% !important;
-    display: block !important;
-}
-
-/* Ensure wrapper is not collapsed */
-.o_wslides_fs_player_content {
-    position: relative !important;
-}
