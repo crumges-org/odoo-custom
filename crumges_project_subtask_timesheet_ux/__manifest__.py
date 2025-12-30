@@ -13,9 +13,9 @@ La gestión manual de estados en proyectos complejos es propensa a errores. Este
 
 Características Principales
 ---------------------------
-*   **Estados Automáticos:** Actualización dinámica del estado (En Progreso, Aprobado, Desvío) basada en horas consumidas vs asignadas.
-*   **Auto-Timesheet:** Generación automática de líneas de tiempo para completar asignaciones al cerrar tareas.
-*   **Wizards de Control:** Asistentes para Cancelar, Reabrir y Completar tareas en cascada de forma segura.
+*   **Estados Automáticos:** Actualización dinámica del estado (Prioridad a Desvíos) y propagación en cascada.
+*   **Auto-Timesheet & Auto-asignación:** Generación inteligente de líneas de tiempo al cerrar tareas.
+*   **Acciones en Cascada:** Cancelación y Reapertura automática de subtareas desde la barra de estado.
 *   **Validación:** Prevención de errores lógicos y de integridad de datos.
 """,
     'author': 'Crumges',

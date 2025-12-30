@@ -38,13 +38,13 @@ Funcionalidades 🌟
 ==================
 
 *   🤖 **Estados Automáticos:** La tarea padre actualiza su estado dinámicamente según las horas consumidas vs asignadas de sus hijos.
-    *   *En Progreso:* Si hay subtareas abiertas.
+    *   *Cambios Solicitados (Prioridad):* Si el consumo excedió la asignación (incluso si hay hijos pendientes).
+    *   *En Progreso:* Si hay subtareas abiertas (y no se excedió presupuesto).
     *   *Aprobado:* Si se completó consumiendo menos horas de las asignadas.
-    *   *Cambios Solicitados:* Si el consumo excedió la asignación.
     *   *Hecho:* Si el consumo coincide exactamente con la asignación.
 *   ⏱️ **Auto-Timesheet:** Opción para autocompletar las horas restantes al marcar una tarea como "Hecho".
-*   🛡️ **Validación Inteligente:** Impide cerrar o cancelar tareas si existen inconsistencias lógicas (ej. cancelar una tarea que tiene horas cargadas).
-*   🧙 **Wizards de Control:** Asistentes especializados para **Cancelar en Cascada**, **Reabrir** y **Forzar Completado**.
+*   👤 **Auto-asignación:** Si completa una tarea sin encargado, se le asignará automáticamente para poder registrar el timesheet.
+*   🌊 **Acciones en Cascada:** Al Cancelar o Reabrir una tarea padre desde la barra de estado, la acción se propaga automáticamente a todas las subtareas.
 
 Caso de Uso 💡
 ==============
