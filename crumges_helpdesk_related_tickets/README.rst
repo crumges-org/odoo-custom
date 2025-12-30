@@ -1,6 +1,6 @@
-==================================================================
-Helpdesk Ticket Hierarchy - Tickets Relacionados
-==================================================================
+=========================
+Helpdesk Ticket Hierarchy
+=========================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -9,88 +9,71 @@ Helpdesk Ticket Hierarchy - Tickets Relacionados
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
-    :target: https://odoo-community.org/
-    :alt: Maturity Level
-
+    :target: https://odoo-community.org/page/development-status
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
+.. |badge3| image:: https://img.shields.io/badge/github-Crumges%2Fcrumges_helpdesk_related_tickets-lightgray.png?logo=github
+    :target: https://github.com/Crumges/crumges_helpdesk_related_tickets/tree/18.0
+    :alt: Crumges/crumges_helpdesk_related_tickets
 
-.. |badge3| image:: https://img.shields.io/badge/github-Crumges/odoo--custom-lightgray.png?logo=github
-    :target: https://github.com/Crumges/odoo-custom
-    :alt: Crumges/odoo-custom
+|badge1| |badge2| |badge3| 
 
-|badge1| |badge2| |badge3|
+**Organice el caos: Agrupe múltiples incidencias bajo un caso maestro.** 🧩
 
-Este módulo añade la capacidad de relacionar tickets de Helpdesk entre sí con una estructura lógica Padre/Hijo.
+Gestione casos de soporte complejos con facilidad mediante relaciones Padre/Hijo. Ideal para agrupar múltiples reportes de usuarios bajo una única incidencia técnica mayor.
 
-🚀 **Gestión de Casos Complejos**
-A veces, un incidente no es aislado. Puede ser la causa raíz de muchos otros reportes (Ticket Padre) o puede requerir dividir el trabajo en varias áreas (Tickets Hijos).
+**Compatibilidad**
 
-**Tabla de Contenidos**
+*   ❌ Odoo Community (Requiere Helpdesk Enterprise)
+*   ✅ Odoo Enterprise
+
+**Table of contents**
 
 .. contents::
    :local:
 
-Características
-===============
+Funcionalidades 🌟
+==================
 
-*   🔗 **Relaciones Jerárquicas**: Vincule tickets como Hijos o Padres ilimitadamente.
-*   🧭 **Navegación Intuitiva**:
-    *   **Backend**: Pestaña dedicada "Tickets Hijos" para ver todo el árbol de problemas relacionados.
-    *   **Frontend (Portal)**: Menú de navegación lateral para que el cliente pase del ticket padre ("Incidencia Global") a sus tickets específicos.
-*   👥 **Herencia Inteligente**: Al asignar un ticket padre, el ticket hijo hereda automáticamente el mismo Cliente (Partner), ahorrando tiempo de entrada de datos.
+*   👨‍👦 **Relación Padre/Hijo:** Vincule tickets existentes como hijos o padres. Muestra la estructura completa en una pestaña dedicada.
+*   🔄 **Herencia de Contacto:** Al asignar un ticket padre, el ticket hijo hereda automáticamente el cliente del padre para evitar re-escritura de datos.
+*   🌍 **Portal de Cliente:** Transparencia total. Sus clientes también pueden ver los tickets relacionados y navegar entre ellos desde su portal.
 
-Requisitos
-==========
+Caso de Uso 💡
+==============
 
-Este módulo requiere **Odoo Enterprise** ya que extiende el módulo nativo de Helpdesk.
+**Incidente Mayor (Outage)**
 
-Configuración
-=============
+Se cae el servidor de correo. 50 usuarios abren tickets diferentes.
 
-No se requiere configuración especial. Instale el módulo y los campos aparecerán en sus vistas de Helpdesk.
+*   **Sin el módulo:** Tiene 50 tickets sueltos. Debe responder uno por uno.
+*   **Con el módulo:** Crea un Ticket Padre "Caída de Correo". Vincula los 50 tickets como hijos. Trabaja solo en el padre, y cuando se resuelve, tiene el control de todos los afectados centralizado.
 
-Uso
-===
+Configuración ⚙️
+================
 
-1. Abra un ticket de Helpdesk.
-2. Busque el campo **Ticket Padre** y seleccione un ticket existente si este es un caso derivado.
-   * *Opcional*: Si asigna un padre, verá cómo el campo Cliente se completa automáticamente.
-3. Alternativamente, vaya a la pestaña **Tickets Hijos** y añada tickets relacionados desde allí.
-4. Guarde.
-
-Visión del Cliente (Portal)
----------------------------
-Cuando un cliente acceda a su ticket en el portal web (my/tickets), verá una nueva sección en la barra lateral con enlaces rápidos al "Ticket Padre" y a "Tickets Relacionados" (hermanos/hijos), facilitando el seguimiento de casos agrupados.
-
-Casos de Uso
-============
-
-*   **Caída de Servidor**: Se crea un ticket principal "Servidor A caído". Todos los reportes de usuarios individuales sobre "No puedo acceder" se asignan como Hijos de ese ticket principal. Al resolver el padre, se facilita la gestión de comunicación con todos los hijos.
-*   **Proyectos de Soporte**: Un requerimiento grande se divide en varios tickets técnicos, todos enlazados bajo un ticket de gestión.
+No requiere configuración. Simplemente instale el módulo y verá los campos "Ticket Padre" y la pestaña "Tickets Hijos" en el formulario de Helpdesk.
 
 Bug Tracker
 ===========
 
-Los errores son rastreados en `GitHub Issues <https://github.com/Crumges/odoo-custom/issues>`_.
-En caso de problemas, por favor repórtelos allí.
+Bugs are tracked on `GitHub Issues <https://github.com/Crumges/crumges_helpdesk_related_tickets/issues>`_.
 
-Créditos
-========
+Credits
+=======
 
-Autores
+Authors
 ~~~~~~~
 
 * Crumges
 
-Mantenedores
-~~~~~~~~~~~~
+Maintainers
+~~~~~~~~~~~
 
-Este módulo es mantenido por Crumges.
+This module is maintained by Crumges.
 
 .. image:: https://crumges.com/logo.png
    :alt: Crumges
    :target: https://crumges.com
-
-Visite nuestra web para más módulos innovadores.

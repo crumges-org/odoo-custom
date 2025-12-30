@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Portal User Assignment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Asigne tareas a usuarios portal vinculados a empleados en Odoo.">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
+    <style>
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
+        }
+
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .step-number {
+            background-color: #714B67;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container oe_styling_v8 my-5">
+
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">Portal User Assignment</h1>
+                <p class="lead font-weight-bold">
+                    “Extienda su fuerza laboral: Integre contratistas y externos a su flujo de trabajo asignándoles
+                    tareas directamente.” 🚀
+                </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Por defecto, Odoo solo permite asignar usuarios internos. Este módulo elimina esa barrera,
+                        permitiendo asignar tareas a <strong>Usuarios Portal</strong> que tengan un
+                        <strong>Empleado</strong> asociado. Ideal para contratistas y freelancers. ✨
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🎯</span>
+                    <h5 class="card-title">Asignación Directa</h5>
+                    <p class="card-text">Permite seleccionar usuarios Portal en el campo "Asignado a".</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🛡️</span>
+                    <h5 class="card-title">Seguridad Intacta</h5>
+                    <p class="card-text">Los externos mantienen su perfil restringido de "Portal".</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">👥</span>
+                    <h5 class="card-title">Conexión RRHH</h5>
+                    <p class="card-text">Vincula el trabajo externo con fichas de Empleados reales.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Crear Usuario Portal</h5>
+                        Vaya a <strong>Ajustes > Usuarios</strong> y cree el usuario para su contratista.
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        2</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Crear Empleado</h5>
+                        Vaya a <strong>Empleados</strong> y cree una ficha para esa persona.
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        3</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Vincular</h5>
+                        En el Empleado, pestaña <strong>Configuración RRHH</strong>, asigne el <strong>Usuario
+                            Portal</strong> en el campo "Usuario Relacionado". 🔗
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Una vez configurado, es así de simple:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Navegue a cualquier <strong>Proyecto</strong> o <strong>Tarea</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Haga clic en el campo <strong>Asignado a</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        ¡Listo! El usuario Portal aparecerá disponible para ser seleccionado.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Caso de Uso 💡</h3>
+            </div>
+            <div class="col-12">
+                <div class="bg-light p-4 rounded">
+                    <h5>👷 Gestión de Electricistas Externos</h5>
+                    <p>
+                        Una constructora subcontrata electricistas.
+                        <br>
+                        <strong>Problema:</strong> Quieren asignarles tareas para que reporten horas, pero no quieren
+                        pagar licencias de usuario interno ni darles acceso a toda la empresa.
+                        <br>
+                        <strong>Solución:</strong> Crean usuarios portal y fichas de empleado. Con este módulo, el
+                        Project Manager les asigna tareas directamente. El electricista entra a su portal, ve su tarea y
+                        trabaja. 👏
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 text-center text-muted">
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

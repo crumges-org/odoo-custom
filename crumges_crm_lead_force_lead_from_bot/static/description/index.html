@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>CRM: Force Leads from Bot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fuerza registros de bots a tipo Lead.">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
+    <style>
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
+        }
+
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container oe_styling_v8 my-5">
+
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">CRM: Force Leads from Bot</h1>
+                <p class="lead font-weight-bold">
+                    “Mantenga limpio su flujo de oportunidades. Deje que los bots conversen en la etapa de Leads.” 🤖
+                </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Odoo tiende a convertir automáticamente las interacciones de livechat en "Oportunidades". Sin
+                        embargo, el 80% de chats de soporte o curiosos no son ventas reales. Este módulo fuerza estos
+                        registros a entrar como <strong>Leads/Iniciativas</strong>, evitando que ensucien su pipeline de
+                        ventas con basura. 🧹
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🤖</span>
+                    <h5 class="card-title">Detección Inteligente</h5>
+                    <p class="card-text">Identifica automáticamente si el origen es "bot" (etiquetas) o Livechat.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">💬</span>
+                    <h5 class="card-title">Livechat Control</h5>
+                    <p class="card-text">Las conversaciones rápidas entran como Leads para ser cualificadas primero.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🛡️</span>
+                    <h5 class="card-title">Higiene de Datos</h5>
+                    <p class="card-text">Su equipo de ventas solo verá Oportunidades reales, no chats automáticos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Instalar y Olvidar</h5>
+                        Este módulo no requiere configuración. Una vez instalado, comienza a actuar de inmediato
+                        interceptando la creación de leads desde bots.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Ejemplo automático:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Un visitante inicia un chat en su sitio web.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        El sistema crea el registro. Si su configuración general es "crear oportunidades", <strong>este
+                            módulo interviene</strong> y fuerza el tipo "Lead".
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        Su equipo de preventa o soporte cualifica el Lead desde la lista "Iniciativas" antes de
+                        convertirlo en una venta real.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 text-center text-muted">
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

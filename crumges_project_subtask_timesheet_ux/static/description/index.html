@@ -3,126 +3,192 @@
 
 <head>
     <meta charset="utf-8">
-    <title>UX de Subtareas y Partes de Horas</title>
+    <title>Advanced Subtask & Timesheet UX</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Automatización inteligente de estados de tareas y partes de horas.">
-    <meta name="author" content="Crumges">
+    <meta name="description" content="Automatización avanzada de tareas y partes de horas.">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
+    <style>
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
+        }
+
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="row mb-4">
-            <div class="col-md-12 text-center">
-                <h2 class="display-4 text-primary font-weight-bold">UX de Subtareas y Partes de Horas</h2>
-                <h4 class="text-muted">Automatización Inteligente para Gestión de Proyectos</h4>
-                <div class="mt-3">
-                    <span class="badge badge-success p-2 mr-2">✅ Odoo Community</span>
-                    <span class="badge badge-info p-2">✅ Odoo Enterprise</span>
+
+    <div class="container oe_styling_v8 my-5">
+
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">Advanced Subtask & Timesheet UX</h1>
+                <p class="lead font-weight-bold">
+                    “Automatización inteligente: Deje que sus tareas se gestionen solas basado en el progreso real.” 🚀
+                </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
                 </div>
-                <hr class="my-4" />
             </div>
         </div>
 
-        <!-- Value Proposition -->
-        <section class="mb-5">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="alert alert-warning text-center shadow-sm p-4" role="alert">
-                        <h3 class="alert-heading font-weight-bold">🚀 Ahorre hasta un 40% de productividad</h3>
-                        <p class="mb-0 lead">
-                            Olvídese de la microgestión. Deje que el sistema actualice los estados y registre las horas
-                            por usted,
-                            permitiendo que sus Project Managers se concentren en liderar, no en administrar.
-                        </p>
-                    </div>
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        La gestión manual de estados en proyectos complejos es propensa a errores. ¿Olvidó actualizar la
+                        tarea padre cuando completó las subtareas? ¿Cerró una tarea sin registrar las horas restantes?
+                        Este módulo automatiza el flujo: <strong>calcula estados, valida acciones y autocompleta
+                            timesheets</strong> para mantener sus datos impecables. 🧠
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <!-- Features -->
-        <section class="mb-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <h3 class="text-primary">🧠 Cálculo Automático de Estado</h3>
-                    <p class="text-muted">La tarea padre evoluciona orgánicamente:</p>
-                    <ul class="list-unstyled">
-                        <li class="mb-2">
-                            <span class="badge badge-primary badge-pill mr-2">🔵</span>
-                            <strong>En Progreso:</strong> En cuanto se inicia una subtarea.
-                        </li>
-                        <li class="mb-2">
-                            <span class="badge badge-warning badge-pill mr-2">🟠</span>
-                            <strong>Cambios Solicitados:</strong> ¡Alerta! Se han excedido las horas asignadas.
-                        </li>
-                        <li class="mb-2">
-                            <span class="badge badge-success badge-pill mr-2">🟢</span>
-                            <strong>Hecho:</strong> Trabajo completado al 100% y en tiempo.
-                        </li>
-                        <li class="mb-2">
-                            <span class="badge badge-info badge-pill mr-2">🟣</span>
-                            <strong>Aprobado:</strong> Trabajo excelente, terminado en menos tiempo del estimado.
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-md-6">
-                    <h3 class="text-primary">🛡️ Magia en Segundo Plano</h3>
-                    <div class="card shadow-sm border-0 bg-light">
-                        <div class="card-body">
-                            <div class="mb-3">
-                                <h5>⏱️ Autocompletado de Horas</h5>
-                                <p class="small text-muted">¿Tarea terminada? El sistema genera el parte de horas
-                                    automáticamente. Cero clics extra.</p>
-                            </div>
-                            <div class="mb-3">
-                                <h5>🔒 Cancelación Segura</h5>
-                                <p class="small text-muted">¿Canceló la tarea padre por error? Nuestro asistente protege
-                                    las subtareas y horas ya registradas.</p>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🤖</span>
+                    <h5 class="card-title">Estados Automáticos</h5>
+                    <p class="card-text">La tarea padre actualiza su estado según las horas consumidas vs asignadas de
+                        sus hijos.</p>
                 </div>
             </div>
-        </section>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">⏱️</span>
+                    <h5 class="card-title">Auto-Timesheet</h5>
+                    <p class="card-text">Al finalizar una tarea, puede completar automáticamente las horas asignadas
+                        restantes.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🛡️</span>
+                    <h5 class="card-title">Validación Inteligente</h5>
+                    <p class="card-text">Impide cerrar o cancelar tareas si hay inconsistencias (hijos abiertos, horas
+                        sin borrar).</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🧙</span>
+                    <h5 class="card-title">Wizards de Control</h5>
+                    <p class="card-text">Asistentes para Cancelar, Reabrir y Forzar Completado de forma segura y en
+                        cascada.</p>
+                </div>
+            </div>
+        </div>
 
-        <!-- Use Case -->
-        <section class="mb-5">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="text-center mb-4">Caso de Uso Real</h3>
-                    <div class="card-deck">
-                        <div class="card border-primary">
-                            <div class="card-header bg-primary text-white text-center">1. Planificación</div>
-                            <div class="card-body text-center">
-                                <p class="card-text">Define Tarea Padre: "Rediseño Web" (100h).</p>
-                            </div>
-                        </div>
-                        <div class="card border-info">
-                            <div class="card-header bg-info text-white text-center">2. Ejecución</div>
-                            <div class="card-body text-center">
-                                <p class="card-text">El equipo trabaja en subtareas. La Padre muestra <span
-                                        class="badge badge-primary">En Progreso</span>.</p>
-                            </div>
-                        </div>
-                        <div class="card border-success">
-                            <div class="card-header bg-success text-white text-center">3. Éxito</div>
-                            <div class="card-body text-center">
-                                <p class="card-text">Al finalizar las subtareas, la Padre pasa a <span
-                                        class="badge badge-success">Hecho</span> automáticamente.</p>
-                            </div>
-                        </div>
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Activar Automatización (Opcional)</h5>
+                        En la tarea raíz (Padre), active el check <strong>"Registrar Horas Automáticamente"</strong> si
+                        desea que el sistema rellene los huecos de tiempo al completar tareas.
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">El sistema trabaja por usted:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Trabaje en sus <strong>Subtareas</strong> registrando horas normalmente.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        La <strong>Tarea Padre</strong> cambiará sola de estado:
+                        <ul>
+                            <li><strong>En Progreso:</strong> Si hay hijos abiertos.</li>
+                            <li><strong>Aprobado:</strong> Si se consumió menos de lo asignado.</li>
+                            <li><strong>Cambios Solicitados:</strong> Si se excedieron las horas.</li>
+                            <li><strong>Hecho:</strong> Si las horas coinciden exactamente.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        Use los botones de acción para <strong>Forzar Completado</strong> o <strong>Cancelar</strong>
+                        estructuras completas de tareas de forma segura.
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer -->
-        <section class="mt-5 text-center">
-            <h5 class="text-muted mb-4">Potencie su gestión de proyectos hoy mismo</h5>
-            <a href="https://crumges.com" class="btn btn-outline-primary btn-lg px-5 shadow-sm">Contáctenos</a>
-            <p class="text-muted small mt-3">Desarrollado con ❤️ por Crumges</p>
-        </section>
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 text-center text-muted">
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
+            </div>
+        </div>
+
     </div>
+
 </body>
 
 </html>

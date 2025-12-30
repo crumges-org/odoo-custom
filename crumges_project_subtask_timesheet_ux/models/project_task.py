@@ -18,20 +18,20 @@ class ProjectTask(models.Model):
         current = self
         while current.parent_id:
             current = current.parent_id
-        return current if current.auto_log_timesheet else None
+        return current if current.sudo().auto_log_timesheet else None
 
     def _get_employee_for_timesheet(self, user):
         self.ensure_one()
         
         search_company = self.project_id.company_id if self.project_id.company_id else self.env.company
         
-        employee = self.env['hr.employee'].search([
+        employee = self.env['hr.employee'].sudo().search([
             ('user_id', '=', user.id),
             ('company_id', '=', search_company.id)
         ], limit=1)
         
         if not employee:
-            employee = self.env['hr.employee'].search([
+            employee = self.env['hr.employee'].sudo().search([
                 ('user_id', '=', user.id)
             ], limit=1)
         
@@ -56,10 +56,8 @@ class ProjectTask(models.Model):
                     raise UserError(error_msg)
                 
                 if task.child_ids:
-                    raise UserError(
-                        f"La tarea '{task.name}' tiene subtareas.\n\n"
-                        f"Use el botón '🗑️ Cancelar Tarea' en el formulario para confirmar la cancelación en cascada."
-                    )
+                    # Automatic cascade cancel if no blocking hours
+                    task._cascade_cancel()
         
         if 'state' in vals and vals['state'] == '1_canceled' and self.env.context.get('cancel_confirmed'):
             for task in self:
@@ -75,10 +73,8 @@ class ProjectTask(models.Model):
                 if task.state == '1_canceled' and vals['state'] != '1_canceled':
                     canceled_children = task.child_ids.filtered(lambda t: t.state == '1_canceled')
                     if canceled_children:
-                        raise UserError(
-                            f"La tarea '{task.name}' tiene {len(canceled_children)} subtareas canceladas.\n\n"
-                            f"Use el botón '🔄 Reabrir Tarea' en el formulario para elegir si reabrir las subtareas."
-                        )
+                        # Automatic cascade reopen
+                        task._cascade_reopen()
         
         if 'state' in vals and not self.env.context.get('auto_state_change') and not self.env.context.get('reopen_confirmed'):
             is_manual_state_change = len(vals) == 1 or (len(vals) == 2 and 'kanban_state' in vals)
@@ -86,7 +82,7 @@ class ProjectTask(models.Model):
             if is_manual_state_change:
                 for task in self:
                     root_with_switch = task._get_root_with_switch()
-                    if root_with_switch and task.child_ids and task.state != '1_canceled' and vals['state'] != '1_canceled':
+                    if root_with_switch and task.child_ids and task.state != '1_canceled' and vals['state'] != '1_canceled' and task.state != vals['state']:
                         raise UserError(
                             f"No se puede cambiar manualmente el estado de la tarea '{task.name}' "
                             f"porque la automatización está activa. El estado se actualiza automáticamente según sus subtareas."
@@ -316,20 +312,25 @@ class ProjectTask(models.Model):
         completed_children = direct_children.filtered(lambda t: t.state == '1_done')
         pending_children = direct_children.filtered(lambda t: t.state not in ['1_done', '1_canceled'])
         
+        total_consumed_hours = sum(self._get_consumed_hours_for_task(child) for child in direct_children)
+        parent_allocated_hours = self.allocated_hours or 0
+        
+        # Priority 1: Budget Exceeded -> Changes Requested
+        if total_consumed_hours > parent_allocated_hours:
+            if self.state != '02_changes_requested':
+                _logger.info(f'Task {self.name}: horas consumidas ({total_consumed_hours}) exceden asignado ({parent_allocated_hours}), cambios solicitados')
+                self.with_context(auto_state_change=True).write({'state': '02_changes_requested'})
+            return
+
+        # Priority 2: Pending Children -> In Progress
         if pending_children:
             if self.state in ['1_done', '03_approved', '02_changes_requested']:
                 _logger.info(f'Task {self.name}: hay hijos sin completar, marcando como en progreso')
                 self.with_context(auto_state_change=True).write({'state': '01_in_progress'})
             return
         
-        total_consumed_hours = sum(self._get_consumed_hours_for_task(child) for child in direct_children)
-        parent_allocated_hours = self.allocated_hours or 0
-        
-        if total_consumed_hours > parent_allocated_hours:
-            if self.state != '02_changes_requested':
-                _logger.info(f'Task {self.name}: horas consumidas ({total_consumed_hours}) exceden asignado ({parent_allocated_hours}), cambios solicitados')
-                self.with_context(auto_state_change=True).write({'state': '02_changes_requested'})
-        elif total_consumed_hours == parent_allocated_hours:
+        # Priority 3: Budget Met/Under -> Done/Approved
+        if total_consumed_hours == parent_allocated_hours:
             if self.state != '1_done':
                 _logger.info(f'Task {self.name}: horas consumidas ({total_consumed_hours}) coinciden con asignado ({parent_allocated_hours}), hecho')
                 self.with_context(auto_state_change=True).write({'state': '1_done'})
@@ -359,7 +360,7 @@ class ProjectTask(models.Model):
         if not employee:
             return
         
-        timesheet = self.env['account.analytic.line'].search([
+        timesheet = self.env['account.analytic.line'].sudo().search([
             ('task_id', '=', self.id),
             ('employee_id', '=', employee.id),
             ('name', '=', f'Se completó: {self.name}')
@@ -388,8 +389,9 @@ class ProjectTask(models.Model):
         user_to_assign = self._get_user_for_timesheet()
         
         if not user_to_assign:
-            _logger.info(f'Task {self.name}: sin usuario asignado')
-            return
+            _logger.info(f'Task {self.name}: sin usuario asignado, auto-asignando usuario actual')
+            self.sudo().write({'user_ids': [(4, self.env.user.id)]})
+            user_to_assign = self.env.user
         
         employee = self._get_employee_for_timesheet(user_to_assign)
         
@@ -397,7 +399,7 @@ class ProjectTask(models.Model):
             _logger.warning(f'Task {self.name}: usuario sin empleado asociado')
             return
         
-        existing_timesheet = self.env['account.analytic.line'].search([
+        existing_timesheet = self.env['account.analytic.line'].sudo().search([
             ('task_id', '=', self.id),
             ('employee_id', '=', employee.id),
             ('name', '=', f'Se completó: {self.name}')
@@ -407,7 +409,7 @@ class ProjectTask(models.Model):
             _logger.info(f'Task {self.name}: timesheet ya existe')
             return
         
-        self.env['account.analytic.line'].create({
+        self.env['account.analytic.line'].sudo().create({
             'name': f'Se completó: {self.name}',
             'project_id': self.project_id.id,
             'task_id': self.id,

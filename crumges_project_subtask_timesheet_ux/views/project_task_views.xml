@@ -6,21 +6,6 @@
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
             <xpath expr="//header" position="inside">
-                <button name="action_force_complete_with_wizard" 
-                        string="✅ Finalizar Tarea" 
-                        type="object" 
-                        invisible="state == '1_done' or state == '1_canceled' or not child_ids"
-                        class="btn-success"/>
-                <button name="action_cancel_with_wizard" 
-                        string="🗑️ Cancelar Tarea" 
-                        type="object" 
-                        invisible="state == '1_canceled' or not child_ids"
-                        class="btn-warning"/>
-                <button name="action_reopen_with_wizard" 
-                        string="🔄 Reabrir Tarea" 
-                        type="object" 
-                        invisible="(state != '1_canceled' or not child_ids) and state == '1_canceled'"
-                        class="btn-info"/>
             </xpath>
             
             <field name="tag_ids" position="after">

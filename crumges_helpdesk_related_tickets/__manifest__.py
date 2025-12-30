@@ -3,7 +3,21 @@
     'name': 'Helpdesk Ticket Hierarchy - Tickets Relacionados',
     'version': '18.0.1.0.1',
     'category': 'Helpdesk Custom',
-    'summary': 'Relacione tickets entre sí. Cree jerarquías Padre/Hijo para una mejor gestión de casos complejos.',
+    'summary': 'Organice el caos: Agrupe múltiples incidencias bajo un caso maestro.',
+    'description': """
+Helpdesk Ticket Hierarchy
+=========================
+
+Organice el caos: Agrupe múltiples incidencias bajo un caso maestro.
+
+Gestione casos de soporte complejos con facilidad mediante relaciones Padre/Hijo. A menudo, un problema reportado (Ticket Padre) desencadena múltiples subtareas o problemas relacionados (Tickets Hijos).
+
+Funcionalidad
+-------------
+*   **Relación Padre/Hijo:** Navegue fácilmente entre tickets relacionados.
+*   **Portal de Cliente:** Sus clientes ven la relación en su portal.
+*   **Herencia de Contacto:** El hijo hereda el cliente del padre automáticamente.
+""",
     'description': """
 Helpdesk Ticket Hierarchy
 =========================

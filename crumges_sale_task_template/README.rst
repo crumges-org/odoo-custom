@@ -1,6 +1,6 @@
-==================================================================
-Sale Task Template - Plantillas de Tareas desde Ventas
-==================================================================
+==================
+Sale Task Template
+==================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -9,82 +9,78 @@ Sale Task Template - Plantillas de Tareas desde Ventas
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
-    :target: https://odoo-community.org/
-    :alt: Maturity Level
-
+    :target: https://odoo-community.org/page/development-status
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
+.. |badge3| image:: https://img.shields.io/badge/github-Crumges%2Fcrumges_sale_task_template-lightgray.png?logo=github
+    :target: https://github.com/Crumges/crumges_sale_task_template/tree/18.0
+    :alt: Crumges/crumges_sale_task_template
 
-.. |badge3| image:: https://img.shields.io/badge/github-Crumges/odoo--custom-lightgray.png?logo=github
-    :target: https://github.com/Crumges/odoo-custom
-    :alt: Crumges/odoo-custom
+|badge1| |badge2| |badge3| 
 
-|badge1| |badge2| |badge3|
+**Estandarice sus servicios: Venda productos y genere estructuras de trabajo completas al instante.** 🚀
 
-Este módulo permite estandarizar la creación de tareas generadas a partir de pedidos de venta, copiando la estructura completa de una plantilla predefinida.
+Este módulo permite definir una "Tarea Plantilla" en sus productos de servicio. Al confirmar una venta, Odoo usará esta plantilla para crear la nueva tarea, copiando no solo la información básica sino también todas sus subtareas, descripciones y configuraciones.
 
-🚀 **Automatización de Procesos**
-Deje de perder tiempo copiando y pegando instrucciones o creando subtareas manualmente cada vez que vende un proyecto.
+**Compatibilidad**
 
-**Tabla de Contenidos**
+*   ✅ Odoo Community
+*   ✅ Odoo Enterprise
+
+**Table of contents**
 
 .. contents::
    :local:
 
-Características
-===============
+Funcionalidades 🌟
+==================
 
-*   📋 **Clonación Completa**: Copia título, descripción, etiquetas, prioridad y color de la tarea plantilla.
-*   🔢 **Subtareas Incluidas**: Si su plantilla tiene 10 subtareas, la nueva tarea creada tendrá esas mismas 10 subtareas.
-*   ⚡ **Disparador en Venta**: Se integra nativamente con el flujo de servicio de Odoo (Venta -> Tarea).
-*   🏷️ **Gestión de Etiquetas**: Mantiene la clasificación de sus tareas automáticamente.
+*   📋 **Plantillas Maestras:** Use cualquier tarea existente como molde para sus futuros servicios.
+*   ⚡ **Clonado Profundo:** Copia recursivamente la tarea principal y todas sus subtareas.
+*   🏷️ **Detalles Completos:** Se transfieren descripciones, etiquetas, prioridades, colores y asignaciones de horas planificadas.
 
-Configuración
-=============
+Caso de Uso 💡
+==============
 
-1. Vaya a **Ventas** > **Productos** > **Productos**.
-2. Cree o seleccione un producto de tipo **Servicio**.
-3. En la pestaña **Ventas**, configure "Política de Servicio" como "Crear una tarea en un proyecto existente" (o nuevo proyecto).
-4. Verá un nuevo campo: **Plantilla de Tarea**.
-5. Seleccione una tarea existente que quiera usar como modelo (o cree una tarea "Maestra" en un proyecto interno para este fin).
+**Agencia de Marketing**
 
-Uso
-===
+Usted vende un servicio de "Setup de Campaña SEO". Este servicio siempre implica 3 pasos:
 
-1. Cree un Presupuesto/Pedido de Venta con el producto de servicio configurado.
-2. Confirme la venta.
-3. Odoo creará automáticamente la tarea vinculada al pedido.
-4. Abra la tarea y verá que ha heredado toda la información y subtareas de su plantilla.
+1.  Auditoría Técnica (2hs)
+2.  Keyword Research (4hs)
+3.  Optimización On-Page (6hs)
 
-Casos de Uso
-============
+*   **Sin el módulo:** Al vender el servicio, se crea una tarea vacía "Setup SEO". El Project Manager debe entrar y crear las 3 subtareas manualmente.
+*   **Con el módulo:** Crea una tarea plantilla con esas 3 subtareas. Al vender el servicio, el sistema genera automáticamente la tarea "Setup SEO" con sus 3 hijas listas para ser asignadas.
 
-*   **Agencias de Marketing**: Al vender "SEO Mensual", se crea una tarea con subtareas: "Auditoría", "Keywords", "Reporting".
-*   **Desarrollo de Software**: Al vender "Bolsa de Horas", se crea una tarea con las instrucciones de uso y etiquetas de soporte.
-*   **Consultoría**: Estandarice su proceso de onboarding de clientes.
+Configuración ⚙️
+================
+
+1.  Instale el módulo.
+2.  Cree una Tarea en Proyectos que sirva como plantilla (ej: "Plantilla SEO"). Añada subtareas y detalles.
+3.  Vaya a **Ventas > Productos** y abra su producto de servicio (debe estar configurado para crear tareas).
+4.  En la pestaña Ventas, busque el campo **"Task Template"** y seleccione la tarea creada en el paso 2.
 
 Bug Tracker
 ===========
 
-Los errores son rastreados en `GitHub Issues <https://github.com/Crumges/odoo-custom/issues>`_.
-En caso de problemas, por favor repórtelos allí.
+Bugs are tracked on `GitHub Issues <https://github.com/Crumges/crumges_sale_task_template/issues>`_.
 
-Créditos
-========
+Credits
+=======
 
-Autores
+Authors
 ~~~~~~~
 
 * Crumges
 
-Mantenedores
-~~~~~~~~~~~~
+Maintainers
+~~~~~~~~~~~
 
-Este módulo es mantenido por Crumges.
+This module is maintained by Crumges.
 
 .. image:: https://crumges.com/logo.png
    :alt: Crumges
    :target: https://crumges.com
-
-Visite nuestra web para más módulos innovadores.

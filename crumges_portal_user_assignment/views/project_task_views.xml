@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2_inherit_portal_assignment" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.portal.assignment</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_ids']" position="attributes">
+                <!-- 
+                    Original Domain usually: [('share', '=', False), ('active', '=', True)]
+                    New Domain: 
+                    User is Active AND (
+                        User is Internal (Share=False) 
+                        OR 
+                        (User is Portal (Share=True) AND has Employee (employee_ids != False))
+                    )
+                -->
+                <attribute name="domain">['&amp;', ('active', '=', True), '|', ('share', '=', False), '&amp;', ('share', '=', True), ('employee_ids', '!=', False)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

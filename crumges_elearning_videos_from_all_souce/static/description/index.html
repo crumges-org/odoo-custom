@@ -3,122 +3,179 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>eLearning Videos Extended</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Integración de Zoom, Drive, Vimeo y videos locales en eLearning.">
     <!-- Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
     <style>
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, #714B67 0%, #4E3451 100%);
-            color: white;
-            padding: 60px 0;
-            border-radius: 10px;
-            margin-bottom: 40px;
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
         }
 
-        .odoo-purple {
-            color: #714B67;
-            font-weight: bold;
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
         }
 
-        .badge-enterprise {
-            background-color: #714B67;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
         }
 
-        .badge-community {
-            background-color: #28a745;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .card-shadow:hover {
+            transform: translateY(-5px);
         }
 
-        .platform-icon {
-            width: 50px;
-            height: 50px;
-            margin: 0 10px;
-            opacity: 0.8;
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container mt-5">
-
-        <!-- Header Section -->
-        <div class="row mb-5 text-center">
-            <div class="col-12">
-                <h1 class="display-4 font-weight-bold">eLearning Videos Extended</h1>
-                <p class="lead text-muted">Zoom, Google Drive, Vimeo y Videos Locales - Todo en uno.</p>
-                <div class="mt-3">
-                    <span class="badge badge-enterprise mx-1">Odoo Enterprise</span>
-                    <span class="badge badge-community mx-1">Odoo Community</span>
-                    <span class="badge badge-info mx-1">v18.0</span>
-                </div>
-            </div>
-        </div>
+    <div class="container oe_styling_v8 my-5">
 
         <!-- Hero Section -->
-        <div class="hero-section text-center">
-            <div class="container">
-                <h2>📹 Rompa los Límites del Contenido</h2>
-                <p class="mt-3 lead">
-                    Odoo estándar es genial, pero a veces necesita más que YouTube.
-                    <br>Incorpore webinars en vivo, archivos confidenciales y contenido de la nube sin esfuerzo.
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">eLearning Videos Extended</h1>
+                <p class="lead font-weight-bold">
+                    “Todo su contenido en un solo lugar: Zoom, Drive, Vimeo y archivos locales.” 🚀
                 </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
+                </div>
             </div>
         </div>
 
-        <!-- Value Propositions -->
-        <div class="row mt-5">
-            <div class="col-md-3 text-center mb-4">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <div class="feature-icon">☁️</div>
-                    <h5 class="font-weight-bold">Google Drive</h5>
-                    <p class="text-muted small">Cargue videos desde su Drive sin el molesto botón de "pop-out". Mantenga
-                        a sus alumnos en SU sitio.</p>
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Odoo eLearning es fantástico, pero limitado a YouTube. En el mundo corporativo real, usamos Zoom
+                        para clases en vivo, Google Drive para contenido privado y archivos locales para máxima
+                        seguridad. Este módulo rompe esas barreras y le permite usar <strong>cualquier fuente de
+                            video</strong> sin complicaciones. 🔓
+                    </p>
                 </div>
             </div>
-            <div class="col-md-3 text-center mb-4">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <div class="feature-icon">📞</div>
-                    <h5 class="font-weight-bold">Zoom Meeting</h5>
-                    <p class="text-muted small">Incorpore el ID de su reunión y permita que los estudiantes se unan
-                        directamente desde la diapositiva.</p>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">📹</span>
+                    <h5 class="card-title">Zoom Integration</h5>
+                    <p class="card-text">Incruste reuniones y webinars de Zoom directamente como lecciones del curso.
+                    </p>
                 </div>
             </div>
-            <div class="col-md-3 text-center mb-4">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <div class="feature-icon">💾</div>
-                    <h5 class="font-weight-bold">Video Local</h5>
-                    <p class="text-muted small">¿Sin internet? ¿Contenido sensible? Suba archivos MP4 directamente a su
-                        servidor Odoo.</p>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">☁️</span>
+                    <h5 class="card-title">Google Drive</h5>
+                    <p class="card-text">Reproduzca videos de Drive ocultando el botón "pop-out" para mantener al alumno
+                        en su sitio.</p>
                 </div>
             </div>
-            <div class="col-md-3 text-center mb-4">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <div class="feature-icon">🎬</div>
-                    <h5 class="font-weight-bold">Vimeo Pro</h5>
-                    <p class="text-muted small">Soporte completo para videos de Vimeo con obtención automática de
-                        títulos y descripciones.</p>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">📁</span>
+                    <h5 class="card-title">Videos Locales</h5>
+                    <p class="card-text">Suba archivos MP4 o WebM directamente a su servidor Odoo.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">📺</span>
+                    <h5 class="card-title">Vimeo Enhanced</h5>
+                    <p class="card-text">Mejor integración con Vimeo para cursos profesionales.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Configurar Zoom (Opcional)</h5>
+                        Vaya a <strong>Sitio Web > Configuración > Ajustes</strong>. En la sección eLearning, introduzca
+                        sus claves API/SDK de Zoom si desea usar esa funcionalidad.
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        2</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Subir Contenido</h5>
+                        Al crear un nuevo contenido en su curso, verá nuevas opciones en el tipo de diapositiva:
+                        <strong>Zoom, Video Local, Google Drive</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Caso de Uso 💡</h3>
+            </div>
+            <div class="col-12">
+                <div class="bg-light p-4 rounded">
+                    <h5>🎓 Academia de Formación Interna</h5>
+                    <p>
+                        Una empresa desea capacitar a sus empleados con videos confidenciales.
+                        <br>
+                        <strong>Problema:</strong> No pueden subir los videos a YouTube (público/oculto no es suficiente
+                        seguridad) y Vimeo Corporativo es caro.
+                        <br>
+                        <strong>Solución:</strong> Suben los videos a una carpeta privada de Google Drive o directamente
+                        al servidor de Odoo como "Video Local". Los empleados acceden al contenido de forma segura sin
+                        salir de la intranet. 🔒
+                    </p>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="row mt-5 py-4 border-top">
+        <div class="row mt-5 pt-4 border-top">
             <div class="col-12 text-center text-muted">
-                <p>Desarrollado y Mantenido por <b>Crumges</b></p>
-                <p><small>Soluciones eLearning de alto nivel para Odoo.</small></p>
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
             </div>
         </div>
 

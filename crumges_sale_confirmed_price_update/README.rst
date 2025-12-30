@@ -1,6 +1,6 @@
-====================================================================
-Sale Confirmed Price Update - Recálculo de Precios en Ventas Confirmadas
-====================================================================
+===========================
+Sale Confirmed Price Update
+===========================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -14,66 +14,71 @@ Sale Confirmed Price Update - Recálculo de Precios en Ventas Confirmadas
 .. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-Crumges%2Fodoo--modules-lightgray.png?logo=github
-    :target: https://github.com/Crumges/odoo-modules/tree/18.0/crumges_sale_confirmed_price_update
-    :alt: Crumges/odoo-modules
+.. |badge3| image:: https://img.shields.io/badge/github-Crumges%2Fcrumges_sale_confirmed_price_update-lightgray.png?logo=github
+    :target: https://github.com/Crumges/crumges_sale_confirmed_price_update/tree/18.0
+    :alt: Crumges/crumges_sale_confirmed_price_update
 
-|badge1| |badge2| |badge3|
+|badge1| |badge2| |badge3| 
 
-Este módulo permite recalcular los precios de los productos en pedidos de venta ya confirmados. Es esencial para reflejar cambios en las tarifas o listas de precios en pedidos que aún están en proceso.
+**Actualice sus precios antiguos con un solo clic. Mantenga sus márgenes incluso en pedidos ya confirmados.** 🚀
 
-**Tabla de Contenidos**
+Cambiar una lista de precios, modificar tarifas o aplicar un aumento general es común, pero Odoo estándar no permite aplicar estos nuevos precios fácilmente a los pedidos de venta que están "Confirmados" pero aún no entregados/facturados. Este módulo soluciona ese problema permitiendo el recálculo masivo.
+
+**Compatibilidad**
+
+*   ✅ Odoo Community
+*   ✅ Odoo Enterprise
+
+**Table of contents**
 
 .. contents::
    :local:
 
-Características
-===============
+Funcionalidades 🌟
+==================
 
-*   **Actualización Masiva:** Posibilidad de actualizar múltiples pedidos a la vez desde la vista de lista.
-*   **Vista Previa de Impacto:** Un asistente muestra el valor total actual y el nuevo valor total antes de aplicar los cambios.
-*   **Detalle Granular:** Opción para inspeccionar los cambios línea por línea.
-*   **Compatibilidad con Promociones:** Recalcula descuentos y recompensas si se utiliza el sistema de promociones de Odoo.
+*   🔄 **Actualización Masiva:** Posibilidad de seleccionar múltiples pedidos y ejecutar el recálculo en bloque.
+*   👁️ **Vista Previa Segura:** Un asistente muestra el "Total Actual", "Nuevo Total" y la "Diferencia" antes de aplicar cambios, permitiendo cancelar si el resultado no es el esperado.
+*   🎁 **Soporte de Promociones:** El recálculo es inteligente y vuelve a procesar reglas de promociones y recompensas si están activas.
+*   📝 **Detalle Granular:** Opción para ver el impacto línea por línea en cada pedido.
 
-Uso
-===
+Caso de Uso 💡
+==============
 
-Para utilizar este módulo:
+**Aumento de Tarifas Anual**
 
-1.  Navegue a **Ventas > Pedidos > Pedidos**.
-2.  Seleccione los pedidos confirmados que desea actualizar (puede usar filtros para encontrarlos fácilmente).
-3.  Haga clic en el botón **Acción** y seleccione **Recalculate Prices**.
-4.  Se abrirá un asistente mostrando un resumen de los cambios.
-5.  Si desea ver el detalle línea por línea, active la opción **Show Detail**.
-6.  Haga clic en **Recalculate Prices** para aplicar los nuevos precios.
+El 1 de Enero su empresa aumenta precios un 10%. Tiene 50 pedidos confirmados en Diciembre que se entregarán en Febrero.
 
-Limitaciones conocidas y Roadmap
-================================
+*   **Problema:** Esos pedidos tienen precios viejos. Editarlos uno a uno es inviable.
+*   **Solución:** Selecciona los 50 pedidos, ejecuta el asistente "Recalculate Prices", verifica que el total suba aproximadamente un 10%, y confirma. En segundos, sus ingresos proyectados se han ajustado a la realidad.
 
-*   El recálculo se basa en la tarifa asignada actualmente al pedido. Si desea cambiar la tarifa, debe hacerlo antes de recalcular.
-*   No afecta a líneas ya facturadas o entregadas (dependiendo de la configuración estándar de Odoo, aunque este módulo opera sobre el pedido de venta directamente).
+Modo de Uso 🛠️
+==============
+
+1.  Vaya a **Ventas > Pedidos**.
+2.  Seleccione los pedidos confirmados que desea actualizar.
+3.  En el menú **Acción**, haga clic en **Recalculate Prices**.
+4.  Revise la columna "Difference" en el asistente.
+5.  Haga clic en **Confirmar**.
 
 Bug Tracker
 ===========
 
-Los errores son rastreados en `GitHub Issues <https://github.com/Crumges/odoo-modules/issues>`_.
-En caso de problemas, por favor repórtelos allí.
+Bugs are tracked on `GitHub Issues <https://github.com/Crumges/crumges_sale_confirmed_price_update/issues>`_.
 
-Créditos
-========
+Credits
+=======
 
-Autores
+Authors
 ~~~~~~~
 
 * Crumges
 
-Mantenedores
-~~~~~~~~~~~~
+Maintainers
+~~~~~~~~~~~
 
-Este módulo es mantenido por Crumges.
+This module is maintained by Crumges.
 
 .. image:: https://crumges.com/logo.png
    :alt: Crumges
    :target: https://crumges.com
-
-Visite nuestra web para más información.

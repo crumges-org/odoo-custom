@@ -3,142 +3,151 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Helpdesk Ticket Hierarchy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gestión jerárquica de tickets de soporte.">
     <!-- Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
     <style>
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #714B67;
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
         }
 
-        .hero-section {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-            border-radius: 10px;
-            margin-bottom: 40px;
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
         }
 
-        .odoo-purple {
-            color: #714B67;
-            font-weight: bold;
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
         }
 
-        .badge-enterprise {
-            background-color: #714B67;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
         }
 
-        .badge-community {
-            background-color: #28a745;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .card-shadow:hover {
+            transform: translateY(-5px);
         }
 
-        .step-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #dee2e6;
-        }
-
-        .hierarchy-tree {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container mt-5">
-
-        <!-- Header Section -->
-        <div class="row mb-5 text-center">
-            <div class="col-12">
-                <h1 class="display-4 font-weight-bold">Helpdesk Ticket Hierarchy</h1>
-                <p class="lead text-muted">Relacione sus tickets. Organice su soporte.</p>
-                <div class="mt-3">
-                    <span class="badge badge-enterprise mx-1">Solo Odoo Enterprise</span>
-                    <span class="badge badge-info mx-1">v18.0</span>
-                </div>
-            </div>
-        </div>
+    <div class="container oe_styling_v8 my-5">
 
         <!-- Hero Section -->
-        <div class="hero-section text-center">
-            <div class="container">
-                <h2 class="odoo-purple">🔗 Gestión de Incidentes Relacionados</h2>
-                <p class="mt-3 lead">
-                    No todos los tickets son islas. Algunos son parte de un archipiélago.
-                    <br>Vincule incidentes relacionados para una resolución más rápida y coordinada.
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">Helpdesk Ticket Hierarchy</h1>
+                <p class="lead font-weight-bold">
+                    “Organice el caos: Agrupe múltiples incidencias bajo un caso maestro.” 🧩
                 </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Odoo Enterprise Required
+                    </span>
+                </div>
             </div>
         </div>
 
-        <!-- Tree Visualization Mockup -->
-        <div class="row mt-5 justify-content-center">
-            <div class="col-md-8">
-                <div class="hierarchy-tree text-center shadow-sm">
-                    <h5>📥 Ticket Padre: "Caída de Sistema Central"</h5>
-                    <div class="d-flex justify-content-around mt-4">
-                        <div class="p-2 border rounded bg-light">
-                            <small>Ticket Hijo 1</small><br>
-                            "No puedo loguearme"
-                        </div>
-                        <div class="p-2 border rounded bg-light">
-                            <small>Ticket Hijo 2</small><br>
-                            "Error 500 en Pagos"
-                        </div>
-                        <div class="p-2 border rounded bg-light">
-                            <small>Ticket Hijo 3</small><br>
-                            "Lentitud general"
-                        </div>
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Cuando un servicio crítico falla, el Helpdesk se inunda de reportes duplicados o relacionados.
+                        Odoo Helpdesk estándar no vincula tickets entre sí. Este módulo añade la pieza faltante:
+                        <strong>Jerarquía Padre/Hijo</strong>. Le permite agrupar 50 tickets de "Internet lento" bajo un
+                        solo Ticket Padre "Caída de Fibra Óptica", gestionándolos en bloque. 📉
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">👨‍👦</span>
+                    <h5 class="card-title">Relación Padre/Hijo</h5>
+                    <p class="card-text">Vincule tickets ilimitados a un caso principal para mantener el orden.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🔄</span>
+                    <h5 class="card-title">Herencia de Cliente</h5>
+                    <p class="card-text">Al asignar un padre, el ticket hijo hereda automáticamente el cliente del caso
+                        principal.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🌍</span>
+                    <h5 class="card-title">Visibilidad Portal</h5>
+                    <p class="card-text">Sus clientes pueden ver los tickets relacionados desde su portal web.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Gestión de crisis simplificada:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Detecta un problema mayor (ej: "Servidor caído"). Crea un <strong>Ticket Padre</strong> para
+                        ello.
                     </div>
-                    <p class="text-muted mt-3 small"><i>Ejemplo de estructura soportada</i></p>
                 </div>
-            </div>
-        </div>
 
-        <!-- Features -->
-        <div class="row mt-5">
-            <div class="col-md-4 mb-4">
-                <div class="p-4 border rounded shadow-sm h-100 text-center">
-                    <div class="feature-icon">👪</div>
-                    <h4>Relación Padre/Hijo</h4>
-                    <p>Cree relaciones ilimitadas. Un ticket padre puede tener infinitos hijos, centralizando la
-                        información.</p>
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        A medida que llegan reportes de usuarios, en el campo <strong>"Parent Ticket"</strong>
+                        selecciona su ticket maestro.
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="p-4 border rounded shadow-sm h-100 text-center">
-                    <div class="feature-icon">🌐</div>
-                    <h4>Navegación Web</h4>
-                    <p>Sus clientes no se pierden. En el portal, pueden saltar del ticket hijo al padre con un solo
-                        click.</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="p-4 border rounded shadow-sm h-100 text-center">
-                    <div class="feature-icon">⚡</div>
-                    <h4>Autocompletado</h4>
-                    <p>¿Asignar un padre? El cliente se asigna solo. Ahorre clicks y evite errores de asignación.</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        Desde el ticket padre, puede ver y acceder a todos los tickets hijos relacionados en una pestaña
+                        dedicada, cerrando el caso globalmente cuando se resuelva.
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="row mt-5 py-4 border-top">
+        <div class="row mt-5 pt-4 border-top">
             <div class="col-12 text-center text-muted">
-                <p>Desarrollado y Mantenido por <b>Crumges</b></p>
-                <p><small>Soporte Helpdesk avanzado para Odoo.</small></p>
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
             </div>
         </div>
 

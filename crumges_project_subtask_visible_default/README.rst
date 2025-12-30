@@ -1,6 +1,6 @@
-===================================================================
-Project Subtask Visible Default - Visibilidad Automática de Subtareas
-===================================================================
+===============================
+Project Subtask Visible Default
+===============================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -9,86 +9,79 @@ Project Subtask Visible Default - Visibilidad Automática de Subtareas
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
-    :target: https://odoo-community.org/
-    :alt: Maturity Level
-
+    :target: https://odoo-community.org/page/development-status
+    :alt: Beta
 .. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
+.. |badge3| image:: https://img.shields.io/badge/github-Crumges%2Fcrumges_project_subtask_visible_default-lightgray.png?logo=github
+    :target: https://github.com/Crumges/crumges_project_subtask_visible_default/tree/18.0
+    :alt: Crumges/crumges_project_subtask_visible_default
 
-.. |badge3| image:: https://img.shields.io/badge/github-Crumges/odoo--custom-lightgray.png?logo=github
-    :target: https://github.com/Crumges/odoo-custom
-    :alt: Crumges/odoo-custom
+|badge1| |badge2| |badge3| 
 
-|badge1| |badge2| |badge3|
+**Revele sus subtareas: Haga que el trabajo granular sea visible por defecto.** 🚀
 
-Este módulo resuelve un dolor de cabeza común en la gestión de proyectos: la visibilidad predeterminada de las subtareas.
+¿Cansado de que Odoo oculte sus subtareas? En Odoo estándar, las subtareas a menudo requieren activación manual para verse en las vistas principales. Este módulo automatiza ese proceso.
 
-🚀 **¿El Problema?**
-Por defecto, Odoo puede crear subtareas ocultas (campo `display_in_project` en falso), lo que hace que usted tenga que ir manualmente a habilitarlas para verlas en sus tableros o listas.
+**Compatibilidad**
 
-✨ **La Solución**
-Este módulo fuerza automáticamente la visibilidad de cualquier subtarea creada. Ya sea creada manualmente o vía código, será visible por defecto.
+*   ✅ Odoo Community
+*   ✅ Odoo Enterprise
 
-**Tabla de Contenidos**
+**Table of contents**
 
 .. contents::
    :local:
 
-Características
-===============
+Funcionalidades 🌟
+==================
 
-*   ✅ **Activación Automática**: Establece `display_in_project` = True automáticamente.
-*   ✅ **Soporte Amplio**: Cubre múltiples campos de visibilidad (`is_visible`, `subtask_visible`, etc.) para asegurar compatibilidad con diferentes vistas.
-*   ✅ **Zero-Config**: No requiere ajustes. Instálelo y olvídese del problema.
-*   ✅ **Compatible con Odoo 18**: Optimizado para la última versión de Odoo.
+*   👁️ **Visibilidad Inmediata:** Las subtareas aparecen en el Kanban y Lista al momento de crearse.
+*   ⚙️ **Cero Configuración:** Instalar y olvidar. Funciona automáticamente en segundo plano.
+*   🔄 **Retrocompatibilidad:** Soporta múltiples versiones y configuraciones de campos de visibilidad.
 
-Instalación
-===========
+Caso de Uso 💡
+==============
 
-Este módulo se instala como cualquier módulo estándar de Odoo. No tiene dependencias externas complejas.
+**Desarrollo de Software**
 
-Configuración
-=============
+Un equipo gestiona un backlog.
 
-No se requiere configuración.
-Una vez instalado, el módulo comienza a funcionar inmediatamente para todas las **nuevas** subtareas que se creen.
+*   **Problema:** Las "Historias de Usuario" (Tareas Padres) se descomponen en "Tasks Técnicas" (Subtareas). Los desarrolladores necesitan ver esas subtareas en el tablero Kanban para moverlas de estado, pero Odoo las oculta por defecto.
+*   **Solución:** Con este módulo, al crear la subtarea técnica, esta aparece inmediatamente en el tablero junto a las demás, lista para ser gestionada.
 
-Uso
-===
+Configuración ⚙️
+================
 
-1. Vaya a Proyectos y abra una tarea.
-2. Cree una subtarea.
-3. Observe cómo la subtarea es inmediatamente visible en su lista de tareas y vista Kanban, sin pasos extra.
+1.  Instale el módulo.
+2.  ¡Eso es todo! No requiere ajustes adicionales.
 
-Ergonómico y eficiente. 🎯
+Modo de Uso 🛠️
+==============
 
-Problemas Conocidos / Hoja de Ruta
-==================================
-
-*   Actualmente solo afecta a subtareas creadas **después** de la instalación. No modifica subtareas existentes masivamente.
+1.  Cree una subtarea dentro de una tarea existente.
+2.  Vaya a la vista Kanban del proyecto.
+3.  Su subtarea ya estará visible como una tarjeta independiente (si el proyecto permite agrupar tareas). ✅
 
 Bug Tracker
 ===========
 
-Los errores son rastreados en `GitHub Issues <https://github.com/Crumges/odoo-custom/issues>`_.
-En caso de problemas, por favor repórtelos allí.
+Bugs are tracked on `GitHub Issues <https://github.com/Crumges/crumges_project_subtask_visible_default/issues>`_.
 
-Créditos
-========
+Credits
+=======
 
-Autores
+Authors
 ~~~~~~~
 
 * Crumges
 
-Mantenedores
-~~~~~~~~~~~~
+Maintainers
+~~~~~~~~~~~
 
-Este módulo es mantenido por Crumges.
+This module is maintained by Crumges.
 
 .. image:: https://crumges.com/logo.png
    :alt: Crumges
    :target: https://crumges.com
-
-Visite nuestra web para más módulos innovadores.

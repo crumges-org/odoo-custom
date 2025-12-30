@@ -3,26 +3,22 @@
     'name': 'Project Subtask Visible Default - Visibilidad Automática de Subtareas',
     'version': '18.0.1.0.3',
     'category': 'Project',
-    'summary': 'Hace visibles las subtareas automáticamente en Proyectos. No más subtareas ocultas.',
+    'summary': 'Revele sus subtareas: Haga que el trabajo granular sea visible por defecto.',
     'description': """
 Project Subtask Visible Default
 ===============================
 
-¿Cansado de que Odoo oculte sus subtareas por defecto?
-------------------------------------------------------
+Revele sus subtareas: Haga que el trabajo granular sea visible por defecto.
 
-En Odoo estándar, cuando crea una subtarea, a menudo debe activarla manualmente para verla en las vistas de proyecto.
-Este módulo resuelve ese problema automáticamente.
+¿Cansado de que Odoo oculte sus subtareas? En Odoo estándar, las subtareas a menudo requieren activación manual para verse en las vistas principales. Este módulo automatiza ese proceso.
 
 Características Principales
 ---------------------------
-*   **Visibilidad Automática**: Las subtareas se crean con `display_in_project` = True por defecto.
-*   **Sin Configuración**: Instalar y listo. Funciona en segundo plano.
-*   **Compatibilidad**: Soporta múltiples campos de visibilidad usados por Odoo Enterprise y Community.
-*   **Retroactividad**: También aplica la configuración por defecto al crear tareas desde la interfaz.
-
-Ahorre clicks y evite la confusión de "¿dónde está mi subtarea?" con esta utilidad esencial.
-    """,
+*   **Visibilidad Automática:** Las subtareas se crean visibles en Kanban y Lista por defecto.
+*   **Cero Configuración:** Instalar y olvidar. Funciona automáticamente en segundo plano.
+*   **Compatibilidad Total:** Soporta múltiples versiones y nombres de campos de visibilidad (Community/Enterprise).
+*   **Retroactividad:** Aplica la configuración por defecto incluso al crear desde la interfaz rápida.
+""",
     'author': 'Crumges',
     'website': 'https://crumges.com',
     'license': 'LGPL-3',

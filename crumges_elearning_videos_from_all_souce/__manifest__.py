@@ -3,7 +3,22 @@
 
 {
     "name": "eLearning Videos Extended - Zoom, Drive, Vimeo & Local",
-    "summary": "Integre videos de Zoom, Google Drive, Vimeo y archivos locales directamente en sus cursos de eLearning.",
+    "summary": "Todo su contenido en un solo lugar: Zoom, Drive, Vimeo y archivos locales.",
+    "description": """
+eLearning Videos Extended
+=========================
+
+Todo su contenido en un solo lugar: Zoom, Drive, Vimeo y archivos locales.
+
+Rompa las barreras de contenido en Odoo eLearning. Este módulo extiende las capacidades nativas para soportar fuentes de video esenciales en el mundo corporativo y educativo.
+
+Características Principales
+---------------------------
+*   **Zoom Integration:** Incruste reuniones y webinars de Zoom directamente como lecciones.
+*   **Google Drive:** Reproduzca videos de Drive ocultando el botón "pop-out" para mantener al alumno en su sitio.
+*   **Videos Locales:** Suba archivos MP4 o WebM directamente a su servidor Odoo.
+*   **Vimeo Enhanced:** Mejor integración con Vimeo para cursos profesionales.
+""",
     "description": """
 eLearning Videos Extended (Zoom, Drive, Vimeo, Local)
 =====================================================

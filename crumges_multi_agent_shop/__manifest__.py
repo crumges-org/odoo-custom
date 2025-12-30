@@ -2,7 +2,22 @@
     'name': 'Tienda Multi Agente Crumges',
     'version': '18.0.1.0.0',
     'category': 'Sales/Sales',
-    'summary': 'Permite a agentes comprar en nombre de clientes vía Portal o Backend.',
+    'summary': 'Potencie a sus agentes: Permítales comprar por sus clientes directamente desde la web.',
+    'description': """
+Multi Agent Shop
+================
+
+Potencie a sus agentes: Permítales comprar por sus clientes directamente desde la web.
+
+Este módulo extiende las capacidades del comercio electrónico permitiendo que "Agentes" autorizados inicien sesión y realicen pedidos en nombre de sus clientes.
+
+Características Principales
+---------------------------
+*   **Compra Asistida:** El agente navega y compra, pero el pedido se registra para el cliente seleccionado.
+*   **Selección de Cliente:** Interfaz dedicada para cambiar el "Cliente Activo" en cualquier momento.
+*   **Trazabilidad:** Cada pedido guarda referencia tanto del cliente final como del agente que procesó la venta.
+*   **Protección de Carrito:** Sistema inteligente que advierte y gestiona el carrito al cambiar de cliente para evitar errores.
+""",
     'author': 'Crumges',
     'website': 'https://crumges.com',
     'license': 'LGPL-3',

@@ -1,169 +1,166 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
     <title>Sale Confirmed Price Update</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Recálculo de precios en ventas confirmadas.">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: #212529;
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             color: #212529;
         }
 
-        .text-primary {
-            color: #00A09D !important;
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
         }
 
-        .bg-primary {
-            background-color: #00A09D !important;
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
         }
 
-        .icon-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 60px;
-            height: 60px;
-            background-color: #f8f9fa;
-            border-radius: 50%;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            border: 1px solid #e9ecef;
-            border-radius: 0 0 0.25rem 0.25rem;
-            height: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
+        .card-shadow:hover {
             transform: translateY(-5px);
-            box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175);
+        }
+
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-    <section class="container mt-5">
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="text-center display-4 mb-4">Recálculo de Precios en Ventas Confirmadas</h1>
-                <p class="lead text-center mb-5 text-muted">Mantenga sus precios siempre actualizados, incluso después
-                    de confirmar el pedido.</p>
-            </div>
-        </div>
-    </section>
+    <div class="container oe_styling_v8 my-5">
 
-    <section class="container mb-5">
-        <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h2 class="text-primary mb-3">¿Precios Desactualizados?</h2>
-                <p class="mb-4">
-                    En un entorno dinámico, las listas de precios cambian constantemente. A menudo, tiene pedidos
-                    confirmados pendientes de entrega o facturación que quedaron con precios antiguos.
-                </p>
-                <p class="mb-4">
-                    Con <strong>Sale Confirmed Price Update</strong>, olvídese de cancelar y volver a crear pedidos o de
-                    editar líneas manualmente una por una.
-                </p>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><i class="fa fa-check text-primary mr-2"></i><strong>Actualización Masiva:</strong>
-                        Procesa cientos de pedidos en segundos.</li>
-                    <li class="mb-2"><i class="fa fa-check text-primary mr-2"></i><strong>Control Total:</strong> Revise
-                        el impacto financiero antes de aplicar.</li>
-                    <li class="mb-2"><i class="fa fa-check text-primary mr-2"></i><strong>Integridad de Datos:</strong>
-                        Mantiene la coherencia con sus tarifas actuales.</li>
-                </ul>
-            </div>
-            <div class="col-lg-6">
-                <div class="text-center">
-                    <img src="https://public.crumges.com/modules/sale_confirmed_price_update/hero.png"
-                        alt="Sale Price Update Hero" class="img-fluid rounded shadow-lg" />
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="container mb-5">
-        <h3 class="text-center mb-5">Cómo Funciona</h3>
-        <div class="row">
-            <div class="col-md-4 mb-4">
-                <div class="feature-card text-center">
-                    <div class="icon-box mx-auto text-primary">
-                        <span style="font-size: 1.5rem;">1</span>
-                    </div>
-                    <h5>Seleccione Pedidos</h5>
-                    <p class="text-muted">Desde la vista de lista de ventas, elija los pedidos confirmados que desea
-                        actualizar.</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="feature-card text-center">
-                    <div class="icon-box mx-auto text-primary">
-                        <span style="font-size: 1.5rem;">2</span>
-                    </div>
-                    <h5>Revise el Impacto</h5>
-                    <p class="text-muted">El asistente le mostrará el total actual vs. el nuevo total calculado con la
-                        tarifa vigente.</p>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="feature-card text-center">
-                    <div class="icon-box mx-auto text-primary">
-                        <span style="font-size: 1.5rem;">3</span>
-                    </div>
-                    <h5>Aplique Cambios</h5>
-                    <p class="text-muted">Confirme la operación y todos los precios se actualizarán automáticamente,
-                        incluyendo promociones.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="container mb-5 bg-light p-5 rounded">
-        <div class="row">
+        <!-- Hero Section -->
+        <div class="row mb-5">
             <div class="col-12 text-center">
-                <h2 class="mb-4">Beneficios Clave</h2>
+                <h1 class="display-4 text-primary mb-3">Sale Confirmed Price Update</h1>
+                <p class="lead font-weight-bold">
+                    “Actualice sus precios antiguos con un solo clic. Mantenga sus márgenes incluso en pedidos ya
+                    confirmados.” 🚀
+                </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <h4><i class="fa fa-rocket text-primary mr-2"></i> Eficiencia Operativa</h4>
-                <p>Ahorre horas de trabajo manual evitando la edición pedido por pedido.</p>
-            </div>
-            <div class="col-md-6">
-                <h4><i class="fa fa-percent text-primary mr-2"></i> Precisión en Márgenes</h4>
-                <p>Asegure que siempre vende al precio correcto, protegiendo sus márgenes de beneficio ante subidas de
-                    costes.</p>
-            </div>
-        </div>
-    </section>
 
-    <section class="container pb-5">
-        <div class="row">
-            <div class="col-12 text-center">
-                <hr class="mb-5" />
-                <p class="text-muted small">Desarrollado y mantenido por <strong>Crumges</strong>.</p>
-                <a href="https://crumges.com" class="btn btn-outline-primary btn-sm">Visitar Sitio Web</a>
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Cambiar una lista de precios a mitad de año es un dolor de cabeza para los pedidos que quedaron
+                        "Atrapados" (Pendientes de entrega pero con precio viejo). Odoo estándar no recalcula precios
+                        confirmados fácilmente. Este módulo le da el poder de <strong>actualizar masivamente</strong>
+                        esos pedidos a las tarifas vigentes, protegiendo su rentabilidad. 💸
+                    </p>
+                </div>
             </div>
         </div>
-    </section>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🔄</span>
+                    <h5 class="card-title">Actualización Masiva</h5>
+                    <p class="card-text">Seleccione 10, 50 o 100 pedidos y actualice sus precios en lote.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">👁️</span>
+                    <h5 class="card-title">Vista Previa Segura</h5>
+                    <p class="card-text">Vea el "Antes" y "Después" del total monetario antes de confirmar cualquier
+                        cambio.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🎁</span>
+                    <h5 class="card-title">Soporte Promociones</h5>
+                    <p class="card-text">Inteligente para recalcular también descuentos y líneas de recompensa.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Proceso simple y seguro:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Vaya a <strong>Ventas > Pedidos</strong> y seleccione los pedidos confirmados a actualizar.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        En el menú <strong>Acción</strong>, elija <strong>"Recalculate Prices"</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Analice la tabla de diferencias en el asistente. Si está conforme, click en
+                        <strong>Recalcular</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        ¡Listo! Sus pedidos ahora tienen los precios actualizados de la tarifa vigente.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 text-center text-muted">
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
+            </div>
+        </div>
+
+    </div>
 
 </body>
 

@@ -1,6 +1,6 @@
-==================================================================
-eLearning Videos Extended - Zoom, Drive, Vimeo & Local
-==================================================================
+=========================
+eLearning Videos Extended
+=========================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -9,88 +9,81 @@ eLearning Videos Extended - Zoom, Drive, Vimeo & Local
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
-    :target: https://odoo-community.org/
-    :alt: Maturity Level
-
+    :target: https://odoo-community.org/page/development-status
+    :alt: Alpha
 .. |badge2| image:: https://img.shields.io/badge/licence-OPL--1-blue.png
     :target: https://www.odoo.com/documentation/17.0/legal/licenses.html
     :alt: License: OPL-1
+.. |badge3| image:: https://img.shields.io/badge/github-Crumges%2Fcrumges_elearning_videos_from_all_souce-lightgray.png?logo=github
+    :target: https://github.com/Crumges/crumges_elearning_videos_from_all_souce/tree/18.0
+    :alt: Crumges/crumges_elearning_videos_from_all_souce
 
-.. |badge3| image:: https://img.shields.io/badge/github-Crumges/odoo--custom-lightgray.png?logo=github
-    :target: https://github.com/Crumges/odoo-custom
-    :alt: Crumges/odoo-custom
+|badge1| |badge2| |badge3| 
 
-|badge1| |badge2| |badge3|
+**Todo su contenido en un solo lugar: Zoom, Drive, Vimeo y archivos locales.** 🚀
 
-Este módulo expande las capacidades del módulo de eLearning de Odoo para soportar fuentes de contenido avanzadas y control de privacidad.
+Rompa las barreras de contenido en Odoo eLearning. Este módulo extiende las capacidades nativas para soportar fuentes de video esenciales en el mundo corporativo y educativo, más allá del exclusivo soporte de YouTube.
 
-🚀 **Potencie su contenido educativo**
-No se limite solo a YouTube. Traiga sus webinars de Zoom, videos privados de Drive y archivos locales de alta calidad a sus cursos.
+**Compatibilidad**
 
-**Tabla de Contenidos**
+*   ✅ Odoo Community
+*   ✅ Odoo Enterprise
+
+**Table of contents**
 
 .. contents::
    :local:
 
-Características
-===============
+Funcionalidades 🌟
+==================
 
-*   📹 **Integración Zoom**: Embeba reuniones o grabaciones de Zoom directamente.
-*   ☁️ **Soporte Google Drive**: Use videos alojados en su Drive como contenido.
-    *   *Característica Pro*: Oculte el botón "abrir en ventana externa" para evitar que los estudiantes salgan de su plataforma.
-*   🎬 **Soporte Vimeo**: Soporte para videos de Vimeo con recuperación automática de metadatos.
-*   💾 **Videos Locales**: Suba archivos ``.mp4`` o ``.webm`` directamente a su servidor Odoo. Ideal para contenido altamente confidencial.
+*   📹 **Zoom Native Integration:** Permite configurar reuniones o webinars de Zoom como pasos dentro de un curso. Requiere configuración de API Keys (SDK).
+*   ☁️ **Google Drive Video:** Soporte para reproducir videos alojados en Google Drive. Incluye opción para ocultar el botón "pop-out" (abrir en nueva ventana), forzando al estudiante a permanecer en la plataforma.
+*   📁 **Upload Local:** Posibilidad de subir archivos de video (MP4, WebM) directamente al servidor de Odoo.
+*   📺 **Vimeo Enhanced:** Integración mejorada para videos de Vimeo.
 
-Configuración
-=============
+Caso de Uso 💡
+==============
 
-Para habilitar la integración completa con **Zoom**:
+**Formación Corporativa Confidencial**
 
-1. Vaya a **Sitio Web** > **Configuración** > **eLearning**.
-2. Desplácese hasta la sección **Integración con Zoom**.
-3. Ingrese su ``Zoom API Key`` (o SDK Key) y ``Zoom API Secret``.
-   * Puede obtener estas claves creando una App en el `Zoom Marketplace <https://marketplace.zoom.us/>`_.
+Su empresa tiene videos de procedimientos internos que no deben estar en YouTube.
 
-Para Google Drive y videos locales, no se requiere configuración adicional a nivel de sistema.
+*   **Opción A (Drive):** Aloje los videos en una carpeta compartida de Google Drive restringida a su dominio y enlácelos en Odoo.
+*   **Opción B (Local):** Suba el archivo MP4 directamente a Odoo. El video se reproduce en el curso pero no está alojado en ninguna plataforma pública externa.
 
-Uso
-===
+Configuración ⚙️
+================
 
-1. Vaya a su Curso de eLearning y añada **Nuevo Contenido**.
-2. En el tipo de contenido, verá nuevas opciones bajo "Tipo de Video":
-   * **Zoom Meeting**: Ingrese el ID de reunión y contraseña.
-   * **Video Google Drive**: Pegue el enlace de compartir o ID del archivo.
-   * **Video Local**: Suba el archivo desde su ordenador.
-3. Guarde los cambios y publique el contenido.
+**Para integración con Zoom:**
 
-Problemas Conocidos / Limitaciones
-================================
+1.  Obtenga sus credenciales SDK (Key y Secret) desde el Zoom Marketplace.
+2.  Vaya a **Sitio Web > Configuración > Ajustes**.
+3.  En la sección de integración de Zoom, introduzca las claves.
 
-*   Los videos locales consumen espacio en su servidor Odoo (filestore). Asegúrese de tener suficiente capacidad.
-*   La reproducción de Zoom depende de las políticas de seguridad de su cuenta Zoom.
-*   Los enlaces de Google Drive deben tener permisos de lectura (públicos o compartidos con el usuario).
+**Para uso general:**
+
+1.  Simplemente cree un nuevo contenido en su eLearning.
+2.  Verá nuevas opciones bajo "Tipo de Documento" o nuevas pestañas para las fuentes de video adicionales.
 
 Bug Tracker
 ===========
 
-Los errores son rastreados en `GitHub Issues <https://github.com/Crumges/odoo-custom/issues>`_.
-En caso de problemas, por favor repórtelos allí.
+Bugs are tracked on `GitHub Issues <https://github.com/Crumges/crumges_elearning_videos_from_all_souce/issues>`_.
 
-Créditos
-========
+Credits
+=======
 
-Autores
+Authors
 ~~~~~~~
 
 * Crumges
 
-Mantenedores
-~~~~~~~~~~~~
+Maintainers
+~~~~~~~~~~~
 
-Este módulo es mantenido por Crumges.
+This module is maintained by Crumges.
 
 .. image:: https://crumges.com/logo.png
    :alt: Crumges
    :target: https://crumges.com
-
-Visite nuestra web para más módulos innovadores.

@@ -3,124 +3,187 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sale Task Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plantillas de tareas desde ventas.">
     <!-- Bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
     <style>
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: #714B67;
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
         }
 
-        .hero-section {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-            border-radius: 10px;
-            margin-bottom: 40px;
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
         }
 
-        .odoo-purple {
-            color: #714B67;
-            font-weight: bold;
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
         }
 
-        .badge-enterprise {
-            background-color: #714B67;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
         }
 
-        .badge-community {
-            background-color: #28a745;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 20px;
+        .card-shadow:hover {
+            transform: translateY(-5px);
         }
 
-        .step-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #dee2e6;
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container mt-5">
-
-        <!-- Header Section -->
-        <div class="row mb-5 text-center">
-            <div class="col-12">
-                <h1 class="display-4 font-weight-bold">Sale Task Template</h1>
-                <p class="lead text-muted">Plantillas de Tareas Maestras para sus Servicios.</p>
-                <div class="mt-3">
-                    <span class="badge badge-enterprise mx-1">Odoo Enterprise</span>
-                    <span class="badge badge-community mx-1">Odoo Community</span>
-                    <span class="badge badge-info mx-1">v18.0</span>
-                </div>
-            </div>
-        </div>
+    <div class="container oe_styling_v8 my-5">
 
         <!-- Hero Section -->
-        <div class="hero-section text-center">
-            <div class="container">
-                <h2 class="odoo-purple">🔁 Estandarice sus Servicios</h2>
-                <p class="mt-3 lead">
-                    Si vende el mismo servicio una y otra vez, ¿por qué crear la tarea desde cero cada vez?
-                    <br>Defina su proceso una vez, véndalo mil veces.
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">Sale Task Template</h1>
+                <p class="lead font-weight-bold">
+                    “Estandarice sus servicios: Venda productos y genere estructuras de trabajo completas al instante.”
+                    🚀
                 </p>
-            </div>
-        </div>
-
-        <!-- How it Works Flow -->
-        <div class="row mt-5">
-            <div class="col-md-4 text-center">
-                <div class="step-number">1</div>
-                <h4>Cree una Plantilla</h4>
-                <p>Diseñe una tarea perfecta con todas sus especificaciones, checklist y subtareas.</p>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="step-number">2</div>
-                <h4>Vincule al Producto</h4>
-                <p>Seleccione esa tarea en la ficha de su Servicio (pestaña ventas).</p>
-            </div>
-            <div class="col-md-4 text-center">
-                <div class="step-number">3</div>
-                <h4>Venda y Olvídese</h4>
-                <p>Al confirmar la orden, Odoo clona la plantilla automáticamente.</p>
-            </div>
-        </div>
-
-        <!-- Features -->
-        <div class="row mt-5">
-            <div class="col-md-6 mb-4">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <div class="feature-icon">📋</div>
-                    <h4>Clonación Profunda</h4>
-                    <p>No solo copiamos el título. Copiamos descripciones HTML ricas, todas las etiquetas asociadas,
-                        prioridad, colores y usuarios asignados.</p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="p-4 border rounded shadow-sm h-100">
-                    <div class="feature-icon">🔢</div>
-                    <h4>Poder de Subtareas</h4>
-                    <p>La característica estrella: Si su plantilla tiene una estructura compleja de subtareas, se
-                        replica exactamente igual en cada venta.</p>
+        </div>
+
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Odoo crea tareas al vender servicios, pero vienen vacías. Si sus servicios siempre requieren los
+                        mismos pasos (ej: "Diseño", "Desarrollo", "QA"), pierde tiempo recreándolos manualmente. Este
+                        módulo le permite definir una <strong>Tarea Maestra</strong> y clonarla automáticamente con cada
+                        venta. ✨
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">📋</span>
+                    <h5 class="card-title">Plantillas Maestras</h5>
+                    <p class="card-text">Diseñe la tarea perfecta una vez y úsela para siempre.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">⚡</span>
+                    <h5 class="card-title">Clonado Automático</h5>
+                    <p class="card-text">Al confirmar la venta, la tarea se crea con todo el contenido predefinido.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🧩</span>
+                    <h5 class="card-title">Subtareas Incluidas</h5>
+                    <p class="card-text">Copia la estructura completa de subtareas y sus horas asignadas.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🏷️</span>
+                    <h5 class="card-title">Detalle Rico</h5>
+                    <p class="card-text">Mantiene etiquetas, descripciones, checklists y colores.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Crear Plantilla</h5>
+                        Cree una Tarea en Odoo con todas las subtareas y detalles que desee usar como modelo.
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        2</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Asignar al Producto</h5>
+                        Vaya a su Producto de Servicio, pestaña Ventas, y seleccione la tarea en el campo <strong>"Task
+                            Template"</strong>.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Flujo de trabajo optimizado:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Cree un <strong>Presupuesto</strong> con el servicio configurado.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        <strong>Confirme</strong> la venta.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        Odoo generará el proyecto y la tarea, pero esta vez la tarea tendrá <strong>todas las subtareas
+                            y datos</strong> de su plantilla original instantáneamente.
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Footer -->
-        <div class="row mt-5 py-4 border-top">
+        <div class="row mt-5 pt-4 border-top">
             <div class="col-12 text-center text-muted">
-                <p>Desarrollado y Mantenido por <b>Crumges</b></p>
-                <p><small>Automatización inteligente para Odoo.</small></p>
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
             </div>
         </div>
 
