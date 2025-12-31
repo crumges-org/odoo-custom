@@ -13,6 +13,10 @@ class ProjectTask(models.Model):
         default=False,
     )
 
+    @property
+    def SELF_READABLE_FIELDS(self):
+        return super().SELF_READABLE_FIELDS | {'auto_log_timesheet'}
+
     def _get_root_with_switch(self):
         self.ensure_one()
         current = self

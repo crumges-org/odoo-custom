@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_task_form_inherit_timesheet_ux" model="ir.ui.view">
-        <field name="name">project.task.form.inherit.timesheet.ux</field>
+    <record id="project_sharing_project_task_view_form_inherit_timesheet_ux" model="ir.ui.view">
+        <field name="name">project.sharing.project.task.view.form.inherit.timesheet.ux</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="inherit_id" ref="project.project_sharing_project_task_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-            </xpath>
-            
-            <field name="tag_ids" position="after">
-                <label for="auto_log_timesheet" string="Registrar Horas Automáticamente" invisible="parent_id"/>
-                <div invisible="parent_id">
-                    <field name="auto_log_timesheet" widget="boolean_toggle" nolabel="1"/>
-                </div>
-                
-                <div class="alert alert-secondary" role="alert" invisible="parent_id or auto_log_timesheet or child_ids">
+            <!-- 1. Inject the Readonly Switch and Invisible Dependencies in the Field Column -->
+            <field name="date_deadline" position="before">
+                <!-- Ensure fields required for visibility logic are present -->
+                <field name="parent_id" invisible="1"/>
+                <field name="child_ids" invisible="1"/>
+                <!-- Visible but Readonly Switch -->
+                <field name="auto_log_timesheet" readonly="1" widget="boolean_toggle"/>
+            </field>
+
+            <!-- 2. Inject the Alerts Full Width (Above the Main Group) -->
+            <xpath expr="//field[@name='date_deadline']/ancestor::group[last()]" position="before">
+                <div class="alert alert-secondary mb-3" role="alert" invisible="parent_id or auto_log_timesheet or child_ids">
                     <strong>ℹ️ Tarea Raíz sin Automatización</strong><br/>
                     Esta tarea no tiene automatización activada. Active el switch para habilitar el registro automático de horas en toda la jerarquía de subtareas.
                 </div>
                 
-                <div class="alert alert-primary" role="alert" invisible="parent_id or not auto_log_timesheet or not child_ids">
+                <div class="alert alert-primary mb-3" role="alert" invisible="parent_id or not auto_log_timesheet or not child_ids">
                     <strong>🔵 Tarea Raíz con Automatización Activa</strong><br/>
                     <strong>Registro de Horas:</strong> Solo las tareas finales (sin subtareas) registran horas automáticamente al completarse.<br/>
                     <strong>Cambio de Estado Automático:</strong> Esta tarea actualiza su estado según sus hijos directos:
@@ -31,18 +33,18 @@
                     </ul>
                 </div>
                 
-                <div class="alert alert-info" role="alert" invisible="not parent_id or not child_ids">
+                <div class="alert alert-info mb-3" role="alert" invisible="not parent_id or not child_ids">
                     <strong>🟢 Tarea Intermedia con Subtareas</strong><br/>
                     <strong>Registro de Horas:</strong> Esta tarea NO registra horas automáticamente. Solo las tareas finales lo hacen.<br/>
                     <strong>Cambio de Estado Automático:</strong> El estado se actualiza según los hijos directos con la misma lógica que la tarea raíz.
                 </div>
                 
-                <div class="alert alert-success" role="alert" invisible="not parent_id or child_ids">
+                <div class="alert alert-success mb-3" role="alert" invisible="not parent_id or child_ids">
                     <strong>✅ Tarea Final (sin subtareas)</strong><br/>
                     <strong>Registro de Horas:</strong> Al marcar como "Hecho", se registran automáticamente las horas asignadas. Al cambiar a otro estado, se eliminan las horas automáticas.<br/>
                     <strong>Cambio de Estado:</strong> Manual (no automático).
                 </div>
-            </field>
+            </xpath>
         </field>
     </record>
 </odoo>

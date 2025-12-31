@@ -29,6 +29,7 @@ Características Principales
         'wizards/views/project_task_reopen_wizard_views.xml',
         'wizards/views/project_task_complete_wizard_views.xml',
         'views/project_task_views.xml',
+        'views/project_sharing_views.xml',
     ],
     'installable': True,
     'application': False,
