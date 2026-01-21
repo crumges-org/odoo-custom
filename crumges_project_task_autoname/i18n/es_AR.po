@@ -1,0 +1,143 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_project_task_autoname
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-19 20:10+0000\n"
+"PO-Revision-Date: 2026-01-19 17:14-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_project_task__additional_info
+msgid "Additional Info"
+msgstr "Información Adicional"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields.selection,name:crumges_project_task_autoname.selection__project_task__name_type__auto_composed
+msgid "Auto-generated Name"
+msgstr "Nombre Auto-Generado"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: crumges_project_task_autoname
+#: model_terms:ir.actions.act_window,help:crumges_project_task_autoname.action_task_purpose
+msgid "Define a new Task Purpose"
+msgstr "Define un nuevo propósito de tarea"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,help:crumges_project_task_autoname.field_project_task__additional_info
+msgid "E.g. License Plate, Internal No., etc."
+msgstr "Ej: Patente, N° Interno, etc."
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__id
+msgid "ID"
+msgstr ""
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_project_task__is_name_frozen
+msgid "Is Name Frozen"
+msgstr "Es nombre congelado"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields.selection,name:crumges_project_task_autoname.selection__project_task__name_type__manual
+msgid "Manual Name"
+msgstr "Nombre Manual"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_project_task__name_type
+msgid "Name Type"
+msgstr "Tipo de Nombre"
+
+#. module: crumges_project_task_autoname
+#. odoo-python
+#: code:addons/crumges_project_task_autoname/models/project_task.py:0
+msgid "New"
+msgstr "Nuevo"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_project_task__purpose_id
+msgid "Purpose"
+msgstr "Propósito"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model.fields,field_description:crumges_project_task_autoname.field_task_purpose__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model,name:crumges_project_task_autoname.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: crumges_project_task_autoname
+#: model_terms:ir.ui.view,arch_db:crumges_project_task_autoname.view_task_form2_inherit_autoname
+msgid "Task Naming"
+msgstr "Nombramiento de tarea"
+
+#. module: crumges_project_task_autoname
+#: model:ir.model,name:crumges_project_task_autoname.model_task_purpose
+#: model_terms:ir.ui.view,arch_db:crumges_project_task_autoname.view_task_purpose_form
+msgid "Task Purpose"
+msgstr "Propósito de tarea"
+
+#. module: crumges_project_task_autoname
+#: model:ir.actions.act_window,name:crumges_project_task_autoname.action_task_purpose
+#: model:ir.ui.menu,name:crumges_project_task_autoname.menu_task_purpose
+#: model_terms:ir.ui.view,arch_db:crumges_project_task_autoname.view_task_purpose_tree
+msgid "Task Purposes"
+msgstr "Propósitos de tarea"
+
+#. module: crumges_project_task_autoname
+#: model_terms:ir.ui.view,arch_db:crumges_project_task_autoname.view_task_form2_inherit_autoname
+msgid "Task name is auto-generated based on ID, Purpose and Info."
+msgstr "El nombre de la tarea se genera automáticamente en función de la identificación, el propósito y la información."
+
+#. module: crumges_project_task_autoname
+#. odoo-python
+#: code:addons/crumges_project_task_autoname/models/project_task.py:0
+msgid "[New] - %s - %s"
+msgstr "[Nuevo] - %s - %s"

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_upsell" model="ir.ui.view">
+        <field name="name">product.template.form.upsell</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+             <xpath expr="//page[@name='sales']" position="inside">
+                <group string="Upsell Settings" name="upsell_settings">
+                    <group>
+                        <field name="type" invisible="1"/>
+                        <field name="recurring_invoice" invisible="1"/>
+                        <field name="upsell_from_task" 
+                               invisible="type != 'service' or recurring_invoice"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

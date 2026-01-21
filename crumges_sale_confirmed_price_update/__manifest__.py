@@ -1,6 +1,6 @@
 {
     'name': 'Sale Confirmed Price Update - Recálculo de Precios en Ventas Confirmadas',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.11',
     'category': 'Sales',
     'summary': 'Actualice sus precios antiguos con un solo clic. Mantenga sus márgenes incluso en pedidos ya confirmados.',
     'description': """

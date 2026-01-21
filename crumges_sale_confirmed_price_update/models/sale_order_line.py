@@ -22,15 +22,49 @@ class SaleOrderLine(models.Model):
             uom=self.product_uom,
             date=order.date_order
         )
+
+        # Logic for recurring products (Subscriptions)
+        is_recurring = getattr(product, 'recurring_invoice', False)
+        has_recurring_pricing = False
         
-        discount = 0.0
-        if pricelist_item:
-            if pricelist_item.compute_price == 'percentage':
-                discount = pricelist_item.percent_price
+        # Check if sale_subscription logic applies
+        if is_recurring and getattr(order, 'plan_id', False):
+            # Try to get recurring pricing
+            pricing = False
+            if hasattr(product, '_get_pricing'):
+                pricing = product._get_pricing(product, order.pricelist_id, order.plan_id.id)
+            elif 'sale.subscription.pricing' in self.env:
+                 pricing = self.env['sale.subscription.pricing'].sudo()._get_first_suitable_recurring_pricing(
+                    product, plan=order.plan_id, pricelist=order.pricelist_id
+                )
+            
+            if pricing:
+                price = pricing.currency_id._convert(
+                    pricing.price, 
+                    order.currency_id, 
+                    order.company_id, 
+                    order.date_order or fields.Date.today()
+                )
+                has_recurring_pricing = True
+                # Recurring prices usually don't use the standard pricelist discounts in the same way, 
+                # or the price fetched is already the final recurring price.
+                # However, we still check pricelist item for discount if we didn't find specific recurring pricing?
+                # No, if we found pricing, we use that price.
+                # If we didn't find pricing, we fall back to standard price (already calculated above).
+
+        discount = self.discount
+        if pricelist_item and not has_recurring_pricing:
+            rule = self.env['product.pricelist.item'].browse(pricelist_item)
+            if rule.compute_price == 'percentage':
+                discount = rule.percent_price
+                if discount != 100:
+                    price = price / (1 - discount / 100)
         
         return {
             'price_unit': price,
             'discount': discount,
+            'is_recurring': is_recurring,
+            'has_recurring_pricing': has_recurring_pricing,
         }
 
     def get_new_price_with_promotions(self):
@@ -42,10 +76,10 @@ class SaleOrderLine(models.Model):
 
     def _get_affected_product_lines(self):
         self.ensure_one()
-        if not self.is_reward_line or not self.reward_id:
+        if not getattr(self, 'is_reward_line', False) or not getattr(self, 'reward_id', False):
             return self.env['sale.order.line']
         
-        reward = self.reward_id
+        reward = getattr(self, 'reward_id', False)
         order = self.order_id
         
         affected_lines = self.env['sale.order.line']
@@ -54,26 +88,26 @@ class SaleOrderLine(models.Model):
             if reward.discount_applicability == 'specific':
                 if hasattr(reward, 'discount_product_ids') and reward.discount_product_ids:
                     affected_lines = order.order_line.filtered(
-                        lambda l: not l.is_reward_line and l.product_id in reward.discount_product_ids
+                        lambda l: not getattr(l, 'is_reward_line', False) and l.product_id in reward.discount_product_ids
                     )
                 elif hasattr(reward, 'discount_product_category_id') and reward.discount_product_category_id:
                     affected_lines = order.order_line.filtered(
-                        lambda l: not l.is_reward_line and 
+                        lambda l: not getattr(l, 'is_reward_line', False) and 
                         l.product_id.categ_id == reward.discount_product_category_id
                     )
             elif reward.discount_applicability == 'order':
-                affected_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+                affected_lines = order.order_line.filtered(lambda l: not getattr(l, 'is_reward_line', False))
         else:
-            affected_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+            affected_lines = order.order_line.filtered(lambda l: not getattr(l, 'is_reward_line', False))
         
         return affected_lines
 
     def _calculate_reward_price(self, order_updates=None):
         self.ensure_one()
-        if not self.is_reward_line or not self.reward_id:
+        if not getattr(self, 'is_reward_line', False) or not getattr(self, 'reward_id', False):
             return self.price_unit
         
-        reward = self.reward_id
+        reward = getattr(self, 'reward_id', False)
         order = self.order_id
         
         if reward.reward_type == 'discount':

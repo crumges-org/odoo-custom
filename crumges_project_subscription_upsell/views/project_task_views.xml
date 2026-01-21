@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Server Action for Force Draft & Reload -->
+    <record id="action_force_draft_upsell_reload" model="ir.actions.server">
+        <field name="name">Upsell: Force Draft &amp; Reload</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="state">code</field>
+        <field name="code">
+action = record.action_force_draft_and_reload(env.context.get('upsell_order_id'))
+        </field>
+    </record>
+
+    <record id="view_task_form2_inherit_upsell_only" model="ir.ui.view">
+        <field name="name">project.task.form.upsell.only</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="before">
+                <field name="is_parent_task" invisible="1"/>
+                <div class="alert alert-info" role="status" invisible="is_parent_task or not sale_line_id or not subscription_id">
+                    This task is linked to a subscription upsell line. The task name is synchronized with the sale line description.
+                </div>
+
+                <group invisible="is_parent_task">
+                    <group name="upsell_toggle" string="Upsell Settings">
+                        <field name="is_upsell_active" widget="boolean_toggle"/>
+                    </group>
+                </group>
+                
+                <group string="Subscription Upsell / Venta Adicional" invisible="is_parent_task or not is_upsell_active">
+                    <group>
+                        <field name="subscription_id" readonly="sale_line_id" required="is_upsell_active"/>
+                        <field name="product_id" readonly="sale_line_id" required="is_upsell_active"/>
+                    </group>
+                    <div class="d-flex gap-2">
+                         <button name="action_create_subscription_upsell" 
+                                type="object" 
+                                string="Create Upsell"
+                                class="btn-primary"
+                                invisible="not subscription_id or not product_id or sale_line_id or state != '1_done'"/>
+                        
+                        <button name="action_reset_upsell"
+                                type="object"
+                                string="Reset / Correct Upsell"
+                                class="btn-secondary"
+                                confirm="This will remove the current upsell line to allow you to create a new one. Continue?"
+                                invisible="not sale_line_id or upsell_order_state in ['sale', 'done']"/>
+                    </div>
+                </group>
+            </xpath>
+            
+            <xpath expr="//page[@name='sub_tasks_page']" position="attributes">
+                <attribute name="invisible">not project_id or is_upsell_active</attribute>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']/button[.//field[@name='subtask_count']]" position="attributes">
+                <attribute name="invisible">not id or subtask_count == 0 or is_upsell_active</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

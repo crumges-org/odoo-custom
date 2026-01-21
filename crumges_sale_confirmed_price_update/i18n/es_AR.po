@@ -1,0 +1,237 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_sale_confirmed_price_update
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-02 14:26+0000\n"
+"PO-Revision-Date: 2026-01-02 11:34-0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.8\n"
+
+#. module: crumges_sale_confirmed_price_update
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_wizard_form
+msgid ""
+"<strong>Warning:</strong> This order contains promotions/rewards. The "
+"preview values for promotional lines may not be exact. The actual values "
+"will be recalculated correctly when you apply the changes."
+msgstr ""
+"<strong>Advertencia:</strong> Este pedido contiene promociones/"
+"recompensas. Los valores de vista previa de las líneas promocionales "
+"podrían no ser exactos. Los valores reales se recalcularán correctamente "
+"al aplicar los cambios."
+
+#. module: crumges_sale_confirmed_price_update
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_wizard_form
+msgid "Apply Changes"
+msgstr "Aplicar Cambios"
+
+#. module: crumges_sale_confirmed_price_update
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__create_uid
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__create_uid
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__create_date
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__create_date
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__currency_id
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__currency_id
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__current_price
+msgid "Current Price"
+msgstr "Precio Actual"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__current_subtotal
+msgid "Current Subtotal"
+msgstr "Subtotal actual"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__current_total
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__current_total
+msgid "Current Total"
+msgstr "Total actual"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__price_difference
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__difference
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__difference
+msgid "Difference"
+msgstr "Diferencia"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__display_name
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__display_name
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__has_rewards
+msgid "Has Rewards"
+msgstr "Tiene recompensas"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__id
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__id
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__is_reward
+msgid "Is Reward"
+msgstr "¿Es una recompensa?"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__write_uid
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__write_uid
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__write_date
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__write_date
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__write_date
+msgid "Last Updated on"
+msgstr "Ultima actualización en"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model,name:crumges_sale_confirmed_price_update.model_mass_recalculate_prices_line_wizard
+msgid "Mass Recalculate Prices Line Wizard"
+msgstr "Asistente de línea de precios para recalcular precios en masa"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model,name:crumges_sale_confirmed_price_update.model_mass_recalculate_prices_order_summary_wizard
+msgid "Mass Recalculate Prices Order Summary Wizard"
+msgstr "Asistente para recalcular precios en masa en el resumen de pedidos"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model,name:crumges_sale_confirmed_price_update.model_mass_recalculate_prices_wizard
+msgid "Mass Recalculate Prices Wizard"
+msgstr "Asistente para recalcular precios en masa"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__new_price
+msgid "New Price"
+msgstr "Nuevo precio"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__new_subtotal
+msgid "New Subtotal"
+msgstr "Nuevo subtotal"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__new_total
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__new_total
+msgid "New Total"
+msgstr "Nuevo Total"
+
+#. module: crumges_sale_confirmed_price_update
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_wizard_form
+msgid ""
+"Note: The total shown is an estimate. Final total may vary after "
+"recalculating promotions."
+msgstr ""
+"Nota: El total mostrado es una estimación. El total final puede variar "
+"tras recalcular las promociones."
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__order_id
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__order_id
+msgid "Order"
+msgstr "Pedido"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__order_line_id
+msgid "Order Line"
+msgstr "Linea de pedido"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__order_summary_ids
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_order_summary_wizard_tree
+msgid "Order Summary"
+msgstr "Resumen del pedido"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__line_ids
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_line_wizard_tree
+msgid "Price Changes"
+msgstr "Cambios de precios"
+
+#. module: crumges_sale_confirmed_price_update
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_wizard_form
+msgid "Price Changes Detail"
+msgstr "Detalle de cambios de precios"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__quantity
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.actions.act_window,name:crumges_sale_confirmed_price_update.action_mass_recalculate_prices
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_mass_recalculate_prices_wizard_form
+msgid "Recalculate Prices"
+msgstr "Recalcular precios"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__sale_order_ids
+msgid "Sale Orders"
+msgstr "Pedido de venta"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model,name:crumges_sale_confirmed_price_update.model_sale_order
+msgid "Sales Order"
+msgstr "Pedidos de venta"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model,name:crumges_sale_confirmed_price_update.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Linea de pedido de venta"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_wizard__show_detail
+msgid "Show Detail"
+msgstr "Mostrar detalles"
+
+#. module: crumges_sale_confirmed_price_update
+#: model_terms:ir.ui.view,arch_db:crumges_sale_confirmed_price_update.view_order_form_inherit_recalculate
+msgid "Update Prices"
+msgstr "Actualizar precios"
+
+#. module: crumges_sale_confirmed_price_update
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_line_wizard__wizard_id
+#: model:ir.model.fields,field_description:crumges_sale_confirmed_price_update.field_mass_recalculate_prices_order_summary_wizard__wizard_id
+msgid "Wizard"
+msgstr "Asistente"

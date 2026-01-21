@@ -34,8 +34,9 @@ class MassRecalculatePricesWizard(models.TransientModel):
     def _compute_has_rewards(self):
         for wizard in self:
             wizard.has_rewards = any(
-                order.order_line.filtered(lambda l: l.is_reward_line)
+                getattr(l, 'is_reward_line', False)
                 for order in wizard.sale_order_ids
+                for l in order.order_line
             )
 
     @api.depends('line_ids.current_subtotal', 'line_ids.new_subtotal', 'order_summary_ids.current_total', 'order_summary_ids.new_total')
@@ -54,31 +55,42 @@ class MassRecalculatePricesWizard(models.TransientModel):
         if self.show_detail:
             lines = []
             for order in self.sale_order_ids:
-                normal_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+                normal_lines = order.order_line.filtered(lambda l: not getattr(l, 'is_reward_line', False))
                 
                 order_updates = {}
                 for line in normal_lines:
                     if line.product_id:
-                        new_price = line.get_new_price_with_promotions()
-                        order_updates[line.id] = {'new_price': new_price}
+                        values = line._prepare_price_update_values()
+                        new_gross_price = values.get('price_unit', 0)
+                        new_price_with_discount = new_gross_price * (1 - values.get('discount', 0) / 100)
+                        order_updates[line.id] = {'new_price': new_price_with_discount}
                 
                 for line in order.order_line:
                     if line.product_id:
                         current_price = line.price_unit * (1 - line.discount / 100)
                         
-                        if line.is_reward_line:
-                            new_price = line._calculate_reward_price(order_updates)
+                        if getattr(line, 'is_reward_line', False):
+                            new_gross_price = line._calculate_reward_price(order_updates) # Rewards usually return the net amount to subtract
+                            discount = 0.0
                         else:
-                            new_price = line.get_new_price_with_promotions()
+                            values = line._prepare_price_update_values()
+                            new_gross_price = values.get('price_unit', 0)
+                            discount = values.get('discount', 0)
                         
                         lines.append((0, 0, {
                             'order_id': order.id,
                             'order_line_id': line.id,
+                            'pricelist_id': order.pricelist_id.id,
                             'product_id': line.product_id.id,
-                            'current_price': current_price,
-                            'new_price': new_price,
+                            'current_price': line.price_unit,
+                            'new_price': new_gross_price,
+                            'new_price_with_discount': new_gross_price * (1 - discount / 100),
                             'quantity': line.product_uom_qty,
-                            'is_reward': line.is_reward_line,
+                            'discount': discount,
+                            'discount': discount,
+                            'is_reward': getattr(line, 'is_reward_line', False),
+                            'is_recurring': values.get('is_recurring', False),
+                            'has_recurring_pricing': values.get('has_recurring_pricing', False),
                         }))
             self.line_ids = lines
         else:
@@ -86,17 +98,18 @@ class MassRecalculatePricesWizard(models.TransientModel):
             for order in self.sale_order_ids:
                 current_total = order.amount_total
                 
-                normal_lines = order.order_line.filtered(lambda l: not l.is_reward_line)
+                normal_lines = order.order_line.filtered(lambda l: not getattr(l, 'is_reward_line', False))
                 
                 order_updates = {}
                 new_normal_total = 0
                 for line in normal_lines:
                     if line.product_id:
-                        new_price = line.get_new_price_with_promotions()
+                        values = line._prepare_price_update_values()
+                        new_price = values.get('price_unit', 0) * (1 - values.get('discount', 0) / 100)
                         order_updates[line.id] = {'new_price': new_price}
                         new_normal_total += new_price * line.product_uom_qty
                 
-                reward_lines = order.order_line.filtered(lambda l: l.is_reward_line)
+                reward_lines = order.order_line.filtered(lambda l: getattr(l, 'is_reward_line', False))
                 new_reward_total = sum(
                     line._calculate_reward_price(order_updates) * line.product_uom_qty
                     for line in reward_lines
@@ -106,6 +119,7 @@ class MassRecalculatePricesWizard(models.TransientModel):
                 
                 summaries.append((0, 0, {
                     'order_id': order.id,
+                    'pricelist_id': order.pricelist_id.id,
                     'current_total': current_total,
                     'new_total': new_total,
                 }))
@@ -124,22 +138,28 @@ class MassRecalculatePricesLineWizard(models.TransientModel):
 
     wizard_id = fields.Many2one('mass.recalculate.prices.wizard', string='Wizard', required=True, ondelete='cascade')
     order_id = fields.Many2one('sale.order', string='Order', readonly=True)
+    pricelist_id = fields.Many2one('product.pricelist', string='Pricelist', readonly=True)
     order_line_id = fields.Many2one('sale.order.line', string='Order Line', readonly=True)
     product_id = fields.Many2one('product.product', string='Product', readonly=True)
     current_price = fields.Monetary(string='Current Price', readonly=True, currency_field='currency_id')
     new_price = fields.Monetary(string='New Price', readonly=True, currency_field='currency_id')
+    new_price_with_discount = fields.Monetary(string='New Price with Discount', readonly=True, currency_field='currency_id')
+    discount = fields.Float(string='Discount (%)', readonly=True)
     quantity = fields.Float(string='Quantity', readonly=True)
     current_subtotal = fields.Monetary(string='Current Subtotal', compute='_compute_subtotals', currency_field='currency_id')
     new_subtotal = fields.Monetary(string='New Subtotal', compute='_compute_subtotals', currency_field='currency_id')
     price_difference = fields.Monetary(string='Difference', compute='_compute_subtotals', currency_field='currency_id')
     currency_id = fields.Many2one('res.currency', related='order_id.currency_id', string='Currency')
     is_reward = fields.Boolean(string='Is Reward', readonly=True)
+    is_recurring = fields.Boolean(string='Is Recurring', readonly=True)
+    has_recurring_pricing = fields.Boolean(string='Has Recurring Pricing', readonly=True)
 
-    @api.depends('current_price', 'new_price', 'quantity')
+    @api.depends('current_price', 'order_line_id.discount', 'new_price_with_discount', 'quantity')
     def _compute_subtotals(self):
         for line in self:
-            line.current_subtotal = line.current_price * line.quantity
-            line.new_subtotal = line.new_price * line.quantity
+            current_discount = line.order_line_id.discount if line.order_line_id else 0.0
+            line.current_subtotal = line.current_price * line.quantity * (1 - current_discount / 100)
+            line.new_subtotal = line.new_price_with_discount * line.quantity
             line.price_difference = line.new_subtotal - line.current_subtotal
 
 
@@ -149,6 +169,7 @@ class MassRecalculatePricesOrderSummaryWizard(models.TransientModel):
 
     wizard_id = fields.Many2one('mass.recalculate.prices.wizard', string='Wizard', required=True, ondelete='cascade')
     order_id = fields.Many2one('sale.order', string='Order', readonly=True)
+    pricelist_id = fields.Many2one('product.pricelist', string='Pricelist', readonly=True)
     current_total = fields.Monetary(string='Current Total', readonly=True, currency_field='currency_id')
     new_total = fields.Monetary(string='New Total', readonly=True, currency_field='currency_id')
     difference = fields.Monetary(string='Difference', compute='_compute_difference', currency_field='currency_id')

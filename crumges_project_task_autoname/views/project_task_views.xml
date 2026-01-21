@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2_inherit_autoname" model="ir.ui.view">
+        <field name="name">project.task.form.autoname</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">name_type == 'auto_composed'</attribute>
+            </xpath>
+
+            <xpath expr="//notebook" position="before">
+                 <div class="alert alert-info" role="status" invisible="name_type == 'manual'">
+                    Task name is auto-generated based on ID, Purpose and Info.
+                </div>
+
+                <group>
+                    <group name="task_naming" string="Task Naming">
+                        <field name="name_type" widget="radio" options="{'horizontal': true}"/>
+                        <div colspan="2" invisible="name_type == 'manual'">
+                            <group>
+                                <field name="purpose_id" required="name_type == 'auto_composed'"/>
+                                <field name="additional_info"/>
+                            </group>
+                        </div>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

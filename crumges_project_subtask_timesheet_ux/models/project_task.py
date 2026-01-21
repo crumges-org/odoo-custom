@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -12,6 +12,31 @@ class ProjectTask(models.Model):
         string='Registrar Horas Automáticamente',
         default=False,
     )
+    
+    has_timesheets = fields.Boolean(
+        compute='_compute_has_timesheets',
+        store=True,
+    )
+
+    @api.depends('timesheet_ids')
+    def _compute_has_timesheets(self):
+        for task in self:
+            task.has_timesheets = bool(task.timesheet_ids)
+
+
+    @api.constrains('child_ids', 'timesheet_ids')
+    def _check_subtask_timesheet_exclusivity(self):
+        for task in self:
+            if task.child_ids and task.timesheet_ids:
+                raise ValidationError("Una tarea no puede tener subtareas y partes de horas simultáneamente. Por favor, elimine las subtareas o los registros de horas.")
+
+
+    @api.constrains('parent_id')
+    def _check_parent_has_no_timesheets(self):
+        for task in self:
+            if task.parent_id and task.parent_id.timesheet_ids:
+                raise ValidationError("No se puede agregar una subtarea a una tarea que ya tiene horas registradas. Elimine las horas primero.")
+
 
     @property
     def SELF_READABLE_FIELDS(self):
@@ -439,6 +464,12 @@ class ProjectTask(models.Model):
 
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
+
+    @api.constrains('task_id')
+    def _check_task_has_no_subtasks(self):
+        for line in self:
+            if line.task_id and line.task_id.child_ids:
+                 raise ValidationError("No se pueden registrar horas en una tarea que tiene subtareas. Registre las horas en las subtareas.")
 
     def write(self, vals):
         tasks_to_recalc = self.mapped('task_id.parent_id')

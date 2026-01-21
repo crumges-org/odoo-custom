@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Project Subscription Upsell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Genere upsells en suscripciones desde tareas de proyecto.">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
+    <style>
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
+        }
+
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container oe_styling_v8 my-5">
+
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">Project Subscription Upsell</h1>
+                <p class="lead font-weight-bold">
+                    “Genere ingresos extra: Facilite ventas adicionales en suscripciones directamente desde las tareas.”
+                    💰
+                </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        Capture cada oportunidad de venta. Permita que sus técnicos o gestores de proyecto agreguen
+                        servicios adicionales (upsell) a una suscripción existente sin tener que navegar al backend de
+                        Ventas.
+                        Todo integrado, simple y seguro. ✨
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detalle de Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Detalle de Funcionalidades 📋</h3>
+            </div>
+
+            <!-- Cards Row 1 -->
+            <div class="col-md-6 mb-4">
+                <div class="card card-shadow h-100 p-4">
+                    <div class="text-center mb-3">
+                        <span class="icon-emoji">🚀</span>
+                        <h5 class="card-title font-weight-bold">Gestión de Upsell</h5>
+                    </div>
+                    <ul class="text-muted small pl-3">
+                        <li><strong>Creación Directa:</strong> Sin salir de la tarea.</li>
+                        <li><strong>Cálculo Nativo:</strong> Usa lógica Odoo (prorrateos).</li>
+                        <li><strong>Vinculación:</strong> Task -> Line -> Subscription.</li>
+                        <li><strong>Sync:</strong> Nombre tarea = Descripción venta.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card card-shadow h-100 p-4">
+                    <div class="text-center mb-3">
+                        <span class="icon-emoji">🛡️</span>
+                        <h5 class="card-title font-weight-bold">Integridad Workflow</h5>
+                    </div>
+                    <ul class="text-muted small pl-3">
+                        <li><strong>Exclusividad Mutua:</strong> Bloqueo Upsell vs Subtareas.</li>
+                        <li><strong>Candado Bidireccional:</strong> No Upsell si hay hijos, y viceversa.</li>
+                        <li><strong>Interfaz Dinámica:</strong> Se ocultan pestañas no válidas.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Cards Row 2 -->
+            <div class="col-md-6 mb-4">
+                <div class="card card-shadow h-100 p-4">
+                    <div class="text-center mb-3">
+                        <span class="icon-emoji">🔐</span>
+                        <h5 class="card-title font-weight-bold">Seguridad</h5>
+                    </div>
+                    <ul class="text-muted small pl-3">
+                        <li><strong>Acceso Democratizado:</strong> Para usuarios 'Proyecto'.</li>
+                        <li><strong>Escalado Seguro:</strong> Uso controlado de <code>sudo</code>.</li>
+                        <li><strong>Visibilidad Selectiva:</strong> Acceso solo lectura a suscripciones.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-4">
+                <div class="card card-shadow h-100 p-4">
+                    <div class="text-center mb-3">
+                        <span class="icon-emoji">✨</span>
+                        <h5 class="card-title font-weight-bold">Experiencia (UX)</h5>
+                    </div>
+                    <ul class="text-muted small pl-3">
+                        <li><strong>Siempre Borrador:</strong> Evita confirmación accidental.</li>
+                        <li><strong>Recarga Suave:</strong> Mantiene el foco en la tarea.</li>
+                        <li><strong>Reset:</strong> Botón de pánico para corregir errores.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Preparar Productos</h5>
+                        Vaya a sus productos de servicio. En la pestaña <strong>Ventas</strong>, active <strong>"Upsell
+                            from Task"</strong>.
+                    </div>
+                </div>
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        2</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Permisos</h5>
+                        El usuario debe tener acceso a Ventas y Proyectos.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Flujo optimizado:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        En la Tarea, active el switch <strong>Enable Upsell</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Seleccione la <strong>Suscripción</strong> (filtrada por cliente) y el
+                        <strong>Producto</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Marque la tarea como <strong>Hecho</strong>. Aparecerá el botón <strong>Create Upsell</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        Haga clic para generar la venta. Si se equivoca, use <strong>Reset</strong> (solo si no se ha
+                        confirmado la venta).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Caso de Uso 💡</h3>
+            </div>
+            <div class="col-12">
+                <div class="bg-light p-4 rounded">
+                    <h5>🔧 Mantenimiento Extra</h5>
+                    <p>
+                        Un técnico visita "Empresa X" para un mantenimiento rutinario.
+                        <br>
+                        <strong>Problema:</strong> El cliente pide instalar un nuevo router, servicio no incluido en la
+                        cuota.
+                        <br>
+                        <strong>Solución:</strong> El técnico crea la tarea "Instalación Router", selecciona la
+                        suscripción de "Empresa X" y el
+                        producto "Instalación Extra". Al terminar, le da a "Crear Upsell". La factura se genera
+                        automáticamente. 👏
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 text-center text-muted">
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

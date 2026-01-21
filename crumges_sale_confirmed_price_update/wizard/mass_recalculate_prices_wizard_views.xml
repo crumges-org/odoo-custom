@@ -4,17 +4,22 @@
         <field name="name">mass.recalculate.prices.line.wizard.tree</field>
         <field name="model">mass.recalculate.prices.line.wizard</field>
         <field name="arch" type="xml">
-            <list string="Price Changes" create="0" edit="0" delete="0" decoration-warning="is_reward">
+            <list string="Price Changes" create="0" edit="0" delete="0" decoration-warning="is_reward" decoration-info="is_recurring" decoration-success="has_recurring_pricing">
+                <field name="pricelist_id"/>
                 <field name="order_id"/>
                 <field name="product_id"/>
                 <field name="quantity"/>
                 <field name="current_price" widget="monetary"/>
-                <field name="new_price" widget="monetary"/>
-                <field name="current_subtotal" widget="monetary"/>
+                <field name="new_price" string="New Unit Price" widget="monetary"/>
+                <field name="discount" optional="show"/>
+                <field name="new_price_with_discount" string="New Price with Discount" widget="monetary"/>
                 <field name="new_subtotal" widget="monetary"/>
                 <field name="price_difference" widget="monetary"/>
                 <field name="currency_id" column_invisible="1"/>
+                <field name="currency_id" column_invisible="1"/>
                 <field name="is_reward" column_invisible="1"/>
+                <field name="is_recurring" column_invisible="1"/>
+                <field name="has_recurring_pricing" column_invisible="1"/>
             </list>
         </field>
     </record>
@@ -24,6 +29,7 @@
         <field name="model">mass.recalculate.prices.order.summary.wizard</field>
         <field name="arch" type="xml">
             <list string="Order Summary" create="0" edit="0" delete="0">
+                <field name="pricelist_id"/>
                 <field name="order_id"/>
                 <field name="current_total" widget="monetary"/>
                 <field name="new_total" widget="monetary"/>
@@ -57,17 +63,22 @@
                 <notebook invisible="not show_detail">
                     <page string="Price Changes Detail">
                         <field name="line_ids" nolabel="1">
-                            <list create="0" edit="0" delete="0" decoration-warning="is_reward">
+                            <list create="0" edit="0" delete="0" decoration-warning="is_reward" decoration-info="is_recurring" decoration-success="has_recurring_pricing">
+                                <field name="pricelist_id"/>
                                 <field name="order_id"/>
                                 <field name="product_id"/>
                                 <field name="quantity"/>
                                 <field name="current_price" widget="monetary"/>
-                                <field name="new_price" widget="monetary"/>
-                                <field name="current_subtotal" widget="monetary"/>
+                                <field name="new_price" string="New Unit Price" widget="monetary"/>
+                                <field name="discount" optional="show"/>
+                                <field name="new_price_with_discount" string="New Price with Discount" widget="monetary"/>
                                 <field name="new_subtotal" widget="monetary"/>
                                 <field name="price_difference" widget="monetary"/>
                                 <field name="currency_id" column_invisible="1"/>
+                                <field name="currency_id" column_invisible="1"/>
                                 <field name="is_reward" column_invisible="1"/>
+                                <field name="is_recurring" column_invisible="1"/>
+                                <field name="has_recurring_pricing" column_invisible="1"/>
                             </list>
                         </field>
                     </page>
@@ -75,6 +86,7 @@
                 <group invisible="show_detail">
                     <field name="order_summary_ids" nolabel="1">
                         <list create="0" edit="0" delete="0">
+                            <field name="pricelist_id"/>
                             <field name="order_id"/>
                             <field name="current_total" widget="monetary"/>
                             <field name="new_total" widget="monetary"/>

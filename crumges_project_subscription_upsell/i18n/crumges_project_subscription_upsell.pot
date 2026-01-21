@@ -1,0 +1,149 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_project_subscription_upsell
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-19 19:44+0000\n"
+"PO-Revision-Date: 2026-01-19 19:44+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_project_subscription_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.view_task_form2_inherit_upsell_only
+msgid "Create Upsell"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_project_task__is_upsell_active
+msgid "Enable Upsell"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,help:crumges_project_subscription_upsell.field_product_product__upsell_from_task
+#: model:ir.model.fields,help:crumges_project_subscription_upsell.field_product_template__upsell_from_task
+msgid ""
+"If checked, this product can be selected as an upsell in Project Tasks."
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#. odoo-python
+#: code:addons/crumges_project_subscription_upsell/models/project_task.py:0
+msgid "Native 'prepare_upsell_order' failed: %s"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#. odoo-python
+#: code:addons/crumges_project_subscription_upsell/models/project_task.py:0
+msgid "New upsell quotation %s created from task %s"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#. odoo-python
+#: code:addons/crumges_project_subscription_upsell/models/project_task.py:0
+msgid ""
+"Odoo could not natively create or prepare an upsell order for this "
+"subscription."
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model,name:crumges_project_subscription_upsell.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.view_task_form2_inherit_upsell_only
+msgid "Reset / Correct Upsell"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,help:crumges_project_subscription_upsell.field_project_task__sale_line_id
+msgid ""
+"Sales Order Item to which the time spent on this task will be added in order to be invoiced to your customer.\n"
+"By default the sales order item set on the project will be selected. In the absence of one, the last prepaid sales order item that has time remaining will be used.\n"
+"Remove the sales order item in order to make this task non billable. You can also change or remove the sales order item of each timesheet entry individually."
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model,name:crumges_project_subscription_upsell.model_sale_order_line
+msgid "Sales Order Line"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_project_task__subscription_id
+msgid "Subscription"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.view_task_form2_inherit_upsell_only
+msgid "Subscription Upsell / Venta Adicional"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#. odoo-python
+#: code:addons/crumges_project_subscription_upsell/models/project_task.py:0
+msgid "Subscription and Product are required to create an upsell."
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model,name:crumges_project_subscription_upsell.model_project_task
+msgid "Task"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#. odoo-python
+#: code:addons/crumges_project_subscription_upsell/models/project_task.py:0
+msgid "The selected subscription does not support the native Upsell action."
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.view_task_form2_inherit_upsell_only
+msgid ""
+"This task is linked to a subscription upsell line. The task name is "
+"synchronized with the sale line description."
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.view_task_form2_inherit_upsell_only
+msgid ""
+"This will remove the current upsell line to allow you to create a new one. "
+"Continue?"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_project_task__upsell_order_state
+msgid "Upsell Order State"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_project_task__product_id
+msgid "Upsell Product"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_project_task__sale_line_id
+msgid "Upsell Sale Line"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.product_template_form_view_upsell
+#: model_terms:ir.ui.view,arch_db:crumges_project_subscription_upsell.view_task_form2_inherit_upsell_only
+msgid "Upsell Settings"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_product_product__upsell_from_task
+#: model:ir.model.fields,field_description:crumges_project_subscription_upsell.field_product_template__upsell_from_task
+msgid "Upsell from Task"
+msgstr ""
+
+#. module: crumges_project_subscription_upsell
+#: model:ir.actions.server,name:crumges_project_subscription_upsell.action_force_draft_upsell_reload
+msgid "Upsell: Force Draft & Reload"
+msgstr ""

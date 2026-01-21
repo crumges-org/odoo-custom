@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <title>Project Task Autoname</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Automatización y estandarización de nombres de tareas en Odoo.">
+    <!-- Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,600,700" rel="stylesheet">
+    <style>
+        .oe_styling_v8 {
+            font-family: 'Open Sans', Helvetica, Sans-serif;
+            color: #444;
+        }
+
+        .oe_styling_v8 h1,
+        .oe_styling_v8 h2,
+        .oe_styling_v8 h3,
+        .oe_styling_v8 h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #212529;
+        }
+
+        .oe_styling_v8 .text-primary {
+            color: #714B67 !important;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+            transition: transform 0.3s ease;
+        }
+
+        .card-shadow:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container oe_styling_v8 my-5">
+
+        <!-- Hero Section -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <h1 class="display-4 text-primary mb-3">Project Task Autoname</h1>
+                <p class="lead font-weight-bold">
+                    “Orden y Estándar: Nombres de tareas automáticos, limpios y fáciles de buscar.” 🏷️
+                </p>
+                <div class="mt-4">
+                    <span class="badge badge-pill badge-light border p-2 px-3 mr-2" style="font-size: 1rem;">
+                        ✅ Community
+                    </span>
+                    <span class="badge badge-pill badge-light border p-2 px-3" style="font-size: 1rem;">
+                        ✅ Enterprise
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overview -->
+        <div class="row mb-5 justify-content-center">
+            <div class="col-lg-10">
+                <div class="p-4 bg-white border-left border-primary" style="border-width: 5px !important;">
+                    <h4 class="mb-3">¿Por qué usar este módulo? 🤔</h4>
+                    <p class="mb-0">
+                        En operaciones con alto volumen de tareas, los nombres libres ("Revisar", "Ver fallo") generan
+                        caos.
+                        Este módulo impone una estructura profesional, asegurando que cada tarea tenga un identificador
+                        único (ID),
+                        un propósito claro y una descripción concisa. Esencial para talleres y servicios técnicos. ✨
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Funcionalidades 🌟</h3>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🏷️</span>
+                    <h5 class="card-title">Formato Estándar</h5>
+                    <p class="card-text"><code>[ID] - Propósito - Info</code>.<br>Uniformidad total en sus listas de
+                        tareas.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">📋</span>
+                    <h5 class="card-title">Propósitos</h5>
+                    <p class="card-text">Configure categorías predefinidas (Reparación, Instalación) para agilizar la
+                        carga.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card card-shadow h-100 text-center p-4">
+                    <span class="icon-emoji">🔒</span>
+                    <h5 class="card-title">Integridad</h5>
+                    <p class="card-text">El nombre se "congela" tras generarse para evitar ediciones manuales erróneas.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Configuración ⚙️</h3>
+            </div>
+            <div class="col-12">
+                <div class="d-flex align-items-start mb-4">
+                    <div
+                        style="background-color: #714B67; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 20px; flex-shrink: 0;">
+                        1</div>
+                    <div>
+                        <h5 class="mt-0 mb-1">Definir Propósitos</h5>
+                        Vaya a <strong>Proyecto > Configuración > Task Purposes</strong> y cree sus opciones (ej:
+                        Diagnóstico, Presupuesto, Entrega).
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modo de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Modo de Uso 🛠️</h3>
+            </div>
+            <div class="col-12">
+                <p class="mb-4">Al crear una tarea:</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Seleccione el modo <strong>Auto-generated Name</strong>.
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">👉</div>
+                    <div>
+                        Elija el <strong>Propósito</strong> y añada <strong>Información Adicional</strong> (ej:
+                        Matrícula, Nº Serie).
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center mb-3">
+                    <div style="font-size: 2rem; margin-right: 20px; min-width: 40px; text-align: center;">✅</div>
+                    <div>
+                        Al guardar, el sistema asignará el ID y formará el nombre final automáticamente.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Caso de Uso -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h3 class="text-primary mb-4 border-bottom pb-2">Caso de Uso 💡</h3>
+            </div>
+            <div class="col-12">
+                <div class="bg-light p-4 rounded">
+                    <h5>🏭 Taller Mecánico</h5>
+                    <p>
+                        Llegan 5 coches para revisión.
+                        <br>
+                        <strong>Problema:</strong> Si se pone solo "Revisión" en el nombre, nadie sabe cuál es cuál.
+                        <br>
+                        <strong>Solución:</strong> El recepcionista pone Info: "Toyota Yaris ABC-123". El sistema crea:
+                        <strong>[1054] - Mantenimiento - Toyota Yaris ABC-123</strong>. Único, claro y profesional. 🏎️
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="row mt-5 pt-4 border-top">
+            <div class="col-12 text-center text-muted">
+                <p>Hecho con ❤️ por <strong>Crumges</strong></p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
