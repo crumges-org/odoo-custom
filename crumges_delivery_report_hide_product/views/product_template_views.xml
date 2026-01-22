@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_hide_packaging" model="ir.ui.view">
+        <field name="name">product.template.form.hide.packaging</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.product_template_form_view_procurement_button"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='inventory']" position="inside">
+                <group string="Remito / Entrega">
+                    <field name="delivery_slip_policy" widget="radio"/>
+                    <field name="hide_in_delivery_slip" readonly="1" invisible="1"/>
+                    <div colspan="2" class="text-muted" invisible="not hide_in_delivery_slip">
+                        <i class="fa fa-info-circle"/> Este producto <strong>no aparecerá</strong> en el remito impreso.
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

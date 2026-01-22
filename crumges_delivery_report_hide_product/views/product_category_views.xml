@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_category_form_view_hide_packaging" model="ir.ui.view">
+        <field name="name">product.category.form.hide.packaging</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <!-- No buttons to add -->
+            </div>
+            <group name="first" position="after">
+                <group string="Remito / Entrega">
+                    <field name="hide_in_delivery_slip"/>
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>

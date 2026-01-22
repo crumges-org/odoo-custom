@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_delivery_document_hide_packaging" inherit_id="stock.report_delivery_document">
+        <!-- 1. Stock Move Table (State != done) -->
+        <xpath expr="//t[@t-set='lines']" position="attributes">
+            <attribute name="t-value">o.move_ids.filtered(lambda x: x.product_uom_qty and not x.product_id.hide_in_delivery_slip)</attribute>
+        </xpath>
+
+        <!-- 2. Stock Move Line Table (State == done) -->
+        
+        <!-- Case A: Has Packages - Package Move Lines -->
+        <xpath expr="//t[@name='has_packages']//t[@t-set='package_move_lines']" position="attributes">
+            <attribute name="t-value">o.move_ids.move_line_ids.filtered(lambda l: l.result_package_id == package and not l.product_id.hide_in_delivery_slip)</attribute>
+        </xpath>
+
+        <!-- Case A: Has Packages - No Package Move Lines (Individual) -->
+        <xpath expr="//t[@name='has_packages']//t[@t-set='move_lines']" position="attributes">
+            <attribute name="t-value">o.move_ids.move_line_ids.filtered(lambda l: not l.result_package_id and not l.product_id.hide_in_delivery_slip)</attribute>
+        </xpath>
+
+        <!-- Case A: Has Packages - Aggregated Lines -->
+        <xpath expr="//t[@name='has_packages']//t[@t-set='aggregated_lines']" position="attributes">
+            <attribute name="t-value">o.move_ids.move_line_ids.filtered(lambda l: not l.product_id.hide_in_delivery_slip)._get_aggregated_product_quantities(except_package=True)</attribute>
+        </xpath>
+
+        <!-- Case B: No Packages - Move Lines (Serial Number) -->
+        <xpath expr="//t[@name='aggregated_move_lines']/.." position="replace">
+             <t t-else="">
+                <!-- If printing lots/serial numbers => keep products in original lines -->
+                <t t-if="has_serial_number">
+                    <tr t-foreach="o.move_ids.move_line_ids.filtered(lambda x: not x.product_id.hide_in_delivery_slip)" t-as="move_line">
+                        <t t-call="stock.stock_report_delivery_has_serial_move_line"/>
+                    </tr>
+                </t>
+                <!-- If not printing lots/serial numbers => merge lines with same product -->
+                <t t-else="" name="aggregated_move_lines">
+                    <t t-set="aggregated_lines" t-value="o.move_ids.move_line_ids.filtered(lambda x: not x.product_id.hide_in_delivery_slip)._get_aggregated_product_quantities()"/>
+                    <t t-call="stock.stock_report_delivery_aggregated_move_lines"/>
+                </t>
+            </t>
+        </xpath>
+
+        <!-- 3. Backorders Table -->
+        <xpath expr="//table[@name='stock_backorder_table']/tbody/tr" position="attributes">
+            <attribute name="t-foreach">backorders.mapped('move_ids').filtered(lambda x: x.product_uom_qty and not x.product_id.hide_in_delivery_slip)</attribute>
+        </xpath>
+    </template>
+</odoo>
