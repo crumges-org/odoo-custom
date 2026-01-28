@@ -34,7 +34,7 @@
 
     <template id="website_sale_cart_inherit" inherit_id="website_sale.cart" priority="16">
         <xpath expr="//t[@t-call='website_sale.cart_lines']" position="before">
-            <t t-call="multi_agent_shop.customer_info_section"/>
+            <t t-call="crumges_multi_agent_shop.customer_info_section"/>
         </xpath>
     </template>
 </odoo>

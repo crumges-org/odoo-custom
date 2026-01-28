@@ -4,6 +4,8 @@
         <record id="agent_shop_menu" model="website.menu">
             <field name="name">Multi Agent Shop</field>
             <field name="url">/agent/shop</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="groups_id" eval="[(4, ref('crumges_multi_agent_shop.group_agent_shop'))]"/>
             <field name="sequence">50</field>
         </record>
     </data>

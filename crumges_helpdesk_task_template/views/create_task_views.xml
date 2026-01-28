@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="create_fsm_task_view_form_inherit_template" model="ir.ui.view">
+        <field name="name">helpdesk.create.fsm.task.form.inherit.template</field>
+        <field name="model">helpdesk.create.fsm.task</field>
+        <field name="inherit_id" ref="helpdesk_fsm.create_fsm_task_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="before">
+                <field name="task_template_id" options="{'no_create': 1, 'no_edit': 1}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

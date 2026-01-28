@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="agent_shop_menu_injection" inherit_id="website.navbar_nav" name="Multi Agent Shop Menu Injection">
+        <xpath expr="//ul" position="inside">
+            <li class="nav-item" t-if="request.env.user.partner_id.is_agent">
+                <a role="menuitem" href="/agent/shop" class="nav-link">
+                    <span>Multi Agent Shop</span>
+                </a>
+            </li>
+        </xpath>
+    </template>
+</odoo>

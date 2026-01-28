@@ -46,7 +46,7 @@ class Agent(http.Controller):
             ('agent_id', '=', user.partner_id.id)
         ])
         
-        return request.render('multi_agent_shop.agent_shop_template', {
+        return request.render('crumges_multi_agent_shop.agent_shop_template', {
             'customer_ids': customer_ids
         })
     

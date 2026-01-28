@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2_inherit_template" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.template</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tag_ids']" position="after">
+                <field name="is_template" widget="boolean_toggle"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_task_search_form_inherit_template" model="ir.ui.view">
+        <field name="name">project.task.search.inherit.template</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='my_tasks']" position="after">
+                <filter string="Is Template" name="is_template" domain="[('is_template', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

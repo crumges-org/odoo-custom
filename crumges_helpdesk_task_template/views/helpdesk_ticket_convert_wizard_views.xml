@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_convert_to_task_wizard_view_form_inherit_template" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.convert.wizard.form.inherit.template</field>
+        <field name="model">helpdesk.ticket.convert.wizard</field>
+        <field name="inherit_id" ref="project_helpdesk.helpdesk_ticket_convert_to_task_wizard_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='project_id']" position="before">
+                <field name="task_template_id" options="{'no_create': 1, 'no_edit': 1}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
