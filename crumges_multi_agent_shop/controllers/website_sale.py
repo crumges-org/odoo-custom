@@ -33,8 +33,8 @@ class WebsiteSaleInherit(WebsiteSale):
              max_price=0.0, ppg=False, **post):
         """Function to inherit shop and to set the posted value in the
         website session."""
-        res = super().shop(page, category, search, min_price,
-                           max_price, ppg, **post)
+        res = super().shop(page=page, category=category, search=search, min_price=min_price,
+                           max_price=max_price, ppg=ppg, **post)
         
         # Si el usuario es agente y tiene un cliente seleccionado en sesión
         if request.env.user.partner_id.is_agent:
@@ -62,7 +62,7 @@ class WebsiteSaleInherit(WebsiteSale):
     def cart(self, access_token=None, revive='', **post):
         """Function to update the address from cart when the sale order is
         created"""
-        res = super().cart(access_token, revive, **post)
+        res = super().cart(access_token=access_token, revive=revive, **post)
         
         # Obtener el cliente del agente desde la sesión
         agent_customer_id = request.session.get('agent_customer_id')
