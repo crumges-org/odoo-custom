@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_inherit_sale_report" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.sale.report</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='sale']" position="inside">
+                 <group string="Automatización de Proyectos">
+                    <field name="sale_report_delivery_automation"/>
+                 </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

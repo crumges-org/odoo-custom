@@ -46,8 +46,14 @@ class Agent(http.Controller):
             ('agent_id', '=', user.partner_id.id)
         ])
         
+        # Get current selection from session
+        current_customer_id = request.session.get('agent_customer_id')
+        current_customer_name = request.session.get('agent_customer_name')
+        
         return request.render('crumges_multi_agent_shop.agent_shop_template', {
-            'customer_ids': customer_ids
+            'customer_ids': customer_ids,
+            'current_customer_id': current_customer_id,
+            'current_customer_name': current_customer_name,
         })
     
     @http.route(['/agent/shop/customer'], type='http', auth='user', website=True, methods=['POST'])
@@ -81,16 +87,32 @@ class Agent(http.Controller):
         
         # Update the order to use the customer instead of the agent
         if sale_order and sale_order.partner_id.id != customer_id:
-            sale_order.write({
-                'partner_id': customer_id,
-                'agent_id': user_partner.id,  # Store the agent reference
-            })
+            sale_order.set_agent_customer(customer, user_partner)
         
         # Store customer in session with explicit key
         request.session['agent_customer_id'] = customer_id
         request.session['agent_customer_name'] = customer.name
         request.session['agent_id'] = user_partner.id
+        request.session['website_sale_current_pl'] = sale_order.pricelist_id.id
         request.session.modified = True
         
         # Redirect to shop
         return request.redirect('/shop')
+
+    @http.route(['/agent/shop/deselect'], type='http', auth='user', website=True)
+    def agent_shop_deselect(self, **kw):
+        """Clear customer selection and revert to agent shopping for self"""
+        # Clear specific session keys
+        keys_to_pop = [
+            'agent_customer_id', 
+            'agent_customer_name', 
+            'sale_order_id', 
+            'website_sale_current_pl',
+            'website_sale_cart_quantity',
+            'website_sale_selected_pl_id'
+        ]
+        for key in keys_to_pop:
+            request.session.pop(key, None)
+            
+        request.session.modified = True
+        return request.redirect('/agent/shop')

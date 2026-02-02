@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_pending_upsell_tree" model="ir.ui.view">
+        <field name="name">sale.order.pending.upsell.tree</field>
+        <field name="model">sale.order</field>
+        <field name="arch" type="xml">
+            <list string="Ventas Adicionales Pendientes" decoration-info="True" create="false" delete="false">
+                <field name="name" string="Número"/>
+                <field name="date_order" string="Fech. Orden"/>
+                <field name="subscription_id" string="Suscripción Origen"/>
+                <field name="amount_total" sum="Total"/>
+                <field name="state" widget="badge"/>
+                
+                <!-- Edit Action Button (No modal) -->
+                <button name="action_view_upsell_form" type="object" string="Editar" 
+                        class="oe_highlight"
+                        icon="fa-edit"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="crm_lead_view_form_inherit_subscription" model="ir.ui.view">
+        <field name="name">crm.lead.view.form.inherit.subscription</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <field name="has_active_subscriptions" invisible="1"/>
+                <field name="has_pending_upsells" invisible="1"/>
+                
+                <page string="Suscripciones" name="subscriptions" invisible="not has_active_subscriptions">
+                    <field name="crumges_upsell_subscription_ids" readonly="1" mode="list,kanban">
+                         <list string="Suscripciones Activas" 
+                               decoration-success="subscription_state == '3_progress'"
+                               decoration-warning="subscription_state == '4_paused'"
+                               decoration-danger="subscription_state == '7_upsell'"
+                               decoration-muted="subscription_state in ['6_churn', '5_renewed']"
+                               decoration-info="subscription_state in ['1_draft', '2_renewal']">
+                            <field name="name" string="Número"/>
+                            <field name="date_order" string="Fech. Orden"/>
+                            <field name="partner_id" string="Cliente"/>
+                            <field name="user_id" string="Vendedor" optional="show"/>
+                            <field name="partner_invoice_id" string="Dir. Factura" optional="show"/>
+                            <field name="amount_total" sum="Total"/>
+                            <field name="subscription_state" widget="badge"/>
+                            
+                            <!-- Direct Action Button -->
+                            <button name="action_upsell_from_lead" type="object" string="Venta Adicional" 
+                                    class="oe_highlight"
+                                    icon="fa-plus-circle"
+                                    context="{'crm_lead_upsell_id': parent.id}"
+                                    invisible="subscription_state != '3_progress'"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Ventas Adicionales" name="pending_upsells" invisible="not has_pending_upsells">
+                    <field name="crumges_pending_upsell_ids" readonly="1" mode="list,kanban">
+                        <list string="Ventas Adicionales Pendientes" decoration-info="True" create="false" delete="false">
+                            <field name="name" string="Número"/>
+                            <field name="date_order" string="Fech. Orden"/>
+                            <field name="subscription_id" string="Suscripción Origen"/>
+                            <field name="amount_total" sum="Total"/>
+                            <field name="state" widget="badge"/>
+                            
+                            <!-- Edit Action Button -->
+                            <button name="action_view_upsell_form" type="object" string="Editar" 
+                                    class="oe_highlight"
+                                    icon="fa-edit"/>
+                        </list>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

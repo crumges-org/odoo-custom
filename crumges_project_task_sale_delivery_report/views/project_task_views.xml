@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_task_form2_inherit_sale_report" model="ir.ui.view">
+        <field name="name">project.task.form.inherit.sale.report</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <field name="sale_report_delivery_automation" invisible="1"/>
+                <field name="is_sale_reported" invisible="1"/>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <div class="alert alert-info text-center" role="alert" invisible="not sale_report_delivery_automation">
+                    <strong>Venta Automatizada:</strong> El estado de esta tarea impacta directamente en los hitos de venta.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

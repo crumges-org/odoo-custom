@@ -15,8 +15,9 @@ class ProjectTask(models.Model):
     additional_info = fields.Char(string='Additional Info', help='E.g. License Plate, Internal No., etc.')
 
     is_name_frozen = fields.Boolean(default=False)
+    use_sale_line_product = fields.Boolean(string="Use Sale Product Name", default=False)
 
-    @api.onchange('name_type', 'purpose_id', 'additional_info')
+    @api.onchange('name_type', 'purpose_id', 'additional_info', 'use_sale_line_product', 'sale_line_id')
     def _compute_auto_name_onchange(self):
         for task in self:
             if task.name_type == 'auto_composed':
@@ -25,7 +26,12 @@ class ProjectTask(models.Model):
     def _get_composed_name(self):
         self.ensure_one()
         task_id = self.id or _('New')
-        purpose = self.purpose_id.name or ''
+        
+        if self.use_sale_line_product and self.sale_line_id:
+             purpose = self.sale_line_id.product_id.name or ''
+        else:
+             purpose = self.purpose_id.name or ''
+             
         info = self.additional_info or ''
         # Logic: [ID] - Purpose - Info
         return f"[{task_id}] - {purpose} - {info}"
@@ -48,7 +54,8 @@ class ProjectTask(models.Model):
     def write(self, vals):
         res = super().write(vals)
         for task in self:
-            if task.name_type == 'auto_composed' and any(f in vals for f in ['purpose_id', 'additional_info', 'name_type']):
+            triggers = ['purpose_id', 'additional_info', 'name_type', 'use_sale_line_product', 'sale_line_id']
+            if task.name_type == 'auto_composed' and any(f in vals for f in triggers):
                  task.name = task._get_composed_name()
             
             # Update frozen state

@@ -12,6 +12,21 @@
                         <p class="mb-0">
                             <strong t-esc="request.session.get('agent_customer_name')"/>
                         </p>
+                        
+                        <div class="row mt-2">
+                             <div class="col-md-6" t-if="website_sale_order and website_sale_order.pricelist_id">
+                                <small class="text-muted d-block">
+                                    <i class="fa fa-tag me-1"/> Lista de Precios:
+                                </small>
+                                <span class="badge bg-info text-dark" t-esc="website_sale_order.pricelist_id.name"/>
+                             </div>
+                             <div class="col-md-6" t-if="website_sale_order and website_sale_order.fiscal_position_id">
+                                <small class="text-muted d-block">
+                                    <i class="fa fa-globe me-1"/> Posición Fiscal:
+                                </small>
+                                <span class="badge bg-secondary" t-esc="website_sale_order.fiscal_position_id.name"/>
+                             </div>
+                        </div>
                     </div>
                 </div>
             </div>

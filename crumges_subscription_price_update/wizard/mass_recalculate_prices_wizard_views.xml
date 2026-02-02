@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_mass_recalculate_prices_line_wizard_tree" model="ir.ui.view">
+        <field name="name">mass.recalculate.prices.line.wizard.tree</field>
+        <field name="model">mass.recalculate.prices.line.wizard</field>
+        <field name="arch" type="xml">
+            <list string="Price Changes" create="0" edit="0" delete="0" decoration-warning="is_reward" decoration-info="is_recurring" decoration-success="has_recurring_pricing">
+                <field name="pricelist_id"/>
+                <field name="order_id"/>
+                <field name="product_id"/>
+                <field name="quantity"/>
+                <field name="current_price" widget="monetary"/>
+                <field name="new_price" string="New Unit Price" widget="monetary"/>
+                <field name="discount" optional="show"/>
+                <field name="new_price_with_discount" string="New Price with Discount" widget="monetary"/>
+                <field name="new_subtotal" widget="monetary"/>
+                <field name="price_difference" widget="monetary"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="currency_id" column_invisible="1"/>
+                <field name="is_reward" column_invisible="1"/>
+                <field name="is_recurring" column_invisible="1"/>
+                <field name="has_recurring_pricing" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mass_recalculate_prices_order_summary_wizard_tree" model="ir.ui.view">
+        <field name="name">mass.recalculate.prices.order.summary.wizard.tree</field>
+        <field name="model">mass.recalculate.prices.order.summary.wizard</field>
+        <field name="arch" type="xml">
+            <list string="Order Summary" create="0" edit="0" delete="0">
+                <field name="pricelist_id"/>
+                <field name="order_id"/>
+                <field name="current_amount_untaxed" widget="monetary" optional="hide"/>
+                <field name="new_amount_untaxed" widget="monetary" optional="hide"/>
+                
+                <field name="current_amount_total" widget="monetary"/>
+                <field name="new_amount_total" widget="monetary"/>
+                
+                <field name="difference_untaxed" widget="monetary" decoration-bf="1" decoration-danger="difference_untaxed &lt; 0" decoration-success="difference_untaxed &gt; 0"/>
+                <field name="difference_total" widget="monetary" decoration-bf="1" decoration-danger="difference_total &lt; 0" decoration-success="difference_total &gt; 0"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_mass_recalculate_prices_wizard_form" model="ir.ui.view">
+        <field name="name">mass.recalculate.prices.wizard.form</field>
+        <field name="model">mass.recalculate.prices.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Recalculate Prices">
+                <div class="alert alert-warning" role="alert" invisible="not has_rewards">
+                    <strong>Warning:</strong> This order contains promotions/rewards. The preview values for promotional lines may not be exact. The actual values will be recalculated correctly when you apply the changes.
+                </div>
+                <group>
+                    <group string="Untaxed">
+                        <field name="current_amount_untaxed" widget="monetary" decoration-info="1"/>
+                        <field name="new_amount_untaxed" widget="monetary" decoration-info="1"/>
+                    </group>
+                    <group string="Total (Taxed)">
+                        <field name="current_amount_total" widget="monetary" decoration-warning="1"/>
+                        <field name="new_amount_total" widget="monetary" decoration-warning="1"/>
+                    </group>
+                    <group string="Differences">
+                        <field name="difference_untaxed" widget="monetary" decoration-bf="1" decoration-danger="difference_untaxed &lt; 0" decoration-success="difference_untaxed &gt; 0"/>
+                        <field name="difference_total" widget="monetary" decoration-bf="1" decoration-danger="difference_total &lt; 0" decoration-success="difference_total &gt; 0"/>
+                    </group>
+                    <group invisible="1">
+                         <field name="currency_id"/>
+                         <field name="show_detail"/>
+                         <field name="has_rewards"/>
+                    </group>
+                </group>
+                <div class="alert alert-info" role="alert" invisible="not has_rewards">
+                    Note: The total shown is an estimate. Final total may vary after recalculating promotions.
+                </div>
+                <notebook invisible="not show_detail">
+                    <page string="Price Changes Detail">
+                        <field name="line_ids" nolabel="1">
+                            <list create="0" edit="0" delete="0" decoration-warning="is_reward" decoration-info="is_recurring" decoration-success="has_recurring_pricing">
+                                <field name="pricelist_id"/>
+                                <field name="order_id"/>
+                                <field name="product_id"/>
+                                <field name="quantity"/>
+                                <field name="current_price" widget="monetary"/>
+                                <field name="new_price" string="New Unit Price" widget="monetary"/>
+                                <field name="discount" optional="show"/>
+                                <field name="new_price_with_discount" string="New Price with Discount" widget="monetary"/>
+                                <field name="new_subtotal" widget="monetary"/>
+                                <field name="price_difference" widget="monetary"/>
+                                <field name="currency_id" column_invisible="1"/>
+                                <field name="currency_id" column_invisible="1"/>
+                                <field name="is_reward" column_invisible="1"/>
+                                <field name="is_recurring" column_invisible="1"/>
+                                <field name="has_recurring_pricing" column_invisible="1"/>
+                            </list>
+                        </field>
+                    </page>
+                </notebook>
+                <group invisible="show_detail">
+                    <field name="order_summary_ids" nolabel="1">
+                        <list create="0" edit="0" delete="0">
+                            <field name="pricelist_id"/>
+                            <field name="order_id"/>
+                            <field name="current_amount_untaxed" widget="monetary" optional="hide"/>
+                            <field name="new_amount_untaxed" widget="monetary" optional="hide"/>
+                            
+                            <field name="current_amount_total" widget="monetary"/>
+                            <field name="new_amount_total" widget="monetary"/>
+                            
+                            <field name="difference_untaxed" widget="monetary" decoration-bf="1" decoration-danger="difference_untaxed &lt; 0" decoration-success="difference_untaxed &gt; 0"/>
+                            <field name="difference_total" widget="monetary" decoration-bf="1" decoration-danger="difference_total &lt; 0" decoration-success="difference_total &gt; 0"/>
+                            
+                            <field name="currency_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                </group>
+                <field name="sale_order_ids" invisible="1"/>
+                <footer>
+                    <button string="Apply Changes" name="action_recalculate_prices" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mass_recalculate_prices" model="ir.actions.act_window">
+        <field name="name">Recalculate Prices</field>
+        <field name="res_model">mass.recalculate.prices.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>

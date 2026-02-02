@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Custom List View for Price Update -->
+    <record id="view_sale_subscription_price_update_tree" model="ir.ui.view">
+        <field name="name">sale.subscription.price.update.list</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <list position="attributes">
+                <attribute name="create">0</attribute>
+            </list>
+            <xpath expr="//field[@name='name']" position="before">
+                <header>
+                    <button name="action_open_recalculate_prices_wizard" 
+                            string="Recalculate Prices" 
+                            type="object" 
+                            class="btn-primary"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Action for Subscriptions with Price Differences -->
+    <record id="action_sale_subscription_price_update" model="ir.actions.act_window">
+        <field name="name">Update Prices</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">list,form</field>
+        <field name="view_id" ref="view_sale_subscription_price_update_tree"/>
+        <!-- Domain: Active Subscriptions with Price Difference -->
+        <!-- Note: is_subscription and subscription_state are already filtered inside _search_has_price_difference 
+             optimization, but good to be explicit or just rely on the Search method returning IDs. 
+             If we use explicit domains AND the search method, they intersect. 
+             Let's use the search field primarily. -->
+        <field name="domain">[('has_price_difference', '=', True)]</field>
+        <field name="context">{'create': False, 'edit': False}</field>
+    </record>
+
+    <!-- Menu Item under Subscriptions Root (defined in sale_subscription) or inside Subscriptions submenu -->
+    <!-- The user said "Menu mas debajo de suscripciones", implying inside the Subscriptions app/menu structure. -->
+    <!-- menu_sale_subscription is the parent for "Subscriptions", "Quotations", "To Renew". -->
+    
+    <menuitem id="menu_sale_subscription_price_update" 
+              name="Update Prices" 
+              action="action_sale_subscription_price_update" 
+              parent="sale_subscription.menu_sale_subscription" 
+              sequence="45"/> 
+              <!-- Positioned after Upsells (40) and before Customers (50) -->
+</odoo>

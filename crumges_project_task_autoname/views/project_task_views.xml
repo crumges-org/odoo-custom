@@ -15,14 +15,14 @@
                 </div>
 
                 <group>
-                    <group name="task_naming" string="Task Naming">
+                    <group name="task_naming" string="Task Naming" invisible="child_ids">
+                        <!-- Hide Naming Option if task has subtasks (child_ids is not empty) -->
                         <field name="name_type" widget="radio" options="{'horizontal': true}"/>
-                        <div colspan="2" invisible="name_type == 'manual'">
-                            <group>
-                                <field name="purpose_id" required="name_type == 'auto_composed'"/>
-                                <field name="additional_info"/>
-                            </group>
-                        </div>
+                        <field name="use_sale_line_product" invisible="name_type == 'manual'"/>
+                        
+                        <!-- Fields always visible (unless parent), required if Auto Name selected -->
+                        <field name="purpose_id" required="name_type == 'auto_composed' and not use_sale_line_product" invisible="use_sale_line_product"/>
+                        <field name="additional_info" required="name_type == 'auto_composed'"/>
                     </group>
                 </group>
             </xpath>

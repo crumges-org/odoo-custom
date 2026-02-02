@@ -20,6 +20,9 @@
 #
 ################################################################################
 from odoo import fields, models
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class SaleOrder(models.Model):
@@ -36,3 +39,38 @@ class SaleOrder(models.Model):
         res = super()._prepare_invoice()
         res['agent_id'] = self.agent_id.id
         return res
+
+    def set_agent_customer(self, customer, agent):
+        """Helper to set customer and agent, updating prices and taxes."""
+        self.ensure_one()
+        if self.state in ['sale', 'done', 'cancel']:
+            return
+
+        values = {
+            'partner_id': customer.id,
+            'partner_invoice_id': customer.id,
+            'partner_shipping_id': customer.id,
+            'agent_id': agent.id,
+            'pricelist_id': customer.property_product_pricelist.id,
+            'fiscal_position_id': customer.property_account_position_id.id,
+        }
+        _logger.info("MULTI AGENT SHOP DEBUG: Setting customer for order %s", self.name)
+        _logger.info("Customer: %s (ID: %s)", customer.name, customer.id)
+        _logger.info("Agent: %s (ID: %s)", agent.name, agent.id)
+        _logger.info("Pricelist to set: %s (ID: %s)", customer.property_product_pricelist.name, customer.property_product_pricelist.id)
+        _logger.info("Fiscal Pos to set: %s (ID: %s)", customer.property_account_position_id.name, customer.property_account_position_id.id)
+        
+        self.write(values)
+        
+        # Force recomputation of prices and taxes
+        if hasattr(self, 'action_update_prices'):
+            self.action_update_prices()
+        else:
+            for line in self.order_line:
+                price = self.pricelist_id._get_product_price(
+                    line.product_id, line.product_uom_qty or 1.0, uom=line.product_uom, date=self.date_order
+                )
+                line.write({'price_unit': price})
+        
+        for line in self.order_line:
+            line._compute_tax_id()

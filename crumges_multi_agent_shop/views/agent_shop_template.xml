@@ -8,6 +8,19 @@
                         <div class="col-md-8 offset-md-2">
                             <h1 class="mb-4">Multi Agent Shop</h1>
                             <p class="lead">Selecciona un cliente para realizar la compra</p>
+
+                            <t t-if="current_customer_name">
+                                <div class="alert alert-info d-flex align-items-center justify-content-between" role="alert">
+                                    <div>
+                                        <i class="fa fa-user-circle me-2"/> 
+                                        Cliente Actual: <strong><t t-esc="current_customer_name"/></strong>
+                                    </div>
+                                    <a href="/agent/shop/deselect" class="btn btn-outline-danger btn-sm">
+                                        <i class="fa fa-times"/> Dejar de comprar para Cliente
+                                    </a>
+                                </div>
+                            </t>
+
                             
                             <div class="card">
                                 <div class="card-body">
