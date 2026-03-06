@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- FORM VIEW -->
+    <record id="view_query_manager_form" model="ir.ui.view">
+        <field name="name">query.manager.form</field>
+        <field name="model">query.manager</field>
+        <field name="arch" type="xml">
+            <form string="Consulta SQL">
+                <field name="is_query_admin" invisible="1"/>
+                <header>
+                    <button name="execute" string="Ejecutar" type="object" class="oe_highlight" 
+                            invisible="query_type != 'consulta' and not is_query_admin"/>
+                    <button name="export_excel" string="Exportar a Excel" type="object" class="btn-secondary"
+                            invisible="query_type != 'consulta' and not is_query_admin"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" invisible="active"/>
+                    <div class="oe_title">
+                        <label for="name" string="Nombre de la Consulta"/>
+                        <h1>
+                            <field name="name" placeholder="Ej. Ventas del mes" readonly="not is_query_admin"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="query_type" 
+                                   decoration-info="query_type == 'consulta'" 
+                                   decoration-success="query_type == 'creacion'" 
+                                   decoration-warning="query_type == 'edicion'" 
+                                   decoration-danger="query_type == 'eliminacion'"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="rowcount"/>
+                        </group>
+                    </group>
+                    
+                    <notebook>
+                        <page string="Resultados">
+                            <field name="html_result" nolabel="1"/>
+                        </page>
+                        <page string="Código SQL" groups="crumges_query_odoo_manager.group_query_manager_admin">
+                            <field name="query_text" widget="ace" options="{'mode': 'sql'}"/>
+                        </page>
+                        <page string="Notas">
+                            <field name="note" placeholder="Escribe notas adicionales aquí..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- TREE VIEW -->
+    <record id="view_query_manager_tree" model="ir.ui.view">
+        <field name="name">query.manager.list</field>
+        <field name="model">query.manager</field>
+        <field name="arch" type="xml">
+            <list string="Consultas SQL" decoration-info="query_type == 'consulta'" decoration-success="query_type == 'creacion'" decoration-warning="query_type == 'edicion'" decoration-danger="query_type == 'eliminacion'">
+                <field name="name"/>
+                <field name="query_type"/>
+                <field name="rowcount"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW -->
+    <record id="view_query_manager_search" model="ir.ui.view">
+        <field name="name">query.manager.search</field>
+        <field name="model">query.manager</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Consultas">
+                <field name="name"/>
+                <field name="query_text"/>
+                
+                <filter string="Archivados" name="inactive" domain="[('active', '=', False)]"/>
+                
+                <separator/>
+                <filter string="Consultas (SELECT)" name="type_select" domain="[('query_type', '=', 'consulta')]"/>
+                <filter string="Creación (INSERT)" name="type_insert" domain="[('query_type', '=', 'creacion')]"/>
+                <filter string="Edición (UPDATE)" name="type_update" domain="[('query_type', '=', 'edicion')]"/>
+                <filter string="Eliminación (DELETE)" name="type_delete" domain="[('query_type', '=', 'eliminacion')]"/>
+                
+                <group expand="0" string="Agrupar por">
+                    <filter string="Tipo de Consulta" name="group_by_type" context="{'group_by':'query_type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="action_query_manager" model="ir.actions.act_window">
+        <field name="name">Gestor de Consultas</field>
+        <field name="res_model">query.manager</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_query_manager_search"/>
+        <field name="context">{'search_default_group_by_type': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea tu primera consulta SQL.
+            </p>
+            <p>
+                Este módulo te permite ejecutar SQL sobre la base de datos de manera segura y controlada.
+            </p>
+        </field>
+    </record>
+
+    <!-- MENUS -->
+    <menuitem id="menu_query_manager_root" name="Gestor SQL" sequence="100"
+              web_icon="crumges_query_odoo_manager,static/description/icon.png"
+              groups="crumges_query_odoo_manager.group_query_manager_executor,crumges_query_odoo_manager.group_query_manager_admin"/>
+
+    <menuitem id="menu_query_manager_queries" name="Consultas" parent="menu_query_manager_root" action="action_query_manager" sequence="10"/>
+
+</odoo>

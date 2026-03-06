@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_query_manager_executor,query.manager.executor,model_query_manager,group_query_manager_executor,1,0,0,0
+access_query_manager_admin,query.manager.admin,model_query_manager,group_query_manager_admin,1,1,1,1
