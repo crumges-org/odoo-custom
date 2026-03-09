@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//sheet" position="before">
                 <header>
-                    <button name="%(action_document_page_report_wizard)d" string="Print with Template" type="action" class="oe_highlight" icon="fa-print" context="{'default_document_page_ids': [active_id]}"/>
+                    <button name="%(action_document_page_report_wizard)d" string="Print with Template" type="action" class="oe_highlight" icon="fa-print" context="{'default_document_page_ids': [id]}"/>
                 </header>
             </xpath>
         </field>
