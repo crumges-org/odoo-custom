@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="knowledge.KnowledgeTopbar" t-inherit-mode="extension">
+        <xpath expr="//button[hasclass('dropdown-item') and .//i[contains(@class, 'fa-download')]]" position="after">
+            <button class="dropdown-item" t-on-click="onPrintWithTemplate">
+                <i class="me-2 fa fa-fw fa-lg fa-print"/> Print with Template
+            </button>
+        </xpath>
+    </t>
+</templates>

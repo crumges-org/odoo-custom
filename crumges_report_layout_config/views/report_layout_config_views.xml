@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Form View -->
+    <record id="view_report_layout_config_form" model="ir.ui.view">
+        <field name="name">report.layout.config.form</field>
+        <field name="model">report.layout.config</field>
+        <field name="arch" type="xml">
+            <form string="Report Layout Configuration">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="e.g. Corporate Standard"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="layout_style" widget="radio"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                        <group>
+                            <field name="font_family"/>
+                            <field name="font_size"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Branding &amp; Colors" name="branding">
+                            <group>
+                                <group string="Colors">
+                                    <field name="use_company_colors"/>
+                                    <field name="primary_color" widget="color" invisible="use_company_colors"/>
+                                    <field name="secondary_color" widget="color" invisible="use_company_colors"/>
+                                    <field name="text_color" widget="color"/>
+                                </group>
+                                <group string="Logo">
+                                    <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_128', 'size': [90, 90]}" invisible="use_company_logo"/>
+                                    <field name="use_company_logo"/>
+                                    <button name="action_compute_colors_from_logo" type="object" string="Compute Colors from Logo" class="btn-link" icon="fa-magic" help="Automatically detect primary and secondary colors from the logo." invisible="use_company_colors"/>
+                                    <field name="logo_position" widget="radio"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Header &amp; Footer" name="header_footer">
+                            <group>
+                                <group>
+                                    <field name="show_header"/>
+                                    <field name="show_footer"/>
+                                </group>
+                                <group>
+                                    <field name="layout_mode" widget="radio" options="{'horizontal': true}" invisible="not show_header and not show_footer"/>
+                                </group>
+                            </group>
+                            
+                            <!-- Custom HTML Mode -->
+                            <group string="Custom HTML Content" invisible="layout_mode != 'html'">
+                                <field name="header_content" invisible="not show_header"/>
+                                <field name="footer_content" invisible="not show_footer"/>
+                            </group>
+
+                            <!-- Structured Mode -->
+                            <group string="Address Configuration" invisible="layout_mode != 'structured' or not show_header">
+                                <field name="address_source" widget="radio" options="{'horizontal': true}"/>
+                                <field name="custom_address" invisible="address_source != 'custom'"/>
+                            </group>
+
+                            <group string="Motto Configuration" invisible="layout_mode != 'structured'">
+                                <field name="motto_source" widget="radio" options="{'horizontal': true}"/>
+                                <field name="custom_motto" invisible="motto_source != 'custom'"/>
+                                <field name="motto_position" widget="radio" options="{'horizontal': true}" invisible="motto_source == 'none'"/>
+                            </group>
+
+                            <group string="Footer Configuration" invisible="layout_mode != 'structured' or not show_footer">
+                                <field name="footer_source" widget="radio" options="{'horizontal': true}"/>
+                                <field name="custom_footer" invisible="footer_source != 'custom'"/>
+                            </group>
+                        </page>
+                        <page string="Preview" name="preview">
+                            <div class="alert alert-info" role="alert">
+                                This is a generic preview. The actual report will look slightly different depending on the content.
+                            </div>
+                            <field name="preview_html" widget="html" readonly="1" force_save="1"/>
+                        </page>
+                        <page string="Advanced" name="advanced" groups="base.group_no_one">
+                            <group>
+                                <field name="css_custom" placeholder="/* Custom CSS */"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_report_layout_config_tree" model="ir.ui.view">
+        <field name="name">report.layout.config.tree</field>
+        <field name="model">report.layout.config</field>
+        <field name="arch" type="xml">
+            <list string="Report Layouts">
+                <field name="name"/>
+                <field name="layout_style"/>
+                <field name="font_family"/>
+                <field name="primary_color" widget="color"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_report_layout_config_search" model="ir.ui.view">
+        <field name="name">report.layout.config.search</field>
+        <field name="model">report.layout.config</field>
+        <field name="arch" type="xml">
+            <search string="Search Report Layouts">
+                <field name="name"/>
+                <field name="layout_style"/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Group By">
+                    <filter string="Layout Style" name="group_layout_style" context="{'group_by': 'layout_style'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_report_layout_config" model="ir.actions.act_window">
+        <field name="name">Report Layouts</field>
+        <field name="res_model">report.layout.config</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Report Layout Configuration
+            </p>
+            <p>
+                Define visual styles, colors, headers, and footers for your reports.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item (will be under Settings > Technical initially, or a top level if needed, usually Knowledge app will link to this action) -->
+    <!-- For now, we put it under Settings > Technical > Reporting -->
+    <menuitem id="menu_report_layout_config"
+              name="Report Layout Configurations"
+              parent="base.menu_custom"
+              action="action_report_layout_config"
+              sequence="100"/>
+</odoo>

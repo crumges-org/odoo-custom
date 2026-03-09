@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_knowledge_report_wizard_form" model="ir.ui.view">
+        <field name="name">knowledge.report.wizard.form</field>
+        <field name="model">knowledge.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Print with Template">
+                <group>
+                    <field name="report_config_id" widget="selection"/>
+                    <field name="article_ids" widget="many2many_tags" invisible="1"/>
+                </group>
+                <footer>
+                    <button name="action_print_report" string="Print" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_knowledge_report_wizard" model="ir.actions.act_window">
+        <field name="name">Print with Template</field>
+        <field name="res_model">knowledge.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="knowledge.model_knowledge_article"/>
+        <field name="binding_view_types">form,list</field>
+    </record>
+</odoo>

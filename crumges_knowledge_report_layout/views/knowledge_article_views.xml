@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="knowledge_article_view_form_inherit_report_layout" model="ir.ui.view">
+        <field name="name">knowledge.article.view.form.inherit.report.layout</field>
+        <field name="model">knowledge.article</field>
+        <field name="inherit_id" ref="knowledge.knowledge_article_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='body']" position="before">
+                <group string="Report Configuration" groups="base.group_no_one">
+                    <group>
+                         <field name="use_custom_report_config"/>
+                         <field name="report_config_id" invisible="not use_custom_report_config"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

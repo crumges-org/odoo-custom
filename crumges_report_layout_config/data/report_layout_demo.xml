@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="report_layout_standard" model="report.layout.config">
+        <field name="name">Corporate Standard</field>
+        <field name="layout_style">standard</field>
+        <field name="primary_color">#714B67</field>
+        <field name="secondary_color">#E0E0E0</field>
+        <field name="font_family">Lato</field>
+        <field name="header_content"><![CDATA[<div style="text-align: right; color: #714B67;"><b>Company Name</b> | Official Document</div>]]></field>
+    </record>
+
+    <record id="report_layout_modern" model="report.layout.config">
+        <field name="name">Modern Blue</field>
+        <field name="layout_style">modern</field>
+        <field name="primary_color">#007BFF</field>
+        <field name="secondary_color">#17A2B8</field>
+        <field name="font_family">Roboto</field>
+        <field name="header_content"><![CDATA[<div style="border-bottom: 2px solid #007BFF; padding-bottom: 5px; margin-bottom: 10px;">Modern Header</div>]]></field>
+    </record>
+
+    <record id="report_layout_compact" model="report.layout.config">
+        <field name="name">Compact Minimal</field>
+        <field name="layout_style">compact</field>
+        <field name="font_size">9</field>
+        <field name="show_header" eval="False"/>
+        <field name="show_footer" eval="False"/>
+    </record>
+    
+    <record id="report_layout_dark" model="report.layout.config">
+        <field name="name">Dark Mode (Concept)</field>
+        <field name="layout_style">minimal</field>
+        <field name="primary_color">#000000</field>
+        <field name="text_color">#333333</field>
+        <field name="css_custom">body { background-color: #f4f4f4; }</field>
+    </record>
+</odoo>
