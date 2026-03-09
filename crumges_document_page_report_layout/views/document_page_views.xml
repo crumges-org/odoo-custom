@@ -5,8 +5,10 @@
         <field name="model">document.page</field>
         <field name="inherit_id" ref="document_page.view_wiki_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='content']" position="before">
-                <!-- Report configuration fields removed as they are redundant with the wizard -->
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="%(action_document_page_report_wizard)d" string="Print with Template" type="action" class="oe_highlight" icon="fa-print" context="{'default_document_page_ids': [active_id]}"/>
+                </header>
             </xpath>
         </field>
     </record>
