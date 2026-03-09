@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="document_page_print_view">
+        <html>
+            <head>
+                <title t-esc="doc.name"/>
+                <meta charset="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1"/>
+                <!-- Minimal Bootstrap or styles if needed, but we rely on custom layout mostly -->
+                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css"/>
+                
+                <style>
+                    body {
+                        font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                        background-color: white;
+                        color: #333;
+                    }
+                    /* Dynamic Styles from Config */
+                    <t t-if="report_config">
+                        <t t-raw="report_config.get_css_variables()"/>
+                    </t>
+                    
+
+                    @media print {
+                        @page { 
+                            margin: 1cm; 
+                            size: auto; 
+                            /* Attempt to show page numbers if browser supports Paged Media */
+                            @bottom-right {
+                                content: counter(page);
+                                font-size: 10pt;
+                            }
+                        }
+                        body { margin: 0; padding: 0; }
+                        .no-print { display: none !important; }
+                    }
+
+                    .page-container {
+                        max-width: 900px;
+                        margin: 0 auto;
+                        padding: 2rem;
+                    }
+
+                    /* Apply Layout Style Class to Header/Footer Wrappers */
+                    .header-content.k_layout_standard { border-bottom: 2px solid var(--report-primary, #000); margin-bottom: 2rem; padding-bottom: 1rem; }
+                    .header-content.k_layout_modern { 
+                        background-color: var(--report-primary, #666); 
+                        color: white !important; 
+                        padding: 2rem; 
+                        margin-bottom: 2rem; 
+                    }
+                    .header-content.k_layout_modern .header-tagline { color: white !important; border-top-color: rgba(255,255,255,0.3) !important; }
+                    .header-content.k_layout_compact { border-bottom: 1px dotted #ccc; margin-bottom: 1rem; padding-bottom: 0.5rem; }
+                    
+                    /* Footer Styles */
+                    .footer-content.k_layout_modern { border-top: 5px solid var(--report-primary, #000); }
+
+                    .doc-title { color: var(--report-primary, #000); }
+                </style>
+                <script>
+                    window.onload = function() {
+                        setTimeout(function() { window.print(); }, 500);
+                    }
+                </script>
+            </head>
+            <body>
+                <div class="print-layout">
+                    <!-- Standard HTML Table approach for repeating headers/footers -->
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <!-- Header Content -->
+                                    <div t-attf-class="header-content {{ report_config and ('k_layout_' + report_config.layout_style) or '' }}">
+                                        
+                                        <!-- Custom HTML Mode -->
+                                        <t t-if="report_config and report_config.layout_mode == 'html'">
+                                            <t t-if="report_config.show_header">
+                                                <t t-raw="report_config.header_content"/>
+                                            </t>
+                                        </t>
+
+                                        <!-- Structured Mode -->
+                                        <t t-else="">
+                                            <t t-if="report_config and report_config.show_header">
+                                                <!-- Prep Variables -->
+                                                <t t-set="logo_pos" t-value="report_config.logo_position"/>
+                                                
+                                                <!-- Address Logic -->
+                                                <t t-set="address_content" t-value="None"/>
+                                                <t t-if="report_config.address_source == 'company'">
+                                                    <t t-set="address_content" t-value="company.partner_id"/>
+                                                </t>
+                                                <t t-elif="report_config.address_source == 'custom'">
+                                                    <t t-set="address_content" t-value="report_config.custom_address"/>
+                                                </t>
+                                                
+                                                <!-- Motto Logic (Header) -->
+                                                <t t-set="motto_text" t-value="None"/>
+                                                <t t-if="report_config.motto_source == 'company'">
+                                                    <t t-set="motto_text" t-value="company.report_header"/>
+                                                </t>
+                                                <t t-elif="report_config.motto_source == 'custom'">
+                                                     <t t-set="motto_text" t-value="report_config.custom_motto"/>
+                                                </t>
+
+                                                <!-- Container Style based on Logo Pos -->
+                                                <t t-set="header_style" t-value="'display: flex; justify-content: space-between; align-items: start;'"/>
+                                                <t t-if="logo_pos == 'center'">
+                                                    <t t-set="header_style" t-value="'display: flex; flex-direction: column; align-items: center; text-align: center;'"/>
+                                                </t>
+                                                <t t-elif="logo_pos == 'right'">
+                                                     <t t-set="header_style" t-value="'display: flex; flex-direction: row-reverse; justify-content: space-between; align-items: start;'"/>
+                                                </t>
+                                                
+                                                <div t-att-style="header_style">
+                                                    <!-- LOGO SECTION -->
+                                                    <div class="header-logo" t-if="logo_pos != 'none'">
+                                                        <t t-if="report_config.use_company_logo">
+                                                            <img t-att-src="image_data_uri(company.logo)" style="max-height: 80px; max-width: 250px;"/>
+                                                        </t>
+                                                        <t t-elif="report_config.image_1920">
+                                                            <img t-att-src="image_data_uri(report_config.image_1920)" style="max-height: 80px; max-width: 250px;"/>
+                                                        </t>
+                                                        <t t-elif="not report_config.image_1920 and company.logo">
+                                                             <img t-att-src="image_data_uri(company.logo)" style="max-height: 80px; max-width: 250px;"/>
+                                                        </t>
+                                                    </div>
+
+                                                    <!-- DETAILS SECTION -->
+                                                    <div class="header-details" t-if="report_config.address_source != 'none'" t-att-style="logo_pos == 'right' and 'text-align: left;' or (logo_pos == 'left' and 'text-align: right;' or '')">
+                                                        <t t-if="report_config.address_source == 'company'">
+                                                            <strong t-field="company.name" style="font-size: 1.2em;"/>
+                                                            <div t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["address", "phone", "email", "website"], "no_marker": false}'/>
+                                                        </t>
+                                                        <t t-elif="report_config.address_source == 'custom'">
+                                                            <t t-raw="report_config.custom_address"/>
+                                                        </t>
+                                                    </div>
+                                                </div>
+
+                                                <!-- MOTTO (Header) -->
+                                                <div class="header-tagline" t-if="motto_text and report_config.motto_position == 'header'" style="text-align: center; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px; font-style: italic; color: #666;">
+                                                    <span t-raw="motto_text"/>
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <div style="height: 50px;">&#160;</div>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="page-container">
+                                        <!-- Title -->
+                                        <h1 t-field="doc.name" class="doc-title mb-4"/>
+                                        <!-- Body -->
+                                        <div class="doc-body">
+                                             <t t-raw="doc.content"/>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    <!-- Footer Content -->
+                                    <div t-attf-class="footer-content {{ report_config and ('k_layout_' + report_config.layout_style) or '' }}" style="margin-top: 2rem; border-top: 1px solid #ddd; padding-top: 10px; font-size: 0.9em;">
+                                         <!-- Custom HTML Mode -->
+                                        <t t-if="report_config and report_config.layout_mode == 'html'">
+                                            <t t-if="report_config.show_footer">
+                                                <t t-raw="report_config.footer_content"/>
+                                            </t>
+                                        </t>
+                                        <!-- Structured Mode -->
+                                        <t t-else="">
+                                            <t t-if="report_config and report_config.show_footer">
+                                                <!-- Prep Motto (Footer) -->
+                                                <t t-set="motto_text_footer" t-value="None"/>
+                                                <t t-if="report_config.motto_source == 'company'">
+                                                    <t t-set="motto_text_footer" t-value="company.report_header"/>
+                                                </t>
+                                                <t t-elif="report_config.motto_source == 'custom'">
+                                                     <t t-set="motto_text_footer" t-value="report_config.custom_motto"/>
+                                                </t>
+                                                
+                                                <!-- MOTTO (Footer) -->
+                                                <div t-if="motto_text_footer and report_config.motto_position == 'footer'" style="text-align: center; font-style: italic; margin-bottom: 10px;">
+                                                    <span t-raw="motto_text_footer"/>
+                                                </div>
+                                                
+                                                <!-- FOOTER TEXT -->
+                                                <div style="text-align: center;">
+                                                    <t t-if="report_config.footer_source == 'company'">
+                                                        <t t-if="company.report_footer">
+                                                            <span t-field="company.report_footer"/>
+                                                        </t>
+                                                        <t t-else="">
+                                                            <!-- Fallback to company details inline if no footer set? -->
+                                                            <span t-field="company.phone"/> | <span t-field="company.email"/> | <span t-field="company.website"/>
+                                                        </t>
+                                                    </t>
+                                                    <t t-elif="report_config.footer_source == 'custom'">
+                                                        <t t-raw="report_config.custom_footer"/>
+                                                    </t>
+                                                </div>
+                                            </t>
+                                        </t>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </body>
+        </html>
+    </template>
+</odoo>

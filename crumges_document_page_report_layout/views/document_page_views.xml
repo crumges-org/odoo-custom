@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_document_page_form_inherit_report_layout" model="ir.ui.view">
+        <field name="name">document.page.form.inherit.report.layout</field>
+        <field name="model">document.page</field>
+        <field name="inherit_id" ref="document_page.view_wiki_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='content']" position="before">
+                <!-- Report configuration fields removed as they are redundant with the wizard -->
+            </xpath>
+        </field>
+    </record>
+</odoo>
