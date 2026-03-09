@@ -8,10 +8,8 @@
     'depends': ['base', 'web'],
     'data': [
         'security/ir.model.access.csv',
+        'data/report_layout_data.xml',
         'views/report_layout_config_views.xml',
-    ],
-    'demo': [
-        'data/report_layout_demo.xml',
     ],
     'installable': True,
     'application': False,
