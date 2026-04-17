@@ -10,8 +10,17 @@ class MultiAgentCustomerPortal(CustomerPortal):
     def _prepare_orders_domain(self, partner):
         domain = super(MultiAgentCustomerPortal, self)._prepare_orders_domain(partner)
         if partner.is_agent:
-            # Override domain for agents to only show their own processed orders
-            return [('agent_id', '=', partner.id), ('state', 'in', ['sale', 'done', 'cancel'])]
+            # Show orders for agents using OR condition:
+            # 1. Orders created via portal with agent_id explicitly set (new orders)
+            # 2. Orders where the internal salesperson (user_id) matches this agent's partner
+            #    This covers historical orders created before the module was installed,
+            #    where agent_id was never populated.
+            return [
+                '|',
+                ('agent_id', '=', partner.id),
+                ('user_id.partner_id', '=', partner.id),
+                ('state', 'in', ['sale', 'done', 'cancel']),
+            ]
         return domain
 
     def _get_sale_searchbar_sortings(self):
