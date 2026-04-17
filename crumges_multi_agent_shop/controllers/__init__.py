@@ -21,3 +21,4 @@
 ################################################################################
 from . import shopping_through_agent
 from . import website_sale
+from . import portal

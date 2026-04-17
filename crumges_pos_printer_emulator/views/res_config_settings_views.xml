@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.pos.emulator</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <setting id="pos_other_devices" position="after">
+                <setting id="crumges_printer_emulator" string="Printer Emulator" help="Lanza el emulador local para la impresora">
+                    <field name="pos_crumges_printer_emulator_active"/>
+                    <div class="content-group" invisible="not pos_crumges_printer_emulator_active">
+                        <div class="mt16">
+                            <div class="text-muted mb-2">
+                                Si está activo, todo ticket o comanda disparada será capturada por el emulador.
+                            </div>
+                            <a href="/printer_emulator/last_receipt" target="_blank" class="btn btn-primary mt-2">
+                                <i class="fa fa-print"/> Abrir Visor de Recibos y Comandas
+                            </a>
+                        </div>
+                    </div>
+                </setting>
+            </setting>
+        </field>
+    </record>
+</odoo>

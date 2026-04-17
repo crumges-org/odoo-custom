@@ -12,4 +12,55 @@
             </tr>
         </xpath>
     </template>
+
+    <template id="portal_my_orders_inherit_agent" name="Portal My Orders Agent" inherit_id="sale.portal_my_orders">
+        <xpath expr="//thead/tr/th[last()]" position="before">
+            <t t-if="request.env.user.partner_id.is_agent">
+                <th class="text-start">Cliente</th>
+                <th class="text-center">Programada para</th>
+                <th class="text-center">Entrega</th>
+                <th class="text-center">Estado de factura</th>
+            </t>
+        </xpath>
+        <xpath expr="//t[@t-foreach='orders']/tr/td[last()]" position="before">
+            <t t-if="request.env.user.partner_id.is_agent">
+                <td class="text-start"><span t-field="order.partner_id.name"/></td>
+                <td class="text-center"><span t-field="order.commitment_date" t-options="{'widget': 'date'}"/></td>
+                <td class="text-center">
+                    <t t-if="order.delivery_status == 'full'">
+                        <span class="badge rounded-pill text-bg-success">Completada</span>
+                    </t>
+                    <t t-elif="order.delivery_status == 'partial'">
+                        <span class="badge rounded-pill text-bg-warning">Parcial</span>
+                    </t>
+                    <t t-elif="order.delivery_status == 'pending'">
+                        <span class="badge rounded-pill text-bg-secondary">Pendiente</span>
+                    </t>
+                    <t t-else="">
+                        <span t-field="order.delivery_status"/>
+                    </t>
+                </td>
+                <td class="text-center">
+                    <t t-if="order.invoice_status == 'invoiced'">
+                        <span class="badge rounded-pill text-bg-success">
+                            <i class="fa fa-check"/> Facturado
+                        </span>
+                    </t>
+                    <t t-elif="order.invoice_status == 'to invoice'">
+                        <span class="badge rounded-pill text-bg-warning">
+                            <i class="fa fa-clock-o"/> A facturar
+                        </span>
+                    </t>
+                    <t t-elif="order.invoice_status == 'no'">
+                        <span class="badge rounded-pill text-bg-secondary">
+                            Nada a facturar
+                        </span>
+                    </t>
+                    <t t-else="">
+                        <span t-field="order.invoice_status"/>
+                    </t>
+                </td>
+            </t>
+        </xpath>
+    </template>
 </odoo>
