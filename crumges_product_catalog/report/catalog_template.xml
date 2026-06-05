@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ================================================================
+         TEMPLATE: catalog_body
+         Grilla de tarjetas de producto — compartida por ambos layouts
+         ================================================================ -->
+    <template id="catalog_body" name="Catalog Body">
+        <style>
+            .crumges-grid {
+                width: 100%;
+                font-size: 0; /* evita espacios en blanco por inline-block */
+            }
+            /* clearfix para float (lo dejamos por si acaso) */
+            .crumges-grid::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            .crumges-card-wrapper {
+                display: inline-block;
+                vertical-align: top;
+                box-sizing: border-box;
+                padding: 6px;
+                font-size: 13px; /* restaura font size */
+                page-break-inside: avoid;
+            }
+            .crumges-card {
+                border: 1.5px solid rgba(0,0,0,0.18);
+                border-radius: 4px;
+                overflow: hidden;
+                background: #fff;
+                box-sizing: border-box;
+                text-align: center;
+                padding-bottom: 8px;
+                position: relative;
+            }
+            .crumges-ribbon {
+                position: absolute;
+                top: 10px;
+                left: 0;
+                padding: 3px 8px;
+                font-size: 0.75em;
+                font-weight: 900;
+                text-transform: uppercase;
+                z-index: 10;
+                box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+                border-radius: 0 4px 4px 0;
+            }
+            .crumges-card-img {
+                width: 100%;
+                background: #f8f8f8;
+                border-bottom: 1px solid #eee;
+                margin-bottom: 5px;
+                text-align: center;
+                overflow: hidden;
+            }
+
+            .crumges-card-body {
+                padding: 2px 8px;
+            }
+            .crumges-card-code {
+                display: block;
+                font-size: 0.75em;
+                color: #888;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                margin-bottom: 2px;
+                height: 1.3em;
+            }
+            .crumges-card-name {
+                display: block;
+                font-size: 0.9em;
+                color: #222;
+                font-weight: bold;
+                line-height: 1.25;
+                overflow: hidden;
+                height: 2.5em; /* fuerza exactamente espacio para 2 líneas */
+            }
+            .crumges-card-price {
+                display: block;
+                font-size: 1.1em;
+                font-weight: 900;
+                color: #000;
+                margin-top: 5px;
+                height: 1.2em;
+            }
+            .crumges-card-desc {
+                display: block;
+                font-size: 0.75em;
+                color: #555;
+                margin-top: 4px;
+                overflow: hidden;
+                height: 3.6em; /* fuerza exactamente espacio para 3 líneas */
+            }
+        </style>
+        <t t-if="is_grouped">
+            <t t-foreach="grouped_docs" t-as="group_name">
+                <h2 class="mt-4 mb-3 pb-1" style="border-bottom: 2px solid #ccc; color: #333; page-break-after: avoid;" t-esc="group_name"/>
+                <t t-call="crumges_product_catalog.catalog_grid">
+                    <t t-set="products_list" t-value="grouped_docs[group_name]"/>
+                </t>
+            </t>
+        </t>
+        <t t-else="">
+            <t t-call="crumges_product_catalog.catalog_grid">
+                <t t-set="products_list" t-value="docs"/>
+            </t>
+        </t>
+    </template>
+
+    <!-- ================================================================
+         TEMPLATE: catalog_grid
+         Sub-plantilla para la grilla de productos -->
+    <template id="catalog_grid">
+        <div class="crumges-grid">
+            <t t-foreach="products_list" t-as="o">
+                <div class="crumges-card-wrapper" t-att-style="'width: %s;' % col_width">
+                    <div class="crumges-card">
+                        <!-- Cinta del producto (Ribbon de website_sale) -->
+                        <t t-if="'website_ribbon_id' in o and o.website_ribbon_id">
+                            <div class="crumges-ribbon"
+                                 t-att-style="'background-color: %s; color: %s;' % (o.website_ribbon_id.bg_color or '#0d6efd', o.website_ribbon_id.text_color or '#ffffff')">
+                                <t t-if="'html' in o.website_ribbon_id"><t t-out="o.website_ribbon_id.html"/></t>
+                                <t t-else=""><t t-out="o.website_ribbon_id.name"/></t>
+                            </div>
+                        </t>
+
+                        <t t-if="o.image_512">
+                            <div class="crumges-card-img" t-att-style="'height: %dpx; background-image: url(%s); background-size: contain; background-position: center; background-repeat: no-repeat;' % (config.product_image_height, image_data_uri(o.image_512))"/>
+                        </t>
+                        <t t-else="">
+                            <div class="crumges-card-img" t-att-style="'height: %dpx;' % config.product_image_height"/>
+                        </t>
+
+                        <div class="crumges-card-body">
+                            <t t-if="config.show_code">
+                                <span class="crumges-card-code">
+                                    <t t-if="o.default_code" t-esc="o.default_code"/>
+                                    <t t-else="">&#160;</t>
+                                </span>
+                            </t>
+                            
+                            <span class="crumges-card-name">
+                                <t t-esc="o.name"/>
+                            </span>
+                            
+                            <t t-if="config.show_price">
+                                <t t-if="pricelist">
+                                    <span class="crumges-card-price"
+                                          t-esc="computed_prices[o.id]"
+                                          t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}'/>
+                                </t>
+                                <t t-else="">
+                                    <span class="crumges-card-price"
+                                          t-field="o.list_price"
+                                          t-options='{"widget": "monetary", "display_currency": o.currency_id}'/>
+                                </t>
+                            </t>
+                            
+                            <!-- Información adicional de la tarifa -->
+                            <t t-if="pricelist_info and o.id in pricelist_info">
+                                <t t-set="p_info" t-value="pricelist_info[o.id]"/>
+                                <div style="font-size: 0.72em; color: #d63384; margin-top: 3px; font-weight: bold; line-height: 1.1;">
+                                    <t t-if="p_info.get('min_quantity') and p_info['min_quantity'] > 1">
+                                        A partir de <t t-esc="p_info['min_quantity']"/> un.<br/>
+                                    </t>
+                                    <t t-if="p_info.get('date_start') or p_info.get('date_end')">
+                                        <span style="font-size: 0.9em;">
+                                            <t t-if="p_info.get('date_start')">Del <t t-esc="p_info['date_start']" t-options='{"widget": "date", "format": "dd/MM/yy"}'/></t>
+                                            <t t-if="p_info.get('date_end')"> al <t t-esc="p_info['date_end']" t-options='{"widget": "date", "format": "dd/MM/yy"}'/></t>
+                                        </span>
+                                    </t>
+                                </div>
+                            </t>
+                            
+                            <t t-if="config.show_description">
+                                <span class="crumges-card-desc">
+                                    <t t-if="o.description_sale" t-esc="o.description_sale"/>
+                                    <t t-else="">&#160;</t>
+                                </span>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </template>
+
+    <!-- ================================================================
+         TEMPLATE: custom_layout
+         Cabecera/pie con imágenes de membrete subidas por el usuario.
+         El ancho de la imagen es 100% del lienzo útil A4 (~190mm / 719px).
+         ================================================================ -->
+    <template id="custom_layout" name="Custom Letterhead Layout">
+        <t t-if="config.header_image">
+            <div class="header" style="margin: 0; padding: 0; line-height: 0; position: relative;">
+                <img t-att-src="image_data_uri(config.header_image)"
+                     style="width: 100%; display: block;"/>
+                <t t-if="config.show_date and config.date_position == 'header'">
+                    <div style="position: absolute; right: 20px; bottom: 10px; background: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px; font-size: 0.9em; font-weight: bold; line-height: 1;">
+                        <t t-esc="report_date"/>
+                    </div>
+                </t>
+                <t t-if="pricelist">
+                    <div style="position: absolute; left: 20px; bottom: 10px; background: rgba(255,255,255,0.7); padding: 4px 8px; border-radius: 4px; font-size: 0.9em; font-weight: bold; line-height: 1; color: #333;">
+                        Tarifa: <t t-esc="pricelist.name"/>
+                    </div>
+                </t>
+                <div style="border-bottom: 1px solid #ccc; margin-top: 6px;"/>
+            </div>
+        </t>
+        <div class="article" style="padding-top:10px; padding-left: 7mm; padding-right: 7mm;">
+            <t t-out="0"/>
+        </div>
+        <div class="footer" style="margin-top: 8px;">
+            <t t-if="config.footer_image">
+                <div style="border-top: 1px solid #ccc; margin-bottom: 4px;"/>
+                <img t-att-src="image_data_uri(config.footer_image)"
+                     style="width: 100%; display: block;"/>
+            </t>
+            <div class="text-center" style="font-size: 0.72em; color: #aaa; border-top: 1px solid #eee; padding-top: 4px; padding-bottom: 8mm; position: relative;">
+                <t t-if="config.show_date and config.date_position == 'footer'">
+                    <span style="position: absolute; left: 10px;">
+                        Fecha: <t t-esc="report_date"/>
+                    </span>
+                </t>
+                Página <span class="page"/> / <span class="topage"/>
+            </div>
+        </div>
+    </template>
+
+    <!-- ================================================================
+         TEMPLATE: catalog_report  (entry point del reporte)
+         Switch entre layout Odoo estándar y layout personalizado.
+         ================================================================ -->
+    <template id="catalog_report" name="Catálogo de Productos">
+        <t t-call="web.html_container">
+            <!-- RAMA 1: Membrete personalizado -->
+            <t t-if="config and config.layout_mode == 'custom'">
+                <t t-call="crumges_product_catalog.custom_layout">
+                    <div class="page">
+                        <t t-call="crumges_product_catalog.catalog_body"/>
+                    </div>
+                </t>
+            </t>
+            <t t-else="">
+                <!-- external_layout necesita saber de qué empresa sacar el logo -->
+                <t t-set="company" t-value="res_company"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <t t-if="pricelist">
+                                    <strong style="color: #555;">Lista de Precios:</strong> <span t-esc="pricelist.name"/>
+                                </t>
+                            </div>
+                            <div class="col-6 text-right">
+                                <t t-if="config.show_date">
+                                    <div style="font-size: 0.9em; color: #555;">
+                                        <strong>Fecha:</strong> <t t-esc="report_date"/>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <t t-call="crumges_product_catalog.catalog_body"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

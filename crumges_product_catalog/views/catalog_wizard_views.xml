@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="catalog_wizard_form_view" model="ir.ui.view">
+        <field name="name">catalog.wizard.form</field>
+        <field name="model">catalog.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generar Catálogo de Productos">
+                <sheet>
+                    <!-- ── Configuración ─────────────────────────────────── -->
+                    <group string="Configuración del catálogo">
+                        <field name="config_id"
+                               options="{'no_create': False}"
+                               placeholder="Seleccioná una configuración…"/>
+                        <field name="layout_mode" widget="radio" invisible="not config_id"/>
+                    </group>
+
+                    <!-- Nota informativa para layout Odoo -->
+                    <div class="alert alert-info"
+                         role="alert"
+                         invisible="not config_id or layout_mode != 'odoo'">
+                        <i class="fa fa-info-circle"/> Se utilizará el diseño de reporte
+                        configurado en la empresa (logo, cabecera y pie estándar de Odoo).
+                    </div>
+
+                    <!-- Preview de membrete para layout custom -->
+                    <group string="Vista previa del membrete"
+                           invisible="not config_id or layout_mode != 'custom'">
+                        <field name="header_image"
+                               widget="image"
+                               readonly="1"
+                               options="{'size': [719, 150]}"
+                               string="Cabecera"/>
+                        <field name="footer_image"
+                               widget="image"
+                               readonly="1"
+                               options="{'size': [719, 80]}"
+                               string="Pie de página"/>
+                        <div class="text-muted" colspan="2" style="font-size:0.82em;">
+                            Para modificar las imágenes, editá la configuración directamente.
+                        </div>
+                    </group>
+
+                    <!-- ── Productos ──────────────────────────────────────── -->
+                    <group string="Opciones de listado">
+                        <group>
+                            <field name="group_by"/>
+                            <field name="sort_by"/>
+                        </group>
+                        <group>
+                            <field name="pricelist_id" options="{'no_create': True}"/>
+                            <field name="show_pricelist_info" invisible="not pricelist_id"/>
+                        </group>
+                    </group>
+
+                    <group string="Productos a incluir">
+                        <field name="product_ids" nolabel="1">
+                            <list>
+                                <field name="name"/>
+                                <field name="default_code" optional="show"/>
+                                <field name="list_price" optional="show"/>
+                            </list>
+                        </field>
+                    </group>
+
+                    <!-- ── Email ──────────────────────────────────────────── -->
+                    <group string="Envío por email">
+                        <field name="send_email"/>
+                    </group>
+
+                    <group invisible="not send_email">
+                        <field name="email_to" placeholder="email@ejemplo.com, otro@ejemplo.com"/>
+                        <field name="subject"/>
+                        <field name="body"/>
+                    </group>
+                </sheet>
+
+                <footer>
+                    <button name="action_print_pdf"
+                            string="Descargar PDF"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-download"/>
+                    <button name="action_send_email"
+                            string="Enviar por Email"
+                            type="object"
+                            class="btn-secondary"
+                            icon="fa-envelope"
+                            invisible="not send_email"/>
+                    <button name="action_print_and_send"
+                            string="Descargar y Enviar"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="not send_email"/>
+                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

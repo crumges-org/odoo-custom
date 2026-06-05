@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Acción de reporte PDF (invocada desde el wizard) -->
+    <record id="action_catalog_report" model="ir.actions.report">
+        <field name="name">Catálogo de Productos</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">crumges_product_catalog.catalog_report</field>
+        <field name="print_report_name">'Catalogo_Productos'</field>
+        <field name="paperformat_id" ref="base.paperformat_euro"/>
+    </record>
+    <record id="paperformat_catalog_custom" model="report.paperformat">
+        <field name="name">Catálogo Edge-to-Edge</field>
+        <field name="default" eval="False"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">40</field>
+        <field name="margin_bottom">20</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">35</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_catalog_report_custom" model="ir.actions.report">
+        <field name="name">Catálogo de Productos (Membrete)</field>
+        <field name="model">product.template</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">crumges_product_catalog.catalog_report</field>
+        <field name="print_report_name">'Catalogo_Productos_Membrete'</field>
+        <field name="paperformat_id" ref="crumges_product_catalog.paperformat_catalog_custom"/>
+    </record>
+
+    <!-- Acción de ventana que abre el wizard desde la lista de productos -->
+    <record id="action_open_catalog_wizard" model="ir.actions.act_window">
+        <field name="name">Generar Catálogo</field>
+        <field name="res_model">catalog.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="product.model_product_template"/>
+        <field name="binding_view_types">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ============================================================
+         Vista formulario de Configuración de Catálogo
+         ============================================================ -->
+    <record id="catalog_config_form_view" model="ir.ui.view">
+        <field name="name">catalog.config.form</field>
+        <field name="model">catalog.config</field>
+        <field name="arch" type="xml">
+            <form string="Configuración de Catálogo">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Nombre de la configuración…"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Grilla de productos">
+                            <field name="columns"/>
+                            <field name="product_image_height"/>
+                        </group>
+                        <group string="Opciones de Listado">
+                            <field name="group_by"/>
+                            <field name="sort_by"/>
+                            <field name="pricelist_id"/>
+                            <field name="show_pricelist_info" invisible="not pricelist_id"/>
+                        </group>
+                        <group string="Campos y Visibilidad">
+                            <field name="show_code"/>
+                            <field name="show_price"/>
+                            <field name="show_description"/>
+                            <field name="show_date"/>
+                            <field name="date_position" invisible="not show_date"/>
+                        </group>
+                    </group>
+
+                    <group string="Layout del reporte">
+                        <field name="layout_mode" widget="radio"/>
+                    </group>
+
+                    <!-- Sección membrete: solo visible en modo custom -->
+                    <group string="Membrete personalizado"
+                           invisible="layout_mode != 'custom'">
+                        <field name="header_image"
+                               widget="image"
+                               options="{'size': [719, 150]}"
+                               string="Imagen de cabecera"/>
+                        <field name="header_image_filename" invisible="1"/>
+                        <div class="text-muted" colspan="2" style="font-size:0.85em;">
+                            ℹ️ Tamaño recomendado: <b>1438 × 300 px</b> (relación 4.8:1, 192 dpi).
+                            Ancho útil del lienzo A4: ~190 mm ≈ 719 px a 96 dpi.
+                        </div>
+                        <field name="footer_image"
+                               widget="image"
+                               options="{'size': [719, 100]}"
+                               string="Imagen de pie de página"/>
+                        <field name="footer_image_filename" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Vista lista -->
+    <record id="catalog_config_list_view" model="ir.ui.view">
+        <field name="name">catalog.config.list</field>
+        <field name="model">catalog.config</field>
+        <field name="arch" type="xml">
+            <list string="Configuraciones de Catálogo">
+                <field name="name"/>
+                <field name="columns"/>
+                <field name="layout_mode"/>
+                <field name="show_price"/>
+                <field name="show_code"/>
+                <field name="show_date"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Acción de ventana -->
+    <record id="action_catalog_config" model="ir.actions.act_window">
+        <field name="name">Configuraciones de Catálogo</field>
+        <field name="res_model">catalog.config</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menú bajo Inventario > Configuración -->
+    <menuitem
+        id="menu_catalog_config"
+        name="Configuración de Catálogo"
+        action="action_catalog_config"
+        parent="stock.menu_stock_config_settings"
+        sequence="50"/>
+</odoo>
