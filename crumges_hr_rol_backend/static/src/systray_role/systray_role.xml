@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_hr_rol_backend.SystrayRole">
+        <div class="o_systray_item" t-if="hasRole">
+            <span class="d-flex align-items-center h-100 px-2 cursor-pointer fs-4" t-att-title="roleName">
+                <t t-esc="roleEmoji"/>
+            </span>
+        </div>
+    </t>
+</templates>

@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_weighable_weight_or_amount
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:28+0000\n"
+"PO-Revision-Date: 2026-06-07 21:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_weighable_weight_or_amount
+#. odoo-javascript
+#: code:addons/crumges_pos_weighable_weight_or_amount/static/src/app/weight_amount_popup/weight_amount_popup.xml:0
+msgid "Cancelar"
+msgstr ""
+
+#. module: crumges_pos_weighable_weight_or_amount
+#. odoo-javascript
+#: code:addons/crumges_pos_weighable_weight_or_amount/static/src/app/weight_amount_popup/weight_amount_popup.xml:0
+msgid "Confirmar"
+msgstr ""
+
+#. module: crumges_pos_weighable_weight_or_amount
+#. odoo-javascript
+#: code:addons/crumges_pos_weighable_weight_or_amount/static/src/app/weight_amount_popup/weight_amount_popup.xml:0
+msgid "Importe Total ("
+msgstr ""
+
+#. module: crumges_pos_weighable_weight_or_amount
+#. odoo-javascript
+#: code:addons/crumges_pos_weighable_weight_or_amount/static/src/app/weight_amount_popup/weight_amount_popup.xml:0
+msgid "O BIEN"
+msgstr ""
+
+#. module: crumges_pos_weighable_weight_or_amount
+#. odoo-javascript
+#: code:addons/crumges_pos_weighable_weight_or_amount/static/src/app/weight_amount_popup/weight_amount_popup.xml:0
+msgid "Peso ("
+msgstr ""
+
+#. module: crumges_pos_weighable_weight_or_amount
+#. odoo-javascript
+#: code:addons/crumges_pos_weighable_weight_or_amount/static/src/app/weight_amount_popup/weight_amount_popup.xml:0
+msgid "Precio Unitario:"
+msgstr ""

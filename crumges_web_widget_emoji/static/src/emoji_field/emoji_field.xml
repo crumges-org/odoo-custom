@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="crumges_web_widget_emoji.EmojiField">
+        <t t-if="props.readonly">
+            <span t-esc="formattedValue" />
+        </t>
+        <t t-else="">
+            <div class="o_emoji_field d-inline-flex align-items-center justify-content-center cursor-pointer" 
+                 t-ref="emoji-button" 
+                 t-att-title="props.placeholder || 'Seleccionar Emoji'"
+                 style="min-width: 1.5em; min-height: 1.5em; transition: transform 0.1s;"
+                 onmouseover="this.style.transform='scale(1.1)';"
+                 onmouseout="this.style.transform='scale(1)';"
+                 >
+                <t t-if="formattedValue" t-esc="formattedValue" />
+                <t t-else="">
+                    <i class="fa fa-smile-o text-muted opacity-50"/>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

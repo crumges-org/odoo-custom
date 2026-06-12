@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="crumges_res_users_limit.UserLimitDashboard">
+        <div class="o_user_limit_dashboard pb-3 pt-3 bg-view">
+            <t t-if="state.data">
+                <div class="row w-100 m-0">
+                    <!-- Botones -->
+                    <div class="col-md-5 d-flex gap-2 p-0">
+                        <div class="d-flex flex-column align-items-center justify-content-center flex-grow-1 p-2 shadow-sm" style="background-color: #714B67; color: white; cursor: pointer; transition: opacity 0.2s;" t-on-click="() => this.applyFilter('filter_no_share')" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+                            <span class="fs-2 fw-bold"><t t-esc="state.data.active_internal_users"/></span>
+                            <span class="small text-uppercase">Internos Activos</span>
+                        </div>
+                        <div class="d-flex flex-column align-items-center justify-content-center flex-grow-1 p-2 shadow-sm" style="background-color: #714B67; color: white; cursor: pointer; transition: opacity 0.2s;" t-on-click="() => this.applyFilter('filter_share')" onmouseover="this.style.opacity=0.9" onmouseout="this.style.opacity=1">
+                            <span class="fs-2 fw-bold"><t t-esc="state.data.portal_users"/></span>
+                            <span class="small text-uppercase">De Portal</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Información -->
+                    <div class="col-md-7 d-flex align-items-stretch ps-4 pe-0">
+                        <div class="w-100 bg-white border shadow-sm d-flex">
+                            <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center border-end p-2">
+                                <span class="text-muted small mb-1">Licencias Adquiridas</span>
+                                <input type="number" 
+                                       class="form-control form-control-sm text-center fw-bold text-dark mx-auto border-1" 
+                                       style="max-width: 80px;" 
+                                       t-att-value="state.max_licenses_input" 
+                                       t-on-change="updateMaxLicenses" 
+                                       t-att-disabled="!state.data.is_user_limit_editor"
+                                       title="0 = Ilimitado"/>
+                            </div>
+                            <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center border-end p-2">
+                                <span class="text-muted small mb-1">Licencias Ocupadas</span>
+                                <span class="fs-4 fw-bold text-dark"><t t-esc="state.data.occupied_licenses"/></span>
+                            </div>
+                            <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center p-2">
+                                <span class="text-muted small mb-1">Licencias Disponibles</span>
+                                <span t-att-class="'fs-4 fw-bold ' + (state.data.available_licenses &lt; 0 ? 'text-danger' : 'text-dark')">
+                                    <t t-if="state.data.max_licenses > 0"><t t-esc="state.data.available_licenses"/></t>
+                                    <t t-else="">0</t>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </t>
+            <t t-else="">
+                <div class="text-center text-muted p-4">Cargando métricas de licencias...</div>
+            </t>
+        </div>
+    </t>
+</templates>

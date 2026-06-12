@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crumges.pos.epson.printer</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="pos_epson_printer.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_epson_printer_ip']" position="after">
+                <div class="text-muted mt-1" invisible="not pos_other_devices">
+                    Puedes ingresar la IP o dominio con o sin protocolo. Si la impresora usa conexión segura, es preferible escribir explícitamente https:// seguido de la IP o dominio. No se admiten puertos.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

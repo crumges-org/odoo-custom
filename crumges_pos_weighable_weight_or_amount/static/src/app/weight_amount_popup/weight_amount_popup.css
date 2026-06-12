@@ -1,0 +1,36 @@
+.weight-amount-popup .input-with-icon {
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.weight-amount-popup .input-with-icon:focus-within {
+    border-color: var(--primary) !important;
+    background-color: white !important;
+}
+
+.weight-amount-popup input::-webkit-outer-spin-button,
+.weight-amount-popup input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.weight-amount-popup input {
+    -moz-appearance: textfield;
+}
+
+.weight-amount-popup .separator .vr {
+    border-left: 2px solid rgba(0,0,0,0.15);
+    width: 0;
+    height: 100%;
+}
+
+.weight-amount-popup .btn-primary {
+    background-color: var(--primary);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.weight-amount-popup .btn-secondary {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+}

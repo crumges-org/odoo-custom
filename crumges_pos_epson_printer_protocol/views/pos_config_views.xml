@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_iot_config_view_form" model="ir.ui.view">
+        <field name="name">pos.iot.config.form.view.inherit.crumges</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="pos_epson_printer.pos_iot_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='epson_printer_ip']" position="after">
+                <div class="text-muted mt-1" invisible="not other_devices">
+                    Puedes ingresar la IP o dominio con o sin protocolo. Si la impresora usa conexión segura, es preferible escribir explícitamente https:// seguido de la IP o dominio. No se admiten puertos.
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,52 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_merge_orders
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 20:00+0000\n"
+"PO-Revision-Date: 2026-06-07 20:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_merge_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_merge_orders/static/src/overrides/ticket_screen/ticket_screen.xml:0
+msgid "Fusionar Pedidos"
+msgstr "Fusionar Pedidos"
+
+#. module: crumges_pos_merge_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_merge_orders/static/src/app/merge_order_popup/merge_order_popup.xml:0
+msgid "Seleccione los pedidos a fusionar"
+msgstr "Seleccione los pedidos a fusionar"
+
+#. module: crumges_pos_merge_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_merge_orders/static/src/app/merge_order_popup/merge_order_popup.xml:0
+msgid "Confirmar Fusión"
+msgstr "Confirmar Fusión"
+
+#. module: crumges_pos_merge_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_merge_orders/static/src/app/merge_order_popup/merge_order_popup.xml:0
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: crumges_pos_merge_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_merge_orders/static/src/overrides/ticket_screen/ticket_screen.js:0
+msgid "Error de Tarifas"
+msgstr "Error de Tarifas"
+
+#. module: crumges_pos_merge_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_merge_orders/static/src/overrides/ticket_screen/ticket_screen.js:0
+msgid "No se pueden fusionar pedidos con listas de precios diferentes. Por favor, asigne la misma tarifa a ambos pedidos antes de fusionarlos."
+msgstr "No se pueden fusionar pedidos con listas de precios diferentes. Por favor, asigne la misma tarifa a ambos pedidos antes de fusionarlos."

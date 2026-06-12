@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <delete model="res.groups" search="[('name', '=', 'Permitir editar límite de usuarios')]"/>
+    </data>
+</odoo>

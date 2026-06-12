@@ -1,0 +1,525 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_product_catalog
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:28+0000\n"
+"PO-Revision-Date: 2026-06-07 21:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_product_catalog
+#: model:ir.actions.report,print_report_name:crumges_product_catalog.action_catalog_report
+msgid "'Catalogo_Productos'"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.actions.report,print_report_name:crumges_product_catalog.action_catalog_report_custom
+msgid "'Catalogo_Productos_Membrete'"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__columns__2
+msgid "2 columnas"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__columns__3
+msgid "3 columnas"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__columns__4
+msgid "4 columnas"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid ""
+"<i class=\"fa fa-info-circle\"/> Se utilizará el diseño de reporte\n"
+"                        configurado en la empresa (logo, cabecera y pie estándar de Odoo)."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_report
+msgid "<strong style=\"color: #555;\">Lista de Precios:</strong>"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_report
+msgid "<strong>Fecha:</strong>"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_grid
+msgid "A partir de"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__group_by
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__group_by
+msgid "Agrupar por"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__sort_by__name
+msgid "Alfabético (A-Z)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__product_image_height
+msgid "Altura de imagen de producto (px)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_config__product_image_height
+msgid "Altura en píxeles de la imagen de cada producto en la tarjeta."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model,name:crumges_product_catalog.model_catalog_wizard
+msgid "Asistente de Catálogo de Productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__subject
+msgid "Asunto"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__date_position__header
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Cabecera"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__header_image
+msgid "Cabecera (preview)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Campos y Visibilidad"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__group_by__public_categ_ids
+msgid "Categoría de sitio web"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__group_by__categ_id
+msgid "Categoría interna"
+msgstr ""
+
+#. module: crumges_product_catalog
+#. odoo-python
+#: code:addons/crumges_product_catalog/wizard/catalog_wizard.py:0
+#: model:ir.actions.report,name:crumges_product_catalog.action_catalog_report
+msgid "Catálogo de Productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.actions.report,name:crumges_product_catalog.action_catalog_report_custom
+msgid "Catálogo de Productos (Membrete)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Cerrar"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__columns
+msgid "Columnas por fila"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.actions.act_window,name:crumges_product_catalog.action_catalog_config
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_list_view
+msgid "Configuraciones de Catálogo"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__config_id
+msgid "Configuración"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.ui.menu,name:crumges_product_catalog.menu_catalog_config
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Configuración de Catálogo"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model,name:crumges_product_catalog.model_catalog_config
+msgid "Configuración de Catálogo de Productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Configuración del catálogo"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__create_uid
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__create_date
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_grid
+msgid "Del"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Descargar PDF"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Descargar y Enviar"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__email_to
+msgid "Destinatarios"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__layout_mode__odoo
+msgid "Diseño estándar de Odoo"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__display_name
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: crumges_product_catalog
+#. odoo-python
+#: code:addons/crumges_product_catalog/wizard/catalog_wizard.py:0
+msgid "El catálogo fue enviado a %s"
+msgstr ""
+
+#. module: crumges_product_catalog
+#. odoo-python
+#: code:addons/crumges_product_catalog/wizard/catalog_wizard.py:0
+msgid "Email enviado"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Enviar por Email"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__send_email
+msgid "Enviar por email"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Envío por email"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__group_by__product_tag_ids
+msgid "Etiquetas de producto"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.custom_layout
+msgid "Fecha:"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.actions.act_window,name:crumges_product_catalog.action_open_catalog_wizard
+msgid "Generar Catálogo"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Generar Catálogo de Productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Grilla de productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__id
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__header_image
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Imagen de cabecera"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__footer_image
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Imagen de pie de página"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_config__header_image
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_wizard__header_image
+msgid ""
+"Imagen que aparecerá como cabecera en cada página del catálogo.\n"
+"Tamaño recomendado: 1438 × 300 px (relación aprox. 4.8:1) a 192 dpi.\n"
+"Ancho útil del lienzo A4: ~190 mm ≈ 719 px a 96 dpi.\n"
+"Si la imagen es más ancha, se escala automáticamente al 100% del ancho."
+msgstr ""
+
+#. module: crumges_product_catalog
+#. odoo-python
+#: code:addons/crumges_product_catalog/wizard/catalog_wizard.py:0
+msgid "Ingresá al menos un destinatario de email."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__write_uid
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__write_date
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Layout del reporte"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__pricelist_id
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__pricelist_id
+msgid "Lista de Precios"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__layout_mode__custom
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Membrete personalizado"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__body
+msgid "Mensaje"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__show_code
+msgid "Mostrar código interno"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__show_description
+msgid "Mostrar descripción de venta"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__show_pricelist_info
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__show_pricelist_info
+msgid "Mostrar detalles de tarifa"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__show_date
+msgid "Mostrar fecha"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__show_price
+msgid "Mostrar precio"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__group_by__none
+msgid "No agrupar"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__name
+msgid "Nombre"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__header_image_filename
+msgid "Nombre archivo cabecera"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__footer_image_filename
+msgid "Nombre archivo pie"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Nombre de la configuración…"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_config__footer_image
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_wizard__footer_image
+msgid "Opcional. Se muestra al final de cada página bajo el contenido."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_config__pricelist_id
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_wizard__pricelist_id
+msgid ""
+"Opcional. Si se selecciona, los precios se recalcularán usando esta tarifa."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid "Opciones de Listado"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Opciones de listado"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__sort_by
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__sort_by
+msgid "Ordenar por"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Para modificar las imágenes, editá la configuración directamente."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__date_position__footer
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Pie de página"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__footer_image
+msgid "Pie de página (preview)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__date_position
+msgid "Posición de la fecha"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__sort_by__list_price_desc
+msgid "Precio (Mayor a Menor)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields.selection,name:crumges_product_catalog.selection__catalog_config__sort_by__list_price
+msgid "Precio (Menor a Mayor)"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__product_ids
+msgid "Productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Productos a incluir"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.custom_layout
+msgid "Página <span class=\"page\"/> / <span class=\"topage\"/>"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model,name:crumges_product_catalog.model_report_crumges_product_catalog_catalog_report
+msgid "Reporte: Catálogo de Productos"
+msgstr ""
+
+#. module: crumges_product_catalog
+#. odoo-python
+#: code:addons/crumges_product_catalog/wizard/catalog_wizard.py:0
+msgid "Seleccioná al menos un producto."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Seleccioná una configuración…"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_wizard__email_to
+msgid "Separá múltiples emails con comas."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_config__show_pricelist_info
+#: model:ir.model.fields,help:crumges_product_catalog.field_catalog_wizard__show_pricelist_info
+msgid ""
+"Si está activo, mostrará la cantidad mínima y las fechas de validez de la "
+"regla aplicada."
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.custom_layout
+msgid "Tarifa:"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_config__layout_mode
+#: model:ir.model.fields,field_description:crumges_product_catalog.field_catalog_wizard__layout_mode
+msgid "Tipo de layout"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "Vista previa del membrete"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_grid
+msgid "al"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_wizard_form_view
+msgid "email@ejemplo.com, otro@ejemplo.com"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_grid
+msgid "un.<br/>"
+msgstr ""
+
+#. module: crumges_product_catalog
+#: model_terms:ir.ui.view,arch_db:crumges_product_catalog.catalog_config_form_view
+msgid ""
+"ℹ️ Tamaño recomendado: <b>1438 × 300 px</b> (relación 4.8:1, 192 dpi).\n"
+"                            Ancho útil del lienzo A4: ~190 mm ≈ 719 px a 96 dpi."
+msgstr ""

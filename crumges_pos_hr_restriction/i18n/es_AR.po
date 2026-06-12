@@ -1,0 +1,580 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_hr_restriction
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:27+0000\n"
+"PO-Revision-Date: 2026-06-07 21:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_hr_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction.sbl_hr_employee_form_inherit
+msgid "Actions Popup"
+msgstr "Ventana emergente de acciones"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model,name:crumges_pos_hr_restriction.model_hr_employee_base
+msgid "Basic Employee"
+msgstr "Empleado Básico"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_change_price
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_change_price
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_change_price
+msgid "Disable POS Change Price"
+msgstr "Deshabilitar cambio de precio en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_discount_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_discount_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_discount_button
+msgid "Disable POS Discount Button"
+msgstr "Deshabilitar botón de descuento en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_numpad_plus_minus
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_numpad_plus_minus
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_numpad_plus_minus
+msgid "Disable POS Numpad Plus-Minus Buttons"
+msgstr "Deshabilitar botones +/- del teclado numérico en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_qty
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_qty
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_qty
+msgid "Disable POS Quantity (QTY) Button"
+msgstr "Deshabilitar botón de cantidad (QTY) en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_disabled_payment_method_ids
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disabled_payment_method_ids
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disabled_payment_method_ids
+msgid "Disabled Payment Methods"
+msgstr "Métodos de pago deshabilitados"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model,name:crumges_pos_hr_restriction.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_backend_menu
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_backend_menu
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_backend_menu
+msgid "Hide Backend Menu"
+msgstr "Ocultar menú del Backend"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_cancel_order
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_cancel_order
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_cancel_order
+msgid "Hide Cancel Order Button"
+msgstr "Ocultar botón de Cancelar Orden"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_cash_in_out
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_cash_in_out
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_cash_in_out
+msgid "Hide Cash In/Out"
+msgstr "Ocultar Entrada/Salida de efectivo"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_clear_cache
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_clear_cache
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_clear_cache
+msgid "Hide Clear Cache Menu"
+msgstr "Ocultar menú Borrar Caché"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_close_register
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_close_register
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_close_register
+msgid "Hide Close Register Menu"
+msgstr "Ocultar menú Cerrar Caja Registradora"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_create_customer_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_create_customer_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_create_customer_button
+msgid "Hide Create Customer Button"
+msgstr "Ocultar botón de Crear Cliente"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_customer_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_customer_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_customer_button
+msgid "Hide Customer Button"
+msgstr "Ocultar botón de Cliente"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_customer_note
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_customer_note
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_customer_note
+msgid "Hide Customer Note Button"
+msgstr "Ocultar botón de Nota de Cliente"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_debug_window
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_debug_window
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_debug_window
+msgid "Hide Debug Window Menu"
+msgstr "Ocultar menú de Ventana de Depuración"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_edit_customer_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_edit_customer_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_edit_customer_button
+msgid "Hide Edit Customer Button"
+msgstr "Ocultar botón de Editar Cliente"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_finance_from_product_info
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_finance_from_product_info
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_finance_from_product_info
+msgid "Hide Financials and Order from Product Info"
+msgstr "Ocultar finanzas y órdenes de la información del producto"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_fiscal_position
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_fiscal_position
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_fiscal_position
+msgid "Hide Fiscal Position Button"
+msgstr "Ocultar botón de Posición Fiscal"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_general_note
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_general_note
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_general_note
+msgid "Hide General Note Button"
+msgstr "Ocultar botón de Nota General"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_install_app
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_install_app
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_install_app
+msgid "Hide Install App Menu"
+msgstr "Ocultar menú de Instalar Aplicación"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_invoice_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_invoice_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_invoice_button
+msgid "Hide Invoice Button"
+msgstr "Ocultar botón de Factura"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_open_cashbox_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_open_cashbox_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_open_cashbox_button
+msgid "Hide Open Cashbox Button"
+msgstr "Ocultar botón de Abrir Caja"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_orders_menu
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_orders_menu
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_orders_menu
+msgid "Hide Orders Menu"
+msgstr "Ocultar menú de Órdenes"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_actions_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_actions_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_actions_button
+msgid "Hide POS Actions Button"
+msgstr "Ocultar botón de Acciones del TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_customer_selection_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_customer_selection_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_customer_selection_button
+msgid "Hide POS Customer Selection Button"
+msgstr "Ocultar botón de Selección de Cliente en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_delete_order_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_delete_order_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_delete_order_button
+msgid "Hide POS Delete Order Button"
+msgstr "Ocultar botón de Eliminar Orden en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_new_order_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_new_order_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_new_order_button
+msgid "Hide POS New Order Button"
+msgstr "Ocultar botón de Nueva Orden en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_numpad
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_numpad
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_numpad
+msgid "Hide POS Numpad"
+msgstr "Ocultar teclado numérico del TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment
+msgid "Hide POS Payment"
+msgstr "Ocultar Pago en TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_pricelist
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_pricelist
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_pricelist
+msgid "Hide Pricelist Button"
+msgstr "Ocultar botón de Lista de Precios"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_product_info
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_product_info
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_product_info
+msgid "Hide Product Info Button"
+msgstr "Ocultar botón de Información del Producto"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_refund
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_refund
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_refund
+msgid "Hide Refund Button"
+msgstr "Ocultar botón de Reembolso"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_ship_later_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_ship_later_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_ship_later_button
+msgid "Hide Ship Later Button"
+msgstr "Ocultar botón de Enviar más tarde"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_tip_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_tip_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_tip_button
+msgid "Hide Tip Button"
+msgstr "Ocultar botón de Propina"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_validate_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_validate_button
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_validate_button
+msgid "Hide Validate Button"
+msgstr "Ocultar botón de Validar"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_actions_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_actions_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_actions_button
+msgid ""
+"If checked, the Actions button will be hidden for this employee in the POS "
+"interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_backend_menu
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_backend_menu
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_backend_menu
+msgid ""
+"If checked, the Backend option will be hidden from the POS hamburger menu."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_cancel_order
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_cancel_order
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_cancel_order
+msgid ""
+"If checked, the Cancel Order button will be hidden in the Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_cash_in_out
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_cash_in_out
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_cash_in_out
+msgid ""
+"If checked, the Cash In/Out menu will be hidden for this employee in the POS"
+" interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_change_price
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_change_price
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_change_price
+msgid ""
+"If checked, the Change Price functionality will be disabled for this "
+"employee in the POS interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_clear_cache
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_clear_cache
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_clear_cache
+msgid ""
+"If checked, the Clear Cache option will be hidden from the POS hamburger "
+"menu (debug mode only)."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_close_register
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_close_register
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_close_register
+msgid ""
+"If checked, the Close Register option will be hidden from the POS hamburger "
+"menu."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_create_customer_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_create_customer_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_create_customer_button
+msgid ""
+"If checked, the Create/New Customer button will be hidden in the customer "
+"list popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_customer_note
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_customer_note
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_customer_note
+msgid ""
+"If checked, the Customer Note button will be hidden in the Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_customer_selection_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_customer_selection_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_customer_selection_button
+msgid ""
+"If checked, the Customer Selection button will be hidden for this employee "
+"in the POS interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_customer_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_customer_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_customer_button
+msgid "If checked, the Customer button will be hidden on the payment screen."
+msgstr "Si está marcado, el botón de Cliente se ocultará en la pantalla de pago."
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_debug_window
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_debug_window
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_debug_window
+msgid ""
+"If checked, the Debug Window option will be hidden from the POS hamburger "
+"menu (debug mode only)."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_delete_order_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_delete_order_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_delete_order_button
+msgid ""
+"If checked, the Delete Order button will be hidden for this employee in the "
+"POS interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_discount_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_discount_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_discount_button
+msgid ""
+"If checked, the Discount button will be disabled for this employee in the "
+"POS interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_edit_customer_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_edit_customer_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_edit_customer_button
+msgid ""
+"If checked, the Edit Details option will be hidden from the customer list "
+"for this employee."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_finance_from_product_info
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_finance_from_product_info
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_finance_from_product_info
+msgid ""
+"If checked, the Financials and Order sections will be hidden in the Product "
+"Information popup for this employee."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_fiscal_position
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_fiscal_position
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_fiscal_position
+msgid ""
+"If checked, the Fiscal Position/Tax button will be hidden in the Actions "
+"popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_general_note
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_general_note
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_general_note
+msgid ""
+"If checked, the General Note button will be hidden in the Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_install_app
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_install_app
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_install_app
+msgid ""
+"If checked, the Install App option will be hidden from the POS hamburger "
+"menu."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_invoice_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_invoice_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_invoice_button
+msgid "If checked, the Invoice checkbox will be hidden on the payment screen."
+msgstr "Si está marcado, la casilla de Factura se ocultará en la pantalla de pago."
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_new_order_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_new_order_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_new_order_button
+msgid ""
+"If checked, the New Order button will be hidden for this employee in the POS"
+" interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_numpad
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_numpad
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_numpad
+msgid ""
+"If checked, the Numpad will be hidden for this employee in the POS "
+"interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_open_cashbox_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_open_cashbox_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_open_cashbox_button
+msgid ""
+"If checked, the Open Cashbox button will be hidden on the payment screen."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_orders_menu
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_orders_menu
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_orders_menu
+msgid ""
+"If checked, the Orders option will be hidden from the POS hamburger menu."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment
+msgid ""
+"If checked, the Payment process will be hidden for this employee in the POS "
+"interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_numpad_plus_minus
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_numpad_plus_minus
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_numpad_plus_minus
+msgid ""
+"If checked, the Plus-Minus buttons in the Numpad will be disabled for this "
+"employee in the POS interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_pricelist
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_pricelist
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_pricelist
+msgid "If checked, the Pricelist button will be hidden in the Actions popup."
+msgstr "Si está marcado, el botón de Lista de Precios se ocultará en la ventana de acciones."
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_product_info
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_product_info
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_product_info
+msgid ""
+"If checked, the Product Info button will be hidden in the Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_disable_pos_qty
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disable_pos_qty
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disable_pos_qty
+msgid ""
+"If checked, the Quantity (QTY) button will be disabled for this employee in "
+"the POS interface."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_action_refund
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_action_refund
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_action_refund
+msgid "If checked, the Refund button will be hidden in the Actions popup."
+msgstr "Si está marcado, el botón de Reembolso se ocultará en la ventana de acciones."
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_ship_later_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_ship_later_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_ship_later_button
+msgid ""
+"If checked, the Ship Later button will be hidden on the payment screen."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_tip_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_tip_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_tip_button
+msgid "If checked, the Tip button will be hidden on the payment screen."
+msgstr "Si está marcado, el botón de Propina se ocultará en la pantalla de pago."
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_hide_pos_payment_validate_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_hide_pos_payment_validate_button
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_hide_pos_payment_validate_button
+msgid "If checked, the Validate button will be hidden on the payment screen."
+msgstr "Si está marcado, el botón de Validar se ocultará en la pantalla de pago."
+
+#. module: crumges_pos_hr_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction.sbl_hr_employee_form_inherit
+msgid "Navigation Menu"
+msgstr "Navigation Menu"
+
+#. module: crumges_pos_hr_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction.sbl_hr_employee_form_inherit
+msgid "Numpad"
+msgstr "Numpad"
+
+#. module: crumges_pos_hr_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction.sbl_hr_employee_form_inherit
+msgid "Order Management"
+msgstr "Gestión de Órdenes"
+
+#. module: crumges_pos_hr_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction.sbl_hr_employee_form_inherit
+msgid "POS Access Rights"
+msgstr "Derechos de Acceso al TPV"
+
+#. module: crumges_pos_hr_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction.sbl_hr_employee_form_inherit
+msgid "Payment Screen"
+msgstr "Pantalla de Pago"
+
+#. module: crumges_pos_hr_restriction
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee__sbl_disabled_payment_method_ids
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_base__sbl_disabled_payment_method_ids
+#: model:ir.model.fields,help:crumges_pos_hr_restriction.field_hr_employee_public__sbl_disabled_payment_method_ids
+msgid ""
+"Payment methods that will be hidden for this employee on the POS payment "
+"screen."
+msgstr ""

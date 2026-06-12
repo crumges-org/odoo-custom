@@ -1,0 +1,135 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_hr_restriction_restaurant
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:28+0000\n"
+"PO-Revision-Date: 2026-06-07 21:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_disabled_floor_ids
+msgid "Disabled Floors"
+msgstr "Pisos deshabilitados"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model,name:crumges_pos_hr_restriction_restaurant.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_bill
+msgid "Hide Bill Button"
+msgstr "Ocultar botón de Cuenta"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_edit_order_name
+msgid "Hide Edit Order Name Button"
+msgstr "Ocultar botón de Editar Nombre de Orden"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_guests
+msgid "Hide Guests Button"
+msgstr "Ocultar botón de Comensales"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_restaurant_order_button
+msgid "Hide Order Button"
+msgstr "Ocultar botón de Orden"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_restaurant_plan_button
+msgid "Hide Plan Button"
+msgstr "Ocultar botón de Plano"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_split
+msgid "Hide Split Button"
+msgstr "Ocultar botón de Dividir"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_switch_dine_takeaway
+msgid "Hide Switch Dine in/Takeaway Button"
+msgstr "Ocultar botón de Cambiar Comer Aquí/Para Llevar"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_switch_floor_view
+msgid "Hide Switch Floor View"
+msgstr "Ocultar botón de Cambiar Vista de Piso"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_transfer_merge
+msgid "Hide Transfer/Merge Button"
+msgstr "Ocultar botón de Transferir/Fusionar"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_bill
+msgid "If checked, the Bill button will be hidden in the Actions popup."
+msgstr "Si está marcado, el botón de Cuenta se ocultará en la ventana de acciones."
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_edit_order_name
+msgid ""
+"If checked, the Edit Order Name button will be hidden in the Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_guests
+msgid "If checked, the Guests button will be hidden in the Actions popup."
+msgstr "Si está marcado, el botón de Comensales se ocultará en la ventana de acciones."
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_restaurant_order_button
+msgid ""
+"If checked, the Order button will be hidden in the restaurant POS actionpad."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_restaurant_plan_button
+msgid ""
+"If checked, the Plan button will be hidden in the restaurant POS navbar."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_split
+msgid "If checked, the Split button will be hidden in the Actions popup."
+msgstr "Si está marcado, el botón de Dividir se ocultará en la ventana de acciones."
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_switch_floor_view
+msgid ""
+"If checked, the Switch Floor View option will be hidden in the POS menu."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_switch_dine_takeaway
+msgid ""
+"If checked, the Switch to Dine in/Takeaway button will be hidden in the "
+"Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_hide_pos_action_transfer_merge
+msgid ""
+"If checked, the Transfer/Merge button will be hidden in the Actions popup."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction_restaurant.sbl_hr_employee_form_restaurant_inherit
+msgid "Restaurant Settings"
+msgstr "Ajustes de Restaurante"
+
+#. module: crumges_pos_hr_restriction_restaurant
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_restaurant.field_hr_employee__sbl_disabled_floor_ids
+msgid ""
+"Select floors that should be hidden/disabled for this employee in the "
+"restaurant POS."
+msgstr ""

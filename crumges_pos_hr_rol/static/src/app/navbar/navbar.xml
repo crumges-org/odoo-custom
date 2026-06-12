@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_hr_rol.CashierName" t-inherit="point_of_sale.CashierName" t-inherit-mode="extension">
+        <xpath expr="//span[hasclass('username')]" position="replace">
+            <t t-if="this.pos.get_cashier() and this.pos.get_cashier().role_emoji">
+                <span class="cursor-pointer" t-att-class="{'me-2': !ui.isSmall, 'ms-1': ui.isSmall}" t-att-title="this.pos.get_cashier().role_name">
+                    <t t-esc="this.pos.get_cashier().role_emoji"/>
+                </span>
+            </t>
+            <span t-if="!ui.isSmall" class="username d-none d-xl-inline-block text-nowrap">
+                <t t-esc="username"/>
+            </span>
+        </xpath>
+    </t>
+
+    <t t-name="crumges_pos_hr_rol.Navbar" t-inherit="point_of_sale.Navbar" t-inherit-mode="extension">
+        <xpath expr="//CashierName" position="attributes">
+            <attribute name="t-if">true</attribute>
+        </xpath>
+    </t>
+</templates>

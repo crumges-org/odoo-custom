@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_inherit_pos_hr_pricelist" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.pos.hr.pricelist</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sbl_pos_access_rights']" position="inside">
+                <group string="Listas de Precio" name="pos_hr_pricelist_restriction">
+                    <field name="allowed_pos_pricelist_ids" widget="many2many_tags"/>
+                    <field name="default_pos_pricelist_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

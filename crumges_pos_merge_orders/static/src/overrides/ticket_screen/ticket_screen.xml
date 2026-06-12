@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_merge_orders.TicketScreen" t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension">
+        
+        <!-- Eliminar el boton anterior que pusimos en los controles -->
+        <!-- Ya no usamos xpath en div.buttons -->
+        
+        <!-- Añadir botón Deseleccionar en la barra superior -->
+        <xpath expr="//div[hasclass('controls')]/SearchBar" position="before">
+            <button t-if="getSelectedOrder() or state.selectedMergeUuids.size > 0" 
+                    class="button clear-selection-button btn btn-lg btn-warning me-2 text-white" 
+                    t-on-click="onClickClearSelection">
+                <i class="fa fa-times me-2" />Deseleccionar
+            </button>
+        </xpath>
+
+        <!-- Añadir columna en la cabecera -->
+        <xpath expr="//div[hasclass('header-row')]/div[@name='delete']" position="before">
+            <div class="col narrow p-2 text-center" t-if="!ui.isSmall">Merge</div>
+        </xpath>
+        
+        <!-- Mostrar la nota de pedidos fusionados junto al número de orden -->
+        <xpath expr="//div[hasclass('order-row')]/div[4]" position="inside">
+            <t t-if="order.general_note">
+                <span class="badge text-bg-warning ms-2" title="Notas del pedido"><t t-esc="order.general_note" /></span>
+            </t>
+        </xpath>
+
+        <!-- Añadir el checkbox en las filas (desktop) -->
+        <xpath expr="//div[hasclass('order-row')]/div[hasclass('delete-button')]" position="before">
+            <div class="col narrow p-2 text-center" t-if="!ui.isSmall" t-on-click.stop="() => this.toggleMergeSelection(order)">
+                <t t-if="!order.finalized and !getSelectedOrder()">
+                    <input type="checkbox" class="form-check-input" 
+                           t-att-checked="state.selectedMergeUuids.has(order.uuid)" 
+                           style="width: 1.5rem; height: 1.5rem;" />
+                </t>
+            </div>
+        </xpath>
+        
+        <!-- Añadir el checkbox en las filas (mobile) - opcional, podemos ponerlo cerca del estado -->
+        <xpath expr="//div[hasclass('mobileOrderList')]/div[hasclass('col')][2]/div[hasclass('orderStatus')]" position="after">
+            <div t-if="!order.finalized and !getSelectedOrder()" t-on-click.stop="() => this.toggleMergeSelection(order)">
+                <input type="checkbox" class="form-check-input ms-2" t-att-checked="state.selectedMergeUuids.has(order.uuid)" /> Merge
+            </div>
+        </xpath>
+
+        <!-- Modificar los botones de acción para mostrar Merge Order cuando hay seleccionados -->
+        <!-- Reemplazar el panel vacío con la vista previa si hay pedidos seleccionados -->
+        <xpath expr="//div[hasclass('leftpane')]/t[@t-else='']" position="replace">
+            <t t-else="">
+                <t t-if="state.selectedMergeUuids.size > 0">
+                    <div class="merge-preview d-flex flex-column h-100 bg-100">
+                        <div class="p-3 bg-white border-bottom shadow-sm">
+                            <h3 class="m-0 text-center text-primary">
+                                <i class="fa fa-compress me-2"/>Resumen de Fusión
+                            </h3>
+                        </div>
+                        <div class="flex-grow-1 overflow-auto p-3">
+                            <ul class="list-group">
+                                <t t-foreach="selectedMergeOrders" t-as="order" t-key="order.uuid">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center mb-2 rounded shadow-sm border-0">
+                                        <div class="d-flex flex-column">
+                                            <strong><t t-esc="order.name" /></strong>
+                                            <span class="text-muted small"><t t-esc="order.get_partner_name() || 'Consumidor Final'" /></span>
+                                        </div>
+                                        <span class="fw-bold fs-5"><t t-esc="getTotal(order)" /></span>
+                                    </li>
+                                </t>
+                            </ul>
+                        </div>
+                        <div class="mt-auto p-3 bg-white border-top shadow">
+                            <div class="d-flex justify-content-between align-items-center fs-3 mb-3">
+                                <span class="text-muted">Nuevo Total:</span>
+                                <span class="fw-bolder text-success"><t t-esc="env.utils.formatCurrency(selectedMergeTotal)" /></span>
+                            </div>
+                            <button class="button validation merge-order-button w-100 btn btn-lg btn-danger py-3"
+                                    t-on-click="onClickConfirmMerge">
+                                <span class="d-block fw-bold fs-4"><i class="fa fa-compress me-2" />Fusionar Pedidos (<t t-esc="state.selectedMergeUuids.size" />)</span>
+                            </button>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <CenteredIcon icon="'fa-shopping-cart fa-4x'" text.translate="'Select an order'" class="'bg-100 h-100'"/>
+                    <BackButton t-if="ui.isSmall" onClick="() => pos.onClickBackButton()"/>
+                </t>
+            </t>
+        </xpath>
+        
+        <!-- Y cuando ESTÁ sincronizado (aunque no se pueden fusionar en pagados, por si acaso lo ocultamos) -->
+        <!-- No lo ponemos aquí porque solo fusionamos órdenes no finalizadas en órdenes activas -->
+
+    </t>
+</templates>

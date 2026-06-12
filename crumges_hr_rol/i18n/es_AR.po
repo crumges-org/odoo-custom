@@ -1,0 +1,169 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_hr_rol
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:27+0000\n"
+"PO-Revision-Date: 2026-06-07 21:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,name:crumges_hr_rol.role_administracion
+msgid "Administración"
+msgstr "Administración"
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,name:crumges_hr_rol.role_cafeteria
+msgid "Cafetería"
+msgstr "Cafetería"
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,name:crumges_hr_rol.role_cajero
+msgid "Cajero/a"
+msgstr "Cajero/a"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__employee_count
+msgid "Cantidad de Empleados"
+msgstr "Cantidad de Empleados"
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,name:crumges_hr_rol.role_cocina
+msgid "Cocina"
+msgstr "Cocina"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: crumges_hr_rol
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.view_hr_employee_role_form
+msgid "Ej: Cafetería"
+msgstr "Ej: Cafetería"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee__role_emoji
+msgid "Emoji del Rol"
+msgstr "Emoji del Rol"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__role_emoji
+msgid "Emoji/Icono"
+msgstr "Emoji/Icono"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__employee_ids
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.view_hr_employee_role_form
+msgid "Empleados"
+msgstr "Empleados"
+
+#. module: crumges_hr_rol
+#: model:ir.model,name:crumges_hr_rol.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,description:crumges_hr_rol.role_cajero
+msgid "Encargado del cobro en el Punto de Venta general y manejo de efectivo."
+msgstr "Encargado del cobro en el Punto de Venta general y manejo de efectivo."
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__id
+msgid "ID"
+msgstr "ID"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee__role_name
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__name
+msgid "Nombre del Rol"
+msgstr "Nombre del Rol"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee_role__description
+msgid "Notas del Rol"
+msgstr "Notas del Rol"
+
+#. module: crumges_hr_rol
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.view_hr_employee_role_form
+msgid "Notas sobre el rol..."
+msgstr "Notas sobre el rol..."
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,name:crumges_hr_rol.role_panaderia
+msgid "Panadería"
+msgstr "Panadería"
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,description:crumges_hr_rol.role_administracion
+msgid ""
+"Personal con labores administrativas y de gestión en oficina o trastienda."
+msgstr ""
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,description:crumges_hr_rol.role_cafeteria
+msgid ""
+"Personal encargado de la barra de café, atención directa al público para "
+"bebidas y snacks."
+msgstr ""
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,description:crumges_hr_rol.role_cocina
+msgid ""
+"Personal encargado de la preparación de alimentos calientes y limpieza de "
+"cocina."
+msgstr ""
+
+#. module: crumges_hr_rol
+#: model:hr.employee.role,description:crumges_hr_rol.role_panaderia
+msgid ""
+"Personal encargado del área de panadería, horneado y despacho de panes."
+msgstr ""
+
+#. module: crumges_hr_rol
+#: model:ir.model,name:crumges_hr_rol.model_hr_employee_role
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.view_hr_employee_role_form
+msgid "Rol de Empleado"
+msgstr "Rol de Empleado"
+
+#. module: crumges_hr_rol
+#: model:ir.model.fields,field_description:crumges_hr_rol.field_hr_employee__role_id
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.hr_kanban_view_employees_inherit_role
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.view_employee_filter_inherit_role
+msgid "Rol del Empleado"
+msgstr "Rol del Empleado"
+
+#. module: crumges_hr_rol
+#: model:ir.actions.act_window,name:crumges_hr_rol.action_hr_employee_role
+#: model:ir.ui.menu,name:crumges_hr_rol.menu_hr_employee_role
+#: model_terms:ir.ui.view,arch_db:crumges_hr_rol.view_hr_employee_role_list
+msgid "Roles de Empleados"
+msgstr "Roles de Empleados"

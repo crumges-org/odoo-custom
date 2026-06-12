@@ -1,0 +1,36 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_hr_restriction_category
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:27+0000\n"
+"PO-Revision-Date: 2026-06-07 21:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_hr_restriction_category
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_category.field_hr_employee__allowed_pos_category_ids
+msgid "Allowed POS Categories"
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_category
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction_category.view_employee_form_inherit_pos_hr_category
+msgid "Categorías"
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_category
+#: model:ir.model,name:crumges_pos_hr_restriction_category.model_hr_employee
+msgid "Employee"
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_category
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_category.field_hr_employee__allowed_pos_category_ids
+msgid "If empty, the employee can see all categories."
+msgstr ""

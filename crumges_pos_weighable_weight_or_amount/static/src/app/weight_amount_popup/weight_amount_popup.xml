@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_weighable_weight_or_amount.WeightAmountPopup">
+        <Dialog title="props.title || 'Ingreso de Peso / Importe'" size="'md'">
+            <div class="weight-amount-popup p-3 text-center">
+                <div class="product-info mb-3">
+                    <h3 class="fw-bold text-primary"><t t-esc="props.product.display_name"/></h3>
+                    <div class="fs-5 text-muted">Precio Unitario: <t t-esc="props.priceFormatted"/></div>
+                </div>
+                
+                <div class="inputs-container d-flex flex-row align-items-stretch gap-3">
+                    <!-- Campo Importe -->
+                    <div class="input-group-custom flex-grow-1">
+                        <label class="d-block mb-2 text-start fw-bold text-uppercase small text-muted">Importe Total (<t t-esc="props.currencySymbol"/>)</label>
+                        <div class="input-with-icon d-flex align-items-center bg-light rounded-3 p-3 border-2 border">
+                            <i class="fa fa-money me-3 text-success fs-3"></i>
+                            <input type="number" 
+                                   t-ref="amountInput"
+                                   t-model="state.amount" 
+                                   t-on-input="onAmountInput"
+                                   class="form-control form-control-lg border-0 bg-transparent fs-2 fw-bold p-0 shadow-none"
+                                   placeholder="0.00"
+                                   step="0.01"
+                                   autocomplete="off"/>
+                        </div>
+                    </div>
+
+                    <div class="separator d-flex flex-column align-items-center justify-content-center px-1">
+                        <div class="vr flex-grow-1 opacity-25"></div>
+                        <span class="my-2 text-muted fw-bold small text-nowrap">O BIEN</span>
+                        <div class="vr flex-grow-1 opacity-25"></div>
+                    </div>
+
+                    <!-- Campo Peso -->
+                    <div class="input-group-custom flex-grow-1">
+                        <label class="d-block mb-2 text-start fw-bold text-uppercase small text-muted">Peso (<t t-esc="props.product.uom_id.name"/>)</label>
+                        <div class="input-with-icon d-flex align-items-center bg-light rounded-3 p-3 border-2 border">
+                            <i class="fa fa-balance-scale me-3 text-primary fs-3"></i>
+                            <input type="number" 
+                                   t-model="state.weight" 
+                                   t-on-input="onWeightInput"
+                                   class="form-control form-control-lg border-0 bg-transparent fs-2 fw-bold p-0 shadow-none"
+                                   placeholder="0.000"
+                                   step="0.001"
+                                   autocomplete="off"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <t t-slot="footer">
+                <div class="d-flex w-100 gap-3 p-3">
+                    <button class="btn btn-secondary btn-lg flex-grow-1 py-3" t-on-click="props.close">Cancelar</button>
+                    <button class="btn btn-primary btn-lg flex-grow-1 py-3 fw-bold" t-on-click="confirm">Confirmar</button>
+                </div>
+            </t>
+        </Dialog>
+    </t>
+</templates>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.crumges_pos_pricelist_change_restriction</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="point_of_sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='multiple_prices_setting']/div" position="inside">
+                <div class="mt8 row">
+                    <label for="pos_restrict_pricelist_change" string="Restringir cambio si hay productos en el carrito" class="col-lg-3 o_light_label"/>
+                    <field name="pos_restrict_pricelist_change"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

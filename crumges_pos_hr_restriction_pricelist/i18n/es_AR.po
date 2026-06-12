@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_hr_restriction_pricelist
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:28+0000\n"
+"PO-Revision-Date: 2026-06-07 21:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_hr_restriction_pricelist
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_pricelist.field_hr_employee__allowed_pos_pricelist_ids
+msgid "Allowed POS Pricelists"
+msgstr "Listas de Precios de TPV Permitidas"
+
+#. module: crumges_pos_hr_restriction_pricelist
+#: model:ir.model.fields,field_description:crumges_pos_hr_restriction_pricelist.field_hr_employee__default_pos_pricelist_id
+msgid "Default POS Pricelist"
+msgstr "Lista de Precios Predeterminada del TPV"
+
+#. module: crumges_pos_hr_restriction_pricelist
+#: model:ir.model,name:crumges_pos_hr_restriction_pricelist.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: crumges_pos_hr_restriction_pricelist
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_pricelist.field_hr_employee__allowed_pos_pricelist_ids
+msgid "If empty, the employee can see all pricelists."
+msgstr "Si está vacío, el empleado podrá ver todas las listas de precios."
+
+#. module: crumges_pos_hr_restriction_pricelist
+#: model:ir.model.fields,help:crumges_pos_hr_restriction_pricelist.field_hr_employee__default_pos_pricelist_id
+msgid ""
+"If set, this pricelist will be loaded by default for this employee in the "
+"Point of Sale."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_pricelist
+#. odoo-python
+#: code:addons/crumges_pos_hr_restriction_pricelist/models/hr_employee.py:0
+msgid ""
+"La Lista de Precios por defecto debe estar incluida dentro de las Listas de "
+"Precios Permitidas."
+msgstr ""
+
+#. module: crumges_pos_hr_restriction_pricelist
+#: model_terms:ir.ui.view,arch_db:crumges_pos_hr_restriction_pricelist.view_employee_form_inherit_pos_hr_pricelist
+msgid "Listas de Precio"
+msgstr "Listas de Precio"

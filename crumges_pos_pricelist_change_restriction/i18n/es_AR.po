@@ -1,0 +1,70 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_pricelist_change_restriction
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:28+0000\n"
+"PO-Revision-Date: 2026-06-07 21:28+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_pricelist_change_restriction
+#. odoo-javascript
+#: code:addons/crumges_pos_pricelist_change_restriction/static/src/app/control_buttons/control_buttons.js:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: crumges_pos_pricelist_change_restriction
+#: model:ir.model,name:crumges_pos_pricelist_change_restriction.model_res_config_settings
+msgid "Config Settings"
+msgstr "Config Settings"
+
+#. module: crumges_pos_pricelist_change_restriction
+#. odoo-javascript
+#: code:addons/crumges_pos_pricelist_change_restriction/static/src/app/control_buttons/control_buttons.js:0
+msgid "Continue"
+msgstr "Continuar"
+
+#. module: crumges_pos_pricelist_change_restriction
+#: model:ir.model,name:crumges_pos_pricelist_change_restriction.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr "Configuración del Punto de Venta"
+
+#. module: crumges_pos_pricelist_change_restriction
+#: model:ir.model.fields,field_description:crumges_pos_pricelist_change_restriction.field_pos_config__restrict_pricelist_change
+#: model:ir.model.fields,field_description:crumges_pos_pricelist_change_restriction.field_res_config_settings__pos_restrict_pricelist_change
+msgid "Restrict Pricelist Change when cart has products"
+msgstr "Restringir cambio de lista de precios si el carrito tiene productos"
+
+#. module: crumges_pos_pricelist_change_restriction
+#: model:ir.model.fields,help:crumges_pos_pricelist_change_restriction.field_pos_config__restrict_pricelist_change
+#: model:ir.model.fields,help:crumges_pos_pricelist_change_restriction.field_res_config_settings__pos_restrict_pricelist_change
+msgid "Restrict changing the pricelist if the cart is not empty."
+msgstr "Restringe el cambio de la lista de precios si el carrito no está vacío."
+
+#. module: crumges_pos_pricelist_change_restriction
+#: model_terms:ir.ui.view,arch_db:crumges_pos_pricelist_change_restriction.res_config_settings_view_form
+msgid "Restringir cambio si hay productos en el carrito"
+msgstr "Restringir cambio si hay productos en el carrito"
+
+#. module: crumges_pos_pricelist_change_restriction
+#. odoo-javascript
+#: code:addons/crumges_pos_pricelist_change_restriction/static/src/app/control_buttons/control_buttons.js:0
+msgid "Warning"
+msgstr "Advertencia"
+
+#. module: crumges_pos_pricelist_change_restriction
+#. odoo-javascript
+#: code:addons/crumges_pos_pricelist_change_restriction/static/src/app/control_buttons/control_buttons.js:0
+msgid ""
+"You are about to change the pricelist with products in the cart. This will "
+"recalculate all prices, including weighable products. Do you want to "
+"continue?"
+msgstr ""

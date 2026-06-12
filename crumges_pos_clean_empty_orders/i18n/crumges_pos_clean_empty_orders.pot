@@ -1,0 +1,71 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* crumges_pos_clean_empty_orders
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-07 21:27+0000\n"
+"PO-Revision-Date: 2026-06-07 21:27+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crumges_pos_clean_empty_orders
+#: model:ir.model,name:crumges_pos_clean_empty_orders.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model_terms:ir.ui.view,arch_db:crumges_pos_clean_empty_orders.res_config_settings_view_form
+msgid "Las órdenes creadas hace menos de este tiempo no serán eliminadas."
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#. odoo-javascript
+#: code:addons/crumges_pos_clean_empty_orders/static/src/overrides/ticket_screen.xml:0
+msgid "Limpiar Vacías"
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model:ir.model.fields,field_description:crumges_pos_clean_empty_orders.field_pos_config__iface_clean_empty_orders
+#: model:ir.model.fields,field_description:crumges_pos_clean_empty_orders.field_res_config_settings__pos_iface_clean_empty_orders
+msgid "Limpiar Órdenes Vacías"
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model:ir.model.fields,help:crumges_pos_clean_empty_orders.field_pos_config__iface_clean_empty_orders
+#: model:ir.model.fields,help:crumges_pos_clean_empty_orders.field_res_config_settings__pos_iface_clean_empty_orders
+msgid ""
+"Muestra un botón en la pantalla de órdenes para eliminar órdenes sin "
+"productos."
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model_terms:ir.ui.view,arch_db:crumges_pos_clean_empty_orders.res_config_settings_view_form
+msgid "Permite limpiar órdenes en 0 en la pantalla de tickets."
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model:ir.model,name:crumges_pos_clean_empty_orders.model_pos_config
+msgid "Point of Sale Configuration"
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model:ir.model.fields,field_description:crumges_pos_clean_empty_orders.field_pos_config__clean_empty_orders_time_limit
+#: model:ir.model.fields,field_description:crumges_pos_clean_empty_orders.field_res_config_settings__pos_clean_empty_orders_time_limit
+#: model_terms:ir.ui.view,arch_db:crumges_pos_clean_empty_orders.res_config_settings_view_form
+msgid "Tiempo de gracia (segundos)"
+msgstr ""
+
+#. module: crumges_pos_clean_empty_orders
+#: model:ir.model.fields,help:crumges_pos_clean_empty_orders.field_pos_config__clean_empty_orders_time_limit
+#: model:ir.model.fields,help:crumges_pos_clean_empty_orders.field_res_config_settings__pos_clean_empty_orders_time_limit
+msgid ""
+"Tiempo en segundos que debe transcurrir desde la creación de la orden para "
+"que pueda ser eliminada por el botón."
+msgstr ""

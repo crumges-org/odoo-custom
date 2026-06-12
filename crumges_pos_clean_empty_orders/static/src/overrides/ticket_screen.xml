@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.TicketScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('buttons')]" position="inside">
+            <button t-if="pos.config.iface_clean_empty_orders" class="btn btn-lg btn-danger text-nowrap ms-2" t-on-click="() => this.cleanEmptyOrders()">
+                <i class="fa fa-eraser"/>
+                <span t-if="!ui.isSmall" class="ms-2">Limpiar Vacías</span>
+            </button>
+        </xpath>
+    </t>
+</templates>

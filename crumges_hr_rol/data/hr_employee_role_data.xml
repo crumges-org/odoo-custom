@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Datos Iniciales de Roles -->
+    <record id="role_cafeteria" model="hr.employee.role">
+        <field name="role_emoji">☕</field>
+        <field name="name">Cafetería</field>
+        <field name="description">Personal encargado de la barra de café, atención directa al público para bebidas y snacks.</field>
+    </record>
+
+    <record id="role_panaderia" model="hr.employee.role">
+        <field name="role_emoji">🥖</field>
+        <field name="name">Panadería</field>
+        <field name="description">Personal encargado del área de panadería, horneado y despacho de panes.</field>
+    </record>
+
+    <record id="role_administracion" model="hr.employee.role">
+        <field name="role_emoji">💼</field>
+        <field name="name">Administración</field>
+        <field name="description">Personal con labores administrativas y de gestión en oficina o trastienda.</field>
+    </record>
+
+    <record id="role_cajero" model="hr.employee.role">
+        <field name="role_emoji">💵</field>
+        <field name="name">Cajero/a</field>
+        <field name="description">Encargado del cobro en el Punto de Venta general y manejo de efectivo.</field>
+    </record>
+
+    <record id="role_cocina" model="hr.employee.role">
+        <field name="role_emoji">🍳</field>
+        <field name="name">Cocina</field>
+        <field name="description">Personal encargado de la preparación de alimentos calientes y limpieza de cocina.</field>
+    </record>
+</odoo>
