@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menú Raíz para Extractos Bancarios -->
+    <menuitem id="menu_bank_statement_import_root" 
+              name="Extractos Bancarios" 
+              parent="account.menu_finance_entries" 
+              sequence="20"
+              groups="account.group_account_user"/>
+
+    <!-- Importar Extracto Excel -->
+    <menuitem id="menu_bank_statement_import_wizard" 
+              name="Importar Excel" 
+              parent="menu_bank_statement_import_root" 
+              action="action_bank_statement_import_wizard" 
+              sequence="10"/>
+
+    <!-- Historial de Importaciones -->
+    <menuitem id="menu_bank_statement_import_history" 
+              name="Historial de Importaciones" 
+              parent="menu_bank_statement_import_root" 
+              action="action_bank_statement_import_history" 
+              sequence="20"/>
+
+    <!-- Plantillas de Bancos -->
+    <menuitem id="menu_bank_statement_template" 
+              name="Plantillas de Bancos" 
+              parent="menu_bank_statement_import_root" 
+              action="action_bank_statement_template" 
+              sequence="30"/>
+</odoo>

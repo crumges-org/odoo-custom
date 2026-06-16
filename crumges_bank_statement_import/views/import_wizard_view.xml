@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bank_statement_import_wizard_form" model="ir.ui.view">
+        <field name="name">bank.statement.import.wizard.form</field>
+        <field name="model">bank.statement.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Importar Extracto Bancario">
+                
+                <field name="state" invisible="1"/>
+                <field name="can_import" invisible="1"/>
+                <field name="view_filter" invisible="1"/>
+                
+                <!-- HEADER - TÍTULO -->
+                <div class="arca-wizard-header">
+                    <div class="arca-header-title">
+                        <i class="fa fa-university fa-2x text-primary me-3"></i>
+                        <div>
+                            <h2 class="m-0">Importación Inteligente de Extractos</h2>
+                            <p class="text-muted m-0" invisible="bank_id">Por favor, selecciona primero el Banco para continuar.</p>
+                            <p class="text-muted m-0" invisible="not bank_id or file_data or state != 'upload'">Selecciona la plantilla, el diario y sube un archivo Excel o CSV según lo tengas configurado en la plantilla.</p>
+                            <p class="text-muted m-0" invisible="not file_data or state != 'upload'">Presiona en "Analizar Archivo" para extraer y preparar las líneas a importar.</p>
+                            <p class="text-muted m-0" invisible="state != 'review'">Revisa las líneas, el sistema detecta duplicados automáticamente. Presiona "Confirmar Importación" para finalizar.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PASO 1: CARGA -->
+                <div invisible="state != 'upload'" class="arca-upload-section">
+                    <group>
+                        <group>
+                            <field name="bank_id" options="{'no_create': True}" class="arca-field-highlight" required="1"/>
+                            <field name="template_id" options="{'no_create': True}" invisible="not bank_id"/>
+                            <field name="journal_id" options="{'no_create': True}" invisible="not bank_id"/>
+                        </group>
+                        <group invisible="not bank_id">
+                            <field name="file_data" filename="filename" widget="binary"/>
+                            <field name="filename" invisible="1"/>
+                        </group>
+                    </group>
+                </div>
+
+                <!-- PASO 2: REVISIÓN -->
+                <div invisible="state != 'review'" class="arca-review-section">
+                    
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-8">
+                            <div class="alert alert-info m-0" role="alert" invisible="not date_start">
+                                <strong>Período detectado:</strong> 
+                                <field name="date_start" class="fw-bold"/> hasta <field name="date_end" class="fw-bold"/>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <group class="m-0">
+                                <label for="import_up_to_date" string="Importar hasta"/>
+                                <div class="o_row">
+                                    <field name="limit_to_today" widget="boolean_toggle"/>
+                                    <span class="mx-2" invisible="not limit_to_today">Hoy</span>
+                                    <field name="import_up_to_date" class="arca-field-highlight" readonly="limit_to_today" force_save="1"/>
+                                </div>
+                            </group>
+                        </div>
+                    </div>
+                    
+                    <!-- Dashboard Cards -->
+                    <div class="arca-dashboard row m-0 mb-3">
+                        <div class="col-3 p-1">
+                            <button type="object" name="action_set_filter_all" 
+                                    class="arca-dash-card w-100 btn">
+                                <div class="arca-card-title text-secondary">TODOS</div>
+                                <div class="arca-card-value text-dark"><field name="count_all"/></div>
+                            </button>
+                        </div>
+                        <div class="col-3 p-1">
+                            <button type="object" name="action_set_filter_ready" 
+                                    class="arca-dash-card w-100 btn">
+                                <div class="arca-card-title text-success">LISTOS</div>
+                                <div class="arca-card-value text-success"><field name="count_ready"/></div>
+                            </button>
+                        </div>
+                        <div class="col-3 p-1">
+                            <button type="object" name="action_set_filter_exists" 
+                                    class="arca-dash-card w-100 btn">
+                                <div class="arca-card-title text-info">EXISTENTES</div>
+                                <div class="arca-card-value text-info"><field name="count_exists"/></div>
+                            </button>
+                        </div>
+                        <div class="col-3 p-1">
+                            <button type="object" name="action_set_filter_error" 
+                                    class="arca-dash-card w-100 btn">
+                                <div class="arca-card-title text-danger">ERRORES</div>
+                                <div class="arca-card-value text-danger"><field name="count_error"/></div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Botones de Selección -->
+                    <div class="mb-2" invisible="view_filter != 'ready'">
+                        <field name="show_select_all_ready" invisible="1"/>
+                        <field name="show_deselect_all_ready" invisible="1"/>
+                        
+                        <button name="action_select_all_visible_lines" type="object" string="Seleccionar Todos" 
+                                class="btn btn-sm btn-outline-primary" invisible="not show_select_all_ready"/>
+                        <button name="action_deselect_all_visible_lines" type="object" string="Deseleccionar Todos" 
+                                class="btn btn-sm btn-outline-secondary" invisible="not show_deselect_all_ready"/>
+                    </div>
+
+                    <!-- Lista de Líneas -->
+                    <field name="visible_line_ids" nolabel="1" options="{'no_create': True}">
+                        <list decoration-success="status == 'ready'" decoration-info="status == 'exists'" decoration-danger="status == 'error'" editable="bottom" create="0" delete="0">
+                            <field name="status" column_invisible="1"/>
+                            <field name="to_import" widget="boolean_toggle" readonly="status != 'ready'"/>
+                            <field name="date" readonly="1"/>
+                            <field name="label" readonly="1"/>
+                            <field name="amount" readonly="1"/>
+                            <field name="balance" readonly="1"/>
+                            <field name="status" string="Estado" readonly="1" decoration-success="status == 'ready'" decoration-info="status == 'exists'" decoration-danger="status == 'error'"/>
+                            <field name="error_message" readonly="1" optional="show"/>
+                        </list>
+                    </field>
+                </div>
+
+                <!-- PASO 3: HECHO -->
+                <div invisible="state != 'done'" class="arca-done-section text-center p-5">
+                    <i class="fa fa-check-circle fa-5x text-success mb-3"></i>
+                    <h3>¡Importación Exitosa!</h3>
+                    <p class="text-muted">Los extractos han sido importados correctamente al diario seleccionado.</p>
+                </div>
+
+                <footer>
+                    <button string="Analizar Archivo" name="action_analyze" type="object" class="btn-primary" invisible="state != 'upload' or not bank_id or not file_data"/>
+                    
+                    <button string="Confirmar Importación" name="action_import" type="object" class="btn-success" invisible="state != 'review' or not can_import"/>
+                    
+                    <button string="Volver a Cargar" name="action_reset" type="object" class="btn-secondary" invisible="state == 'upload'"/>
+                    
+                    <button string="Cerrar" class="btn-secondary" special="cancel" invisible="state != 'done'"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel" invisible="state == 'done'"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bank_statement_import_wizard" model="ir.actions.act_window">
+        <field name="name">Importar Extracto Bancario</field>
+        <field name="res_model">bank.statement.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

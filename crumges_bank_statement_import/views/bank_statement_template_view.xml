@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bank_statement_template_tree" model="ir.ui.view">
+        <field name="name">bank.statement.template.list</field>
+        <field name="model">bank.statement.template</field>
+        <field name="arch" type="xml">
+            <list string="Plantillas de Bancos">
+                <field name="name"/>
+                <field name="bank_id"/>
+                <field name="amount_type"/>
+                <field name="start_row"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bank_statement_template_form" model="ir.ui.view">
+        <field name="name">bank.statement.template.form</field>
+        <field name="model">bank.statement.template</field>
+        <field name="arch" type="xml">
+            <form string="Plantilla de Banco">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Ej: Plantilla Santander Río (Cuenta Corriente)"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Estructura General">
+                            <field name="bank_id"/>
+                            <field name="start_row"/>
+                            <field name="amount_type" widget="radio"/>
+                        </group>
+                        <group string="Columnas Básicas (Ej: A, B, C...)">
+                            <field name="col_date"/>
+                            <field name="col_label"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Columnas de Importe" invisible="amount_type != 'single'">
+                            <field name="col_amount" required="amount_type == 'single'"/>
+                        </group>
+                        <group string="Columnas de Débito/Crédito" invisible="amount_type != 'split'">
+                            <field name="col_debit" required="amount_type == 'split'"/>
+                            <field name="col_credit" required="amount_type == 'split'"/>
+                        </group>
+                        <group string="Control de Duplicados">
+                            <field name="col_balance" required="1"/>
+                            <div colspan="2" class="text-muted">
+                                * El Saldo es obligatorio para identificar de forma única las transacciones y evitar duplicados.
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bank_statement_template" model="ir.actions.act_window">
+        <field name="name">Plantillas de Bancos</field>
+        <field name="res_model">bank.statement.template</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Crea una nueva plantilla para tu banco.
+            </p>
+            <p>
+                Define qué columnas corresponden a Fecha, Concepto, Importes y Saldos para importar extractos fácilmente.
+            </p>
+        </field>
+    </record>
+</odoo>
