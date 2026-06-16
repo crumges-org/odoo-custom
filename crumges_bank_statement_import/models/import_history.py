@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
+from odoo.exceptions import UserError
 
 class BankStatementImportHistory(models.Model):
     _name = 'bank.statement.import.history'
@@ -46,7 +47,7 @@ class BankStatementImportHistory(models.Model):
             if lines_to_delete:
                 lines_to_delete.unlink()
                 
-        self.unlink()
+        self.with_context(force_delete=True).unlink()
         
         return {
             'name': 'Historial de Importaciones',
@@ -88,3 +89,8 @@ class BankStatementImportHistory(models.Model):
                 'res_id': self.statement_id.id,
                 'view_mode': 'form',
             }
+
+    def unlink(self):
+        if not self.env.context.get('force_delete'):
+            raise UserError(_("No puede eliminar el historial directamente desde la lista.\nPor favor, ingrese al registro y utilice el botón rojo 'Eliminar Importación' para garantizar que se eliminen también las líneas y el estado de cuenta vinculado."))
+        return super(BankStatementImportHistory, self).unlink()
