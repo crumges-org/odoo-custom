@@ -14,6 +14,7 @@ class BankStatementImportHistory(models.Model):
     bank_id = fields.Many2one('res.bank', string='Banco', readonly=True)
     journal_id = fields.Many2one('account.journal', string='Diario', readonly=True)
     
+    statement_id = fields.Many2one('account.bank.statement', string='Estado de Cuenta Nativo', readonly=True)
     statement_line_ids = fields.Many2many('account.bank.statement.line', string='Líneas Creadas', readonly=True)
     line_count = fields.Integer(string='Cant. Líneas', compute='_compute_line_count', store=True)
     reconciled_count = fields.Integer(string='Conciliadas', compute='_compute_reconciled_count')
@@ -34,10 +35,17 @@ class BankStatementImportHistory(models.Model):
 
     def action_delete_import(self):
         self.ensure_one()
-        lines_to_delete = self.statement_line_ids.filtered(lambda l: not l.is_reconciled)
-        if lines_to_delete:
-            lines_to_delete.unlink()
         
+        # If all lines are NOT reconciled, we can safely delete
+        # The user requested to delete the native statement as well
+        if self.statement_id and not any(l.is_reconciled for l in self.statement_id.line_ids):
+            self.statement_id.unlink()
+        else:
+            # Fallback: only delete unreconciled lines
+            lines_to_delete = self.statement_line_ids.filtered(lambda l: not l.is_reconciled)
+            if lines_to_delete:
+                lines_to_delete.unlink()
+                
         self.unlink()
         
         return {
@@ -69,3 +77,14 @@ class BankStatementImportHistory(models.Model):
             'domain': [('id', 'in', reconciled_ids)],
             'context': {'create': False}
         }
+
+    def action_view_statement(self):
+        self.ensure_one()
+        if self.statement_id:
+            return {
+                'name': 'Estado de Cuenta',
+                'type': 'ir.actions.act_window',
+                'res_model': 'account.bank.statement',
+                'res_id': self.statement_id.id,
+                'view_mode': 'form',
+            }

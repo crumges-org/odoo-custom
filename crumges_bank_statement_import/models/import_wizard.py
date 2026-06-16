@@ -473,8 +473,16 @@ class BankStatementImportWizard(models.TransientModel):
         if not lines_to_import:
             raise UserError(_("No hay líneas listas para importar."))
             
+        Statement = self.env['account.bank.statement']
         StatementLine = self.env['account.bank.statement.line']
         
+        statement_name = f"Extracto {self.bank_id.name or 'Manual'} - {fields.Date.context_today(self)}"
+        new_statement = Statement.create({
+            'name': statement_name,
+            'journal_id': self.journal_id.id,
+            'date': fields.Date.context_today(self),
+        })
+
         create_vals = []
         for line in lines_to_import:
             create_vals.append({
@@ -482,6 +490,7 @@ class BankStatementImportWizard(models.TransientModel):
                 'payment_ref': line.label or 'Extracto Importado',
                 'amount': line.amount,
                 'journal_id': self.journal_id.id,
+                'statement_id': new_statement.id,
             })
             
         if create_vals:
@@ -494,6 +503,7 @@ class BankStatementImportWizard(models.TransientModel):
                 'file_data': self.file_data,
                 'bank_id': self.bank_id.id,
                 'journal_id': self.journal_id.id,
+                'statement_id': new_statement.id,
                 'statement_line_ids': [(6, 0, new_lines.ids)],
             })
             

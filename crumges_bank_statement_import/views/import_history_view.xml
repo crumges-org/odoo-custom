@@ -25,7 +25,14 @@
                 </header>
                 <sheet>
                     <field name="can_delete" invisible="1"/>
+                    <field name="statement_id" invisible="1"/>
                     <div class="oe_button_box" name="button_box">
+                        <button name="action_view_statement" type="object" class="oe_stat_button" icon="fa-file-text-o" invisible="not statement_id">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Estado de</span>
+                                <span class="o_stat_text">Cuenta</span>
+                            </div>
+                        </button>
                         <button name="action_view_lines" type="object" class="oe_stat_button" icon="fa-list" invisible="line_count == 0">
                             <field name="line_count" widget="statinfo" string="Líneas Importadas"/>
                         </button>
