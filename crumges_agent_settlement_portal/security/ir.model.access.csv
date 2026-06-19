@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_commission_settlement_portal,commission.settlement.portal,commission_oca.model_commission_settlement,base.group_portal,1,0,0,0
+access_commission_settlement_line_portal,commission.settlement.line.portal,commission_oca.model_commission_settlement_line,base.group_portal,1,0,0,0

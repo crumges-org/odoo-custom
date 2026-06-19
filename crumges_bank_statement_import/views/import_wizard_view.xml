@@ -35,6 +35,12 @@
                         <group invisible="not bank_id">
                             <field name="file_data" filename="filename" widget="binary"/>
                             <field name="filename" invisible="1"/>
+                            <details>
+                                <summary class="text-muted" style="cursor: pointer;">Opciones Avanzadas</summary>
+                                <group>
+                                    <field name="stop_at_empty_date"/>
+                                </group>
+                            </details>
                         </group>
                     </group>
                 </div>

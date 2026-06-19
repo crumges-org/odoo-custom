@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_commission_settlement_form_portal" model="ir.ui.view">
+        <field name="name">commission.settlement.form.portal</field>
+        <field name="model">commission.settlement</field>
+        <field name="inherit_id" ref="commission_oca.view_settlement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_send_email" string="Enviar por correo" type="object" class="oe_highlight"/>
+                <button name="preview_settlement" string="Vista previa" type="object" class="btn-secondary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crumges_relation_type_user,crumges.relation.type.user,model_crumges_relation_type,,1,0,0,0
+access_crumges_relation_type_admin,crumges.relation.type.admin,model_crumges_relation_type,base.group_system,1,1,1,1
+access_crumges_relation_link_user,crumges.relation.link.user,model_crumges_relation_link,,1,1,1,1
+access_crumges_relation_wizard_user,crumges.relation.wizard.user,model_crumges_relation_wizard,,1,1,1,1

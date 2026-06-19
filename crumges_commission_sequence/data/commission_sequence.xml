@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Secuencia para Liquidaciones de Comisiones -->
+        <record id="seq_commission_settlement" model="ir.sequence">
+            <field name="name">Liquidación de Comisión</field>
+            <field name="code">commission.settlement</field>
+            <field name="prefix">LIQ/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

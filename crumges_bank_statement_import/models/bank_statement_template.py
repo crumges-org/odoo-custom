@@ -11,6 +11,11 @@ class BankStatementTemplate(models.Model):
     company_id = fields.Many2one('res.company', string='Compañía', default=lambda self: self.env.company)
     
     start_row = fields.Integer(string='Fila de Inicio', required=True, default=2, help='Fila donde comienzan los registros (ignora encabezados e títulos). La primera fila es la 1.')
+    stop_at_empty_date = fields.Boolean(
+        string='Detener lectura al encontrar fila sin fecha', 
+        default=True, 
+        help='Si está marcado, la importación se detendrá automáticamente al encontrar la primera fila donde la celda de la columna Fecha esté vacía, asumiendo que es el final del documento (pie de página).'
+    )
     
     col_date = fields.Char(string='Columna Fecha', required=True, help='Ejemplo: A, B, C...')
     col_label = fields.Char(string='Columna Etiqueta (Concepto)', required=True, help='Ejemplo: B, o B,C para concatenar varias columnas separadas por comas')

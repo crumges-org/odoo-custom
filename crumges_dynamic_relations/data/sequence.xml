@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_crumges_relation_type" model="ir.sequence">
+            <field name="name">Secuencia Relación Dinámica</field>
+            <field name="code">crumges.relation.type</field>
+            <field name="prefix">REL-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

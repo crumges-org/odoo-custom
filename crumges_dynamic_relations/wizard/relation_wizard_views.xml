@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crumges_relation_wizard_form" model="ir.ui.view">
+        <field name="name">crumges.relation.wizard.form</field>
+        <field name="model">crumges.relation.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Vincular Documento">
+                <group>
+                    <field name="type_id" options="{'no_create': True}" invisible="context.get('default_relation_wizard_type_id')"/>
+                    <field name="source_model" invisible="1"/>
+                    <field name="source_id" invisible="1"/>
+                    <field name="target_model" invisible="1"/>
+                    <field name="target_ref"/>
+                </group>
+                <footer>
+                    <button string="Vincular" name="action_link" type="object" class="btn-primary"/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_crumges_relation_wizard" model="ir.actions.act_window">
+        <field name="name">Vincular Documento</field>
+        <field name="res_model">crumges.relation.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <!-- We can't bind to all models easily via XML without a specific model id, 
+             so we will add an action to the server that binds globally or we let the user 
+             use a server action. 
+             Actually, a server action is better to bind to all models! -->
+    </record>
+
+    <record id="action_server_crumges_relation_wizard" model="ir.actions.server">
+        <field name="name">Vincular Documento Dinámico</field>
+        <field name="model_id" ref="base.model_ir_actions_server"/> <!-- Just a placeholder, we use code -->
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'name': 'Vincular Documento',
+    'type': 'ir.actions.act_window',
+    'res_model': 'crumges.relation.wizard',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {
+        'default_source_model': env.context.get('active_model'),
+        'default_source_id': env.context.get('active_id'),
+    }
+}
+        </field>
+    </record>
+</odoo>

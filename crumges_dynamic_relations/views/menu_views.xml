@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_crumges_dynamic_relations_root" 
+              name="Relaciones Dinámicas" 
+              parent="base.menu_custom" 
+              sequence="50" />
+              
+    <menuitem id="menu_crumges_relation_type" 
+              name="Tipos de Relaciones" 
+              parent="menu_crumges_dynamic_relations_root" 
+              action="action_crumges_relation_type" 
+              sequence="10" />
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_commission_settlement_form_sequence" model="ir.ui.view">
+        <field name="name">commission.settlement.form.sequence</field>
+        <field name="model">commission.settlement</field>
+        <field name="inherit_id" ref="commission_oca.view_settlement_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/field[@name='can_edit']" position="before">
+                <div class="oe_title">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_commission_settlement_tree_sequence" model="ir.ui.view">
+        <field name="name">commission.settlement.tree.sequence</field>
+        <field name="model">commission.settlement</field>
+        <field name="inherit_id" ref="commission_oca.view_settlement_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='agent_id']" position="before">
+                <field name="name" string="Referencia"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Sobrescribir el reporte nativo para que use el nombre oficial -->
+    <record id="commission_oca.action_report_settlement" model="ir.actions.report">
+        <field name="print_report_name">(object._get_report_base_filename())</field>
+    </record>
+</odoo>

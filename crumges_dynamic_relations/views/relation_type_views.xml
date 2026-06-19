@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crumges_relation_type_form" model="ir.ui.view">
+        <field name="name">crumges.relation.type.form</field>
+        <field name="model">crumges.relation.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <widget name="web_ribbon" title="Archivado" bg_color="bg-danger" invisible="active"/>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Lado A (Origen)">
+                            <field name="model_a_id" options="{'no_create': True}"/>
+                            <field name="model_a_name" invisible="1"/>
+                            <field name="domain_a" widget="domain" options="{'model': 'model_a_name', 'in_dialog': True}" invisible="not model_a_id"/>
+                            <field name="state_label_a" invisible="not model_a_id"/>
+                            
+                            <field name="show_in_model_a" invisible="not model_a_id"/>
+                            <field name="stat_type_a" invisible="not show_in_model_a or not model_a_id"/>
+                            <field name="sum_field_a_id" invisible="stat_type_a != 'sum'" required="stat_type_a == 'sum'"/>
+                            <field name="hide_if_zero_a" invisible="not show_in_model_a or not model_a_id"/>
+                            <field name="label_a_to_b" invisible="not show_in_model_a or not model_a_id" required="show_in_model_a"/>
+                            <field name="icon_a_to_b" widget="fontawesome" invisible="not show_in_model_a or not model_a_id" required="show_in_model_a"/>
+                        </group>
+                        <group string="Lado B (Destino)">
+                            <field name="model_b_id" options="{'no_create': True}"/>
+                            <field name="model_b_name" invisible="1"/>
+                            <field name="domain_b" widget="domain" options="{'model': 'model_b_name', 'in_dialog': True}" invisible="not model_b_id"/>
+                            <field name="state_label_b" invisible="not model_b_id"/>
+                            
+                            <field name="show_in_model_b" invisible="not model_b_id"/>
+                            <field name="stat_type_b" invisible="not show_in_model_b or not model_b_id"/>
+                            <field name="sum_field_b_id" invisible="stat_type_b != 'sum'" required="stat_type_b == 'sum'"/>
+                            <field name="hide_if_zero_b" invisible="not show_in_model_b or not model_b_id"/>
+                            <field name="label_b_to_a" invisible="not show_in_model_b or not model_b_id" required="show_in_model_b"/>
+                            <field name="icon_b_to_a" widget="fontawesome" invisible="not show_in_model_b or not model_b_id" required="show_in_model_b"/>
+                        </group>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_crumges_relation_type_tree" model="ir.ui.view">
+        <field name="name">crumges.relation.type.tree</field>
+        <field name="model">crumges.relation.type</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="model_a_id"/>
+                <field name="state_label_a" optional="show"/>
+                <field name="show_in_model_a" string="Lado A" optional="show"/>
+                <field name="model_b_id"/>
+                <field name="state_label_b" optional="show"/>
+                <field name="show_in_model_b" string="Lado B" optional="show"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_crumges_relation_type" model="ir.actions.act_window">
+        <field name="name">Tipos de Relaciones</field>
+        <field name="res_model">crumges.relation.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

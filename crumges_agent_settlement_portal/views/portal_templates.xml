@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Enlace en el Home del Portal -->
+    <template id="portal_my_home_menu_settlements" name="Portal layout : settlements entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'settlement' or settlement" t-attf-class="breadcrumb-item #{'active ' if not settlement else ''}">
+                <a t-if="settlement" t-attf-href="/my/settlements?{{ keep_query() }}">Liquidaciones</a>
+                <t t-else="">Liquidaciones</t>
+            </li>
+            <li t-if="settlement" class="breadcrumb-item active">
+                <t t-esc="settlement.name or 'Liquidación #%s' % settlement.id"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_settlements" name="Portal My Home : settlements" inherit_id="portal.portal_my_home" priority="30">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="icon" t-value="'/purchase/static/src/img/calculator.svg'"/>
+                <t t-set="title">Liquidaciones de Comisiones</t>
+                <t t-set="text">Revisa tus liquidaciones y comisiones cobradas</t>
+                <t t-set="url" t-value="'/my/settlements'"/>
+                <t t-set="placeholder_count" t-value="'settlement_count'"/>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Vista de Lista -->
+    <template id="portal_my_settlements" name="My Settlements">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Liquidaciones</t>
+            </t>
+            <t t-if="not settlements">
+                <p>Actualmente no hay liquidaciones de comisiones registradas en tu cuenta.</p>
+            </t>
+            <t t-if="settlements" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Referencia</th>
+                        <th>Período</th>
+                        <th>Estado</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <t t-foreach="settlements" t-as="settlement">
+                    <tr>
+                        <td>
+                            <a t-attf-href="/my/settlements/#{settlement.id}">
+                                <t t-esc="settlement.name or 'Liquidación #%s' % settlement.id"/>
+                            </a>
+                        </td>
+                        <td>
+                            <span t-field="settlement.date_from"/> - <span t-field="settlement.date_to"/>
+                        </td>
+                        <td>
+                            <span t-if="settlement.state == 'settled'" class="badge text-bg-info">Liquidado</span>
+                            <span t-elif="settlement.state == 'invoiced'" class="badge text-bg-success">Facturado</span>
+                            <span t-elif="settlement.state == 'except_invoice'" class="badge text-bg-warning">Excepción</span>
+                            <span t-elif="settlement.state == 'cancel'" class="badge text-bg-danger">Cancelado</span>
+                            <span t-else="" class="badge text-bg-secondary"><t t-esc="settlement.state"/></span>
+                        </td>
+                        <td class="text-end">
+                            <span t-field="settlement.total" t-options='{"widget": "monetary", "display_currency": settlement.currency_id}'/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- Vista de Detalle -->
+    <template id="portal_settlement_page" name="Settlement Detail">
+        <t t-call="portal.portal_layout">
+            <div id="optional_paperwork" class="mt-4">
+                <div class="card mb-4">
+                    <div class="card-header bg-white pb-1">
+                        <div class="row">
+                            <div class="col-lg-6 d-flex align-items-center">
+                                <h4 class="mb-0 me-3">
+                                    <b><span t-esc="settlement.name or 'Liquidación #%s' % settlement.id"/></b>
+                                </h4>
+                                <a t-att-href="settlement.get_portal_url(report_type='pdf', download=True)" title="Descargar PDF" aria-label="Descargar PDF" class="btn btn-secondary btn-sm">
+                                    <i class="fa fa-download"/> Descargar
+                                </a>
+                            </div>
+                            <div class="col-lg-6 text-end">
+                                <span t-if="settlement.state == 'settled'" class="badge text-bg-info ms-2">Liquidado</span>
+                                <span t-elif="settlement.state == 'invoiced'" class="badge text-bg-success ms-2">Facturado</span>
+                                <span t-elif="settlement.state == 'cancel'" class="badge text-bg-danger ms-2">Cancelado</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-2">
+                                <strong>Agente:</strong> <span t-field="settlement.agent_id.name"/><br/>
+                                <strong>Período:</strong> <span t-field="settlement.date_from"/> a <span t-field="settlement.date_to"/><br/>
+                            </div>
+                            <div t-if="settlement.state == 'invoiced' and settlement.invoice_id" class="col-md-6 mb-2 text-md-end">
+                                <strong>Factura Asociada:</strong>
+                                <div><span t-field="settlement.invoice_id.name"/></div>
+                            </div>
+                        </div>
+
+                        <h4>Líneas de Detalle</h4>
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Origen</th>
+                                    <th>Plan de Comisión</th>
+                                    <th class="text-end">Importe</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="settlement.line_ids" t-as="line">
+                                    <tr>
+                                        <td><span t-field="line.date"/></td>
+                                        <td>
+                                            <t t-if="line.invoice_line_id">
+                                                Factura: <span t-field="line.invoice_line_id.move_id.name"/>
+                                            </t>
+                                        </td>
+                                        <td><span t-field="line.commission_id.name"/></td>
+                                        <td class="text-end">
+                                            <span t-field="line.settled_amount" t-options='{"widget": "monetary", "display_currency": line.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-12 text-end">
+                                <h3>Total: <span t-field="settlement.total" t-options='{"widget": "monetary", "display_currency": settlement.currency_id}'/></h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

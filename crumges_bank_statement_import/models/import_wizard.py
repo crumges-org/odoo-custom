@@ -30,6 +30,11 @@ class BankStatementImportWizard(models.TransientModel):
     
     bank_id = fields.Many2one('res.bank', string='Banco')
     template_id = fields.Many2one('bank.statement.template', string='Plantilla del Banco', required=True)
+    stop_at_empty_date = fields.Boolean(
+        string='Detener en fila vacía/sin fecha', 
+        default=True, 
+        help="Detiene la lectura automáticamente al encontrar una fila sin fecha (evita leer pies de página)."
+    )
     journal_id = fields.Many2one(
         'account.journal', 
         string='Diario Bancario', 
@@ -45,35 +50,72 @@ class BankStatementImportWizard(models.TransientModel):
         ('done', 'Hecho')
     ], default='upload', string='Estado')
 
+    @api.model
+    def default_get(self, fields_list):
+        res = super(BankStatementImportWizard, self).default_get(fields_list)
+        
+        journal_id = res.get('journal_id') or self.env.context.get('default_journal_id')
+        bank_id = res.get('bank_id') or self.env.context.get('default_bank_id')
+        
+        if journal_id and not bank_id:
+            journal = self.env['account.journal'].browse(journal_id)
+            if journal.bank_account_id and journal.bank_account_id.bank_id:
+                bank_id = journal.bank_account_id.bank_id.id
+                res['bank_id'] = bank_id
+                
+        if bank_id:
+            # Busca plantilla global o de la compañía actual
+            template = self.env['bank.statement.template'].search([
+                ('bank_id', '=', bank_id),
+                '|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)
+            ], limit=1)
+            # Fallback: si no la encuentra, buscar sin importar la compañía (por si se creó en otra por error)
+            if not template:
+                template = self.env['bank.statement.template'].search([('bank_id', '=', bank_id)], limit=1)
+                
+            if template:
+                res['template_id'] = template.id
+                res['stop_at_empty_date'] = template.stop_at_empty_date
+                
+            if not journal_id:
+                journal = self.env['account.journal'].search([
+                    ('type', '=', 'bank'),
+                    ('bank_account_id.bank_id', '=', bank_id),
+                    ('company_id', 'in', (self.env.company.id, False))
+                ], limit=1)
+                if journal:
+                    res['journal_id'] = journal.id
+                    
+        return res
+
     @api.onchange('bank_id')
     def _onchange_bank_id(self):
         if not self.bank_id:
             return
             
-        # 1. Preseleccionar el Diario Bancario
+        template = self.env['bank.statement.template'].search([
+            ('bank_id', '=', self.bank_id.id),
+            '|', ('company_id', '=', False), ('company_id', '=', self.env.company.id)
+        ], limit=1)
+        if not template:
+            template = self.env['bank.statement.template'].search([('bank_id', '=', self.bank_id.id)], limit=1)
+            
+        if template:
+            self.template_id = template
+            self.stop_at_empty_date = template.stop_at_empty_date
+            
         journal = self.env['account.journal'].search([
             ('type', '=', 'bank'),
             ('bank_account_id.bank_id', '=', self.bank_id.id),
-            ('company_id', '=', self.env.company.id)
+            ('company_id', 'in', (self.env.company.id, False))
         ], limit=1)
-        
-        if not journal:
-            journal = self.env['account.journal'].search([
-                ('type', '=', 'bank'),
-                ('company_id', '=', self.env.company.id)
-            ], limit=1)
-            
         if journal:
             self.journal_id = journal
-            
-        # 2. Preseleccionar el Formato del Banco
-        format_rec = self.env['bank.statement.template'].search([
-            ('bank_id', '=', self.bank_id.id),
-            ('company_id', '=', self.env.company.id)
-        ], limit=1)
-        
-        if format_rec:
-            self.template_id = format_rec
+
+    @api.onchange('template_id')
+    def _onchange_template_id(self):
+        if self.template_id:
+            self.stop_at_empty_date = self.template_id.stop_at_empty_date
 
     @api.onchange('limit_to_today')
     def _onchange_limit_to_today(self):
@@ -321,9 +363,12 @@ class BankStatementImportWizard(models.TransientModel):
         for i in range(start_row_idx, len(rows)):
             row = rows[i]
             
-            # Check if row is mostly empty (skip empty rows)
+            # Check if row is mostly empty (skip empty rows or break if stop_at_empty_date)
             if not any(row):
-                continue
+                if self.stop_at_empty_date:
+                    break
+                else:
+                    continue
                 
             # Safely get column values
             def get_col(idx):
@@ -331,6 +376,10 @@ class BankStatementImportWizard(models.TransientModel):
 
             date_val = get_col(idx_date)
             parsed_date = self._parse_date(date_val)
+            
+            if not parsed_date and self.stop_at_empty_date:
+                # Si no hay fecha y está activa la opción de parada inteligente, asumimos que llegamos al pie de página.
+                break
             
             label_parts = []
             for idx in idx_labels:

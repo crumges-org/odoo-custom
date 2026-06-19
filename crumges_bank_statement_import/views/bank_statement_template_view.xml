@@ -28,6 +28,7 @@
                         <group string="Estructura General">
                             <field name="bank_id"/>
                             <field name="start_row"/>
+                            <field name="stop_at_empty_date"/>
                             <field name="amount_type" widget="radio"/>
                         </group>
                         <group string="Columnas Básicas (Ej: A, B, C...)">

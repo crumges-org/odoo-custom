@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="email_template_commission_settlement" model="mail.template">
+            <field name="name">Liquidación de Comisiones: Enviar por email</field>
+            <field name="model_id" ref="commission_oca.model_commission_settlement"/>
+            <field name="subject">Liquidación de Comisiones - {{ object.name }}</field>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="partner_to">{{ object.agent_id.id }}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Estimado/a <t t-out="object.agent_id.name or ''"/>,<br /><br />
+        Adjunto encontrará su liquidación de comisiones <strong><t t-out="object.name or ''"/></strong>
+        correspondiente al período del <t t-out="object.date_from or ''"/> al <t t-out="object.date_to or ''"/>.<br /><br />
+        El monto total de esta liquidación asciende a <strong t-out="format_amount(object.total, object.currency_id) or ''"></strong>.<br /><br />
+        Puede acceder a los detalles en su portal haciendo click en el siguiente enlace:<br /><br />
+        <div style="text-align: center; margin: 16px 0px 16px 0px;">
+            <a t-attf-href="/my/settlements/{{ object.id }}" style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">Ver Liquidación</a>
+        </div>
+        <br /><br />
+        Quedamos a su disposición por cualquier consulta.<br /><br />
+        Saludos cordiales,<br />
+        <t t-out="user.signature or ''"/>
+    </p>
+</div>
+            </field>
+            <field name="report_template_ids" eval="[(4, ref('commission_oca.action_report_settlement'))]"/>
+            <field name="report_name">Liquidacion_{{ (object.name or 'Nueva').replace('/','_') }}</field>
+            <field name="lang">{{ object.agent_id.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>
