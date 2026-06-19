@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_cross_selling_action.CrossSellingPopup">
+        <div class="popup popup-cross-selling" style="min-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h4 class="modal-title"><t t-esc="props.title" />: <t t-esc="product.display_name"/></h4>
+            </div>
+
+            <div class="modal-body text-start">
+                <t t-set="alternatives" t-value="getAlternativeProducts()"/>
+                <t t-set="accessories" t-value="getAccessoryProducts()"/>
+                <t t-set="optionals" t-value="getOptionalProducts()"/>
+
+                <div class="cross-selling-section mt-2 mb-2 pb-2">
+                    <t t-if="optionals.length > 0">
+                        <h5 class="mb-2">Productos Opcionales</h5>
+                        <div class="product-suggestions d-flex flex-wrap gap-3 mb-4">
+                            <t t-foreach="optionals" t-as="opt_product" t-key="opt_product.id">
+                                <div class="suggestion-card p-2 border rounded cursor-pointer text-center bg-view shadow-sm" t-on-click="() => this.clickSuggestion(opt_product)" style="width: 140px; transition: transform 0.2s;">
+                                    <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{opt_product.id}}" alt="Product" class="mb-2 rounded" style="width: 100%; height: 110px; object-fit: cover;"/>
+                                    <div class="fw-bold text-truncate" style="font-size: 0.9em; line-height: 1.2; margin-bottom: 4px;" t-att-title="opt_product.display_name"><t t-esc="opt_product.display_name"/></div>
+                                    <div class="text-muted" style="font-size: 0.95em;"><t t-esc="env.utils.formatCurrency(opt_product.get_price(pos.default_pricelist, 1))"/></div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+
+                    <t t-if="alternatives.length > 0">
+                        <h5 class="mb-2">Alternativas Sugeridas</h5>
+                        <div class="product-suggestions d-flex flex-wrap gap-3 mb-4">
+                            <t t-foreach="alternatives" t-as="alt_product" t-key="alt_product.id">
+                                <div class="suggestion-card p-2 border rounded cursor-pointer text-center bg-view shadow-sm" t-on-click="() => this.clickSuggestion(alt_product)" style="width: 140px; transition: transform 0.2s;">
+                                    <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{alt_product.id}}" alt="Product" class="mb-2 rounded" style="width: 100%; height: 110px; object-fit: cover;"/>
+                                    <div class="fw-bold text-truncate" style="font-size: 0.9em; line-height: 1.2; margin-bottom: 4px;" t-att-title="alt_product.display_name"><t t-esc="alt_product.display_name"/></div>
+                                    <div class="text-muted" style="font-size: 0.95em;"><t t-esc="env.utils.formatCurrency(alt_product.get_price(pos.default_pricelist, 1))"/></div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+
+                    <t t-if="accessories.length > 0">
+                        <h5 class="mb-2">Accesorios</h5>
+                        <div class="product-suggestions d-flex flex-wrap gap-3 mb-2">
+                            <t t-foreach="accessories" t-as="acc_product" t-key="acc_product.id">
+                                <div class="suggestion-card p-2 border rounded cursor-pointer text-center bg-view shadow-sm" t-on-click="() => this.clickSuggestion(acc_product)" style="width: 140px; transition: transform 0.2s;">
+                                    <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{acc_product.id}}" alt="Product" class="mb-2 rounded" style="width: 100%; height: 110px; object-fit: cover;"/>
+                                    <div class="fw-bold text-truncate" style="font-size: 0.9em; line-height: 1.2; margin-bottom: 4px;" t-att-title="acc_product.display_name"><t t-esc="acc_product.display_name"/></div>
+                                    <div class="text-muted" style="font-size: 0.95em;"><t t-esc="env.utils.formatCurrency(acc_product.get_price(pos.default_pricelist, 1))"/></div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </div>
+
+            <footer class="footer footer-flex modal-footer justify-content-end">
+                <div class="button cancel btn btn-lg btn-secondary" t-on-click="cancel">
+                    <t t-esc="props.cancelText" />
+                </div>
+            </footer>
+        </div>
+    </t>
+</templates>

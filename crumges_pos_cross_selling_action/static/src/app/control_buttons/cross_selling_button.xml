@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_cross_selling_action.CrossSellingButton">
+        <t t-if="hasSuggestions">
+            <button class="control-button btn btn-light rounded-0 fw-bolder" t-on-click="onClick">
+                <i class="fa fa-star me-2" role="img" aria-label="Sugerencias POS" title="Sugerencias POS" />
+                Sugerencias
+            </button>
+        </t>
+    </t>
+</templates>

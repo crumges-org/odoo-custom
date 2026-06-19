@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_multimedia.MultimediaViewer">
+        <div class="multimedia-container" t-if="hasMedia">
+            <!-- Tira Vertical de Miniaturas -->
+            <div class="multimedia-thumbnails d-flex flex-column align-items-center py-3 shadow-sm" style="position: absolute; left: 0; top: 55px; bottom: 0; width: 110px; border-right: 1px solid #ddd; background: #fafafa; overflow-y: auto; z-index: 10;">
+                <t t-foreach="mediaItems" t-as="media" t-key="media.id">
+                    <div t-attf-class="thumbnail-box rounded overflow-hidden cursor-pointer shadow-sm mb-3 {{ state.activeMedia.id === media.id ? 'border border-primary border-3' : 'border border-secondary' }}" 
+                         style="width: 80px; height: 80px; flex-shrink: 0; background: #fff; cursor: pointer; position: relative; padding: 2px;"
+                         t-on-click="() => this.setActiveMedia(media)">
+                        <img t-att-src="media.thumbUrl" t-attf-style="width: 100%; height: 100%; object-fit: contain; {{ media.type === 'video' ? 'opacity: 0.6;' : '' }}" />
+                        <t t-if="media.type === 'video'">
+                            <i class="fa fa-play-circle fa-2x text-dark position-absolute" style="top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+                        </t>
+                    </div>
+                </t>
+            </div>
+
+            <!-- Visor Principal Gigante (Overlay Global) -->
+            <div class="main-viewer-overlay d-flex justify-content-center align-items-center" t-if="state.isExpanded" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 10000; background: rgba(0,0,0,0.92);">
+                
+                <div class="main-viewer flex-grow-1 d-flex justify-content-center align-items-center" style="position: relative; width: 100%; height: 100%; overflow: hidden;">
+                    <!-- Video -->
+                    <t t-if="state.activeMedia.type === 'video'">
+                        <iframe t-att-src="state.activeMedia.video_url" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="1" style="width: 80%; height: 80%;"></iframe>
+                    </t>
+                    <!-- Imagen -->
+                    <t t-else="">
+                        <img t-att-src="state.activeMedia.url" 
+                             t-on-mousedown="onMouseDown" t-on-mousemove="onMouseMove" t-on-mouseup="onMouseUp" t-on-mouseleave="onMouseLeave"
+                             t-att-style="'max-width: 95%; max-height: 95%; object-fit: contain; transition: ' + (state.isDragging ? 'none' : 'transform 0.2s') + '; transform: translate(' + state.panX + 'px, ' + state.panY + 'px) scale(' + state.zoom + '); cursor: ' + (state.zoom > 1 ? (state.isDragging ? 'grabbing' : 'grab') : 'default') + ';'" 
+                             class="main-image" draggable="false" />
+                    </t>
+                    
+                    <!-- Botón de Cerrar Visor -->
+                    <button class="btn btn-lg btn-danger position-absolute shadow" style="top: 20px; right: 20px; z-index: 10010; border-radius: 50%; width: 50px; height: 50px;" t-on-click="() => state.isExpanded = false" title="Cerrar Visor"><i class="fa fa-times fa-lg"></i></button>
+
+                    <!-- Controles Flotantes para Imagen -->
+                    <div class="viewer-controls" t-if="state.activeMedia.type === 'image'" style="position: absolute; bottom: 30px; background: rgba(255,255,255,0.1); padding: 10px 20px; border-radius: 30px; z-index: 10010; backdrop-filter: blur(5px);">
+                        <button class="btn btn-light rounded-circle m-2 shadow" style="width: 50px; height: 50px;" t-on-click="toggleFullscreen" title="Pantalla Completa"><i class="fa fa-arrows-alt fa-lg"></i></button>
+                        <button class="btn btn-light rounded-circle m-2 shadow" style="width: 50px; height: 50px;" t-on-click="zoomIn" title="Acercar"><i class="fa fa-search-plus fa-lg"></i></button>
+                        <button class="btn btn-light rounded-circle m-2 shadow" style="width: 50px; height: 50px;" t-on-click="zoomOut" title="Alejar"><i class="fa fa-search-minus fa-lg"></i></button>
+                        <button class="btn btn-light rounded-circle m-2 shadow" style="width: 50px; height: 50px;" t-on-click="zoomReset" title="Restablecer"><i class="fa fa-compress fa-lg"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- Parchear ProductInfoPopup -->
+    <t t-name="crumges_pos_multimedia.ProductInfoPopup" t-inherit="point_of_sale.ProductInfoPopup" t-inherit-mode="extension">
+        <xpath expr="//main" position="before">
+            <MultimediaViewer product="props.product" />
+        </xpath>
+        <xpath expr="//main" position="attributes">
+            <attribute name="t-attf-style">margin-left: {{ props.product.crumges_pos_image_ids?.length > 0 || props.product.product_template_image_ids?.length > 0 ? '110px' : '0' }};</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('product-info-popup')]" position="attributes">
+            <attribute name="style">min-width: 80vw; max-width: 90vw; position: relative; overflow: hidden;</attribute>
+        </xpath>
+    </t>
+</templates>

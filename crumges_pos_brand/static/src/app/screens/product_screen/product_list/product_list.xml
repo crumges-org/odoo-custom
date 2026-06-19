@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_brand.ProductsWidget" t-inherit="point_of_sale.ProductsWidget" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('products-widget-control')]" position="inside">
+            <div class="active-brand-tag" t-if="pos.selectedBrandId and !pos.showBrandMode" style="position:absolute; top: 10px; right: 250px; z-index: 10;">
+                <span class="badge bg-primary fs-5" style="cursor: pointer;" t-on-click="() => pos.setSelectedBrandId(0)">
+                    <t t-esc="pos.db.get_brand_by_id(pos.selectedBrandId) ? pos.db.get_brand_by_id(pos.selectedBrandId).name : 'Marca'"/>
+                    <i class="fa fa-times ms-2"/>
+                </span>
+            </div>
+        </xpath>
+        <xpath expr="//CategorySelector" position="before">
+            <div class="d-flex align-items-center bg-view border-end">
+                <button class="btn btn-light h-100 fs-5 rounded-0 border-0" t-on-click="() => pos.toggleBrandMode()">
+                    <i class="fa fa-tags"/> <t t-if="!ui.isSmall"> Marcas</t>
+                </button>
+            </div>
+        </xpath>
+        <xpath expr="//CategorySelector" position="attributes">
+            <attribute name="categories">pos.showBrandMode ? pos.getBrandSelectorItems() : getCategories()</attribute>
+            <attribute name="onClick">(id) => pos.onCategorySelectorClick(id)</attribute>
+        </xpath>
+        <xpath expr="//ProductCard" position="attributes">
+            <attribute name="brandImageUrl">product.product_brand_id ? '/web/image?model=product.brand&amp;field=logo&amp;id=' + product.product_brand_id[0] : false</attribute>
+        </xpath>
+    </t>
+</templates>

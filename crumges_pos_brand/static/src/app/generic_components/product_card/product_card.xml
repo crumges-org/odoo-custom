@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_brand.ProductCard" t-inherit="point_of_sale.ProductCard" t-inherit-mode="extension">
+        <xpath expr="//article" position="inside">
+            <div t-if="props.brandImageUrl" class="product-brand-logo position-absolute top-0 start-0 bg-white rounded shadow-sm d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; z-index: 5; margin: 4px;">
+                <img t-att-src="props.brandImageUrl" alt="Brand" style="max-width: 90%; max-height: 90%; object-fit: contain;"/>
+            </div>
+        </xpath>
+    </t>
+</templates>

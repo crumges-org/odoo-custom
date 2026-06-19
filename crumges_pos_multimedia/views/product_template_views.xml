@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_pos_multimedia" model="ir.ui.view">
+        <field name="name">product.template.form.pos.multimedia</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <!-- Pestaña de Ventas o Punto de Venta -->
+            <xpath expr="//group[@name='pos']" position="after">
+                <group name="pos_multimedia" string="Multimedia Adicional (Punto de Venta)">
+                    <field name="crumges_pos_image_ids" nolabel="1">
+                        <kanban>
+                            <field name="id"/>
+                            <field name="name"/>
+                            <field name="image_1920"/>
+                            <field name="video_url"/>
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div class="oe_kanban_global_click" style="width: 150px; height: 150px;">
+                                        <div class="o_kanban_image">
+                                            <img t-att-src="kanban_image('crumges.pos.product.image', 'image_1920', record.id.raw_value)" alt="Imagen" style="max-height:100px;max-width:100px;"/>
+                                        </div>
+                                        <div class="oe_kanban_details">
+                                            <strong class="o_kanban_record_title"><field name="name"/></strong>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                        <form string="Imagen Adicional POS">
+                            <sheet>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="video_url"/>
+                                    <field name="image_filename" invisible="1"/>
+                                    <field name="image_1920" widget="image" filename="image_filename"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

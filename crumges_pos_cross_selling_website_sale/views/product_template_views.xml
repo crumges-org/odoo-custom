@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view_pos_cross_selling_website_sale" model="ir.ui.view">
+        <field name="name">product.template.form.pos.cross.selling.website.sale</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="crumges_pos_cross_selling.product_template_form_view_pos_cross_selling"/>
+        <field name="arch" type="xml">
+            <!-- Ocultamos los campos manuales del POS porque ya se usa el de eCommerce -->
+            <xpath expr="//field[@name='crumges_pos_alternative_product_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='crumges_pos_accessory_product_ids']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

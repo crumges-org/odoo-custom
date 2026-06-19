@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_cross_selling_info.ProductInfoPopup" t-inherit="point_of_sale.ProductInfoPopup" t-inherit-mode="extension">
+        <xpath expr="//main[hasclass('body')]" position="inside">
+            <style>
+                /* Ocultar forzosamente la sección nativa inyectada por pos_sale_product_configurator */
+                .section-optional-product {
+                    display: none !important;
+                }
+            </style>
+            <t t-set="product" t-value="props.product"/>
+            <t t-set="alternatives" t-value="getAlternativeProducts(product)"/>
+            <t t-set="accessories" t-value="getAccessoryProducts(product)"/>
+            <t t-set="optionals" t-value="getOptionalProducts(product)"/>
+
+            <div class="cross-selling-section mt-4 mb-4 pb-4 border-top text-start" t-if="alternatives.length > 0 or accessories.length > 0 or optionals.length > 0">
+                <br/>
+                <h3 class="section-title text-center mb-4">Sugerencias POS</h3>
+
+                <t t-if="optionals.length > 0">
+                    <h4 class="mb-2">Productos Opcionales</h4>
+                    <div class="product-suggestions d-flex flex-wrap gap-2 mb-4">
+                        <t t-foreach="optionals" t-as="opt_product" t-key="opt_product.id">
+                            <div class="suggestion-card p-2 border rounded cursor-pointer text-center" t-on-click="() => this.clickSuggestion(opt_product)" style="width: 130px;">
+                                <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{opt_product.id}}" alt="Product" class="mb-2" style="width: 100%; height: 100px; object-fit: contain;"/>
+                                <div class="fw-bold" style="font-size: 0.9em; line-height: 1.2; margin-bottom: 4px;"><t t-esc="opt_product.display_name"/></div>
+                                <div class="text-muted" style="font-size: 0.85em;"><t t-esc="env.utils.formatCurrency(opt_product.get_price(pos.default_pricelist, 1))"/></div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+
+                <t t-if="alternatives.length > 0">
+                    <h4 class="mb-2">Alternativas Sugeridas</h4>
+                    <div class="product-suggestions d-flex flex-wrap gap-2 mb-4">
+                        <t t-foreach="alternatives" t-as="alt_product" t-key="alt_product.id">
+                            <div class="suggestion-card p-2 border rounded cursor-pointer text-center" t-on-click="() => this.clickSuggestion(alt_product)" style="width: 130px;">
+                                <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{alt_product.id}}" alt="Product" class="mb-2" style="width: 100%; height: 100px; object-fit: contain;"/>
+                                <div class="fw-bold" style="font-size: 0.9em; line-height: 1.2; margin-bottom: 4px;"><t t-esc="alt_product.display_name"/></div>
+                                <div class="text-muted" style="font-size: 0.85em;"><t t-esc="env.utils.formatCurrency(alt_product.get_price(pos.default_pricelist, 1))"/></div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+
+                <t t-if="accessories.length > 0">
+                    <h4 class="mb-2">Accesorios</h4>
+                    <div class="product-suggestions d-flex flex-wrap gap-2 mb-2">
+                        <t t-foreach="accessories" t-as="acc_product" t-key="acc_product.id">
+                            <div class="suggestion-card p-2 border rounded cursor-pointer text-center" t-on-click="() => this.clickSuggestion(acc_product)" style="width: 130px;">
+                                <img t-attf-src="/web/image?model=product.product&amp;field=image_128&amp;id={{acc_product.id}}" alt="Product" class="mb-2" style="width: 100%; height: 100px; object-fit: contain;"/>
+                                <div class="fw-bold" style="font-size: 0.9em; line-height: 1.2; margin-bottom: 4px;"><t t-esc="acc_product.display_name"/></div>
+                                <div class="text-muted" style="font-size: 0.85em;"><t t-esc="env.utils.formatCurrency(acc_product.get_price(pos.default_pricelist, 1))"/></div>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </xpath>
+    </t>
+</templates>

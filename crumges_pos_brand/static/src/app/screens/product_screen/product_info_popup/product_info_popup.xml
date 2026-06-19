@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="crumges_pos_brand.ProductInfoPopup" t-inherit="point_of_sale.ProductInfoPopup" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('modal-header')]/h4" position="after">
+            <div t-if="props.product.product_brand_id" class="product-brand-info d-flex align-items-center ms-auto me-3 bg-light rounded px-2 py-1 shadow-sm">
+                <img t-attf-src="/web/image?model=product.brand&amp;field=logo&amp;id={{props.product.product_brand_id[0]}}" alt="Brand" style="max-height: 24px; max-width: 40px; object-fit: contain;" class="me-2"/>
+                <span class="fs-5 fw-bolder text-secondary"><t t-esc="props.product.product_brand_id[1]"/></span>
+            </div>
+        </xpath>
+    </t>
+</templates>
